@@ -1,0 +1,20 @@
+{
+    "name": "kyanag/form",
+    "description": "Form",
+    "require": {
+        "phpunit/phpunit": "^6.5"
+    },
+    "require-dev":{
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Kyanag\\Form\\": "src/"
+        }
+    },
+    "autoload=dev": {
+        "psr-4": {
+            "Kyanag\\Form\\Tests\\": "tests/"
+        }
+    }
+}
