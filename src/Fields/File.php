@@ -9,22 +9,50 @@
 namespace Kyanag\Form\Fields;
 
 
-class File extends Text
+use Kyanag\Form\Field;
+
+class File extends Field
 {
 
-    static $name = "文件";
+    public $_template = <<<EOF
+<div class="form-group row">{label}<div class="col-sm-8"><div class="input-group">{input}{button}{error}</div>{help}</div></div>
+EOF;
 
-    public static function getBtnClassName(){
-        return "ims-upload-btn";
+    public $accepts = [];
+
+    public function __construct(array $config = [])
+    {
+        !isset($config['id']) && $config['id'] = $this->generateId();
+        parent::__construct($config);
     }
 
-    public function render()
+    protected function renderInput()
     {
-        $field = $this;
-        $errorClass = $this->getError() ? "has-error" : "";
-        return <<<EOT
 
-EOT;
+        $this->_parts['{button}'] = $this->renderButton();
 
+        $attributes = $this->_attributes;
+        $attributes['type'] = "text";
+        $this->_attributes['type'] = "text";
+        return "<input {$this->renderAttributes($attributes)}/>";
+    }
+
+    protected function renderButton(){
+        $upBtnAttributes = [
+            'class' => ["btn", "input-group-btn", "btn-primary", "kyanag-forms-upload"],
+            'data' => [
+                'target' => $this->id,
+                'accept' => implode(",", $this->accepts),
+            ],
+            'type' => "button"
+        ];
+        $previewBtnAttributes = [
+            'class' => ["btn", "input-group-btn", "btn-primary", "kyanag-forms-preview"],
+            'data' => [
+                'target' => $this->id,
+            ],
+            'type' => "button"
+        ];
+        return "<div class=\"input-group-prepend btn-group\"><button {$this->renderAttributes($upBtnAttributes)}>选择文件</button><button {$this->renderAttributes($previewBtnAttributes)}>预览</button></div>";
     }
 }

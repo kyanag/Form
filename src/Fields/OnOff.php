@@ -12,8 +12,6 @@ namespace Kyanag\Form\Fields;
 class OnOff extends Radio
 {
 
-    static $name = "开关";
-
     protected $options = [
         [
             'value' => 1,

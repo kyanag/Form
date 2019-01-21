@@ -19,6 +19,6 @@ class Textarea extends Field
         $value = @$attributes['value'];
         unset($attributes['value']);
 
-        return "<textarea {$this->renderAttributes()}/>{$value}</textarea>";
+        return "<textarea {$this->renderAttributes($attributes)}/>{$value}</textarea>";
     }
 }

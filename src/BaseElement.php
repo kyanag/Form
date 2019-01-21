@@ -21,6 +21,11 @@ class BaseElement extends Element
         return $this;
     }
 
+    public function setIsDoubleClosed(bool $bool){
+        $this->isDoubleClosed = $bool;
+        return $this;
+    }
+
     public function render()
     {
         return $this->isDoubleClosed ? "<{$this->tagName} {$this->renderAttributes()}></{$this->tagName}>" : "<{$this->tagName} {$this->renderAttributes()}/>";

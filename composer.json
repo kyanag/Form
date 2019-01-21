@@ -5,14 +5,14 @@
         "phpunit/phpunit": "^6.5"
     },
     "require-dev":{
-
+        "symfony/dom-crawler": "^3.4"
     },
     "autoload": {
         "psr-4": {
             "Kyanag\\Form\\": "src/"
         }
     },
-    "autoload=dev": {
+    "autoload-dev": {
         "psr-4": {
             "Kyanag\\Form\\Tests\\": "tests/"
         }

@@ -78,4 +78,17 @@ abstract class Element
             $this->_attributes['class'] = [$class];
         }
     }
+
+    public function removeClass($class){
+        if(isset($this->_attributes['class'])){
+            $i = array_search($this->_attributes['class'], $class);
+            if($i !== false){
+                $this->class = array_slice($this->_attributes['class'], $i, 1);
+                return 1;
+            }
+            return -1;
+        }else{
+            return 0;
+        }
+    }
 }

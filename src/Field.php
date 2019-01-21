@@ -26,16 +26,32 @@ abstract class Field extends Element
     protected $_index;
 
     public $_template = <<<EOF
-<div class="form-group row">{label}<div class="col-sm-8">{input}{help}{error}</div></div>
+<div class="form-group row">{label}<div class="col-sm-8">{input}{error}{help}</div></div>
 EOF;
 
-    public $labelAttributes = [];
+    protected $_attributes = [
+        'class' => ['form-control'],
+    ];
 
-    public $errorAttributes = [];
+    public $labelAttributes = [
+        'class' => ["col-sm-2", "col-form-label"],
+    ];
 
-    public $helpAttributes = [];
+    public $errorAttributes = [
+        'class' => ['invalid-feedback'],
+    ];
+
+    public $helpAttributes = [
+        'class' => ["form-text", "text-muted"],
+    ];
 
     protected $_parts = [];
+
+    public $label;
+
+    public $help;
+
+    public $error;
 
     public function __construct($config = [])
     {

@@ -10,12 +10,11 @@ namespace Kyanag\Form\Fields;
 
 use Kyanag\Form\Field;
 
-class Password extends Field
+class Password extends Text
 {
 
-    public function renderInput()
+    public function getType()
     {
-        $this->_attributes['type'] = "password";
-        return "<input {$this->renderAttributes()}/>";
+        return "password";
     }
 }

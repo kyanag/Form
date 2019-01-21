@@ -12,19 +12,10 @@ namespace Kyanag\Form\Fields;
 class Hidden extends Text
 {
 
-    public function render()
-    {
-        $field = $this;
-        return <<<EOT
-<input
-            type="hidden"
-            id="{$this->getId()}"
-            name="{$field->getName()}"
-            value="{$field->getValue()}"
-            data-rules="{$field->getRules()}"
-            {$field->addedAttributes()}
-        >
-EOT;
+    public $_template = "{input}";
 
+    public function getType()
+    {
+        return "hidden";
     }
 }

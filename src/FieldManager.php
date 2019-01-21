@@ -53,28 +53,21 @@ class FieldManager
         return $this;
     }
 
+    /**
+     * @param $name
+     * @param array $config
+     * @return Field
+     */
     public function produce($name, $config = []){
-        $config = array_merge($config, [
-            'labelAttributes' => [
-                'class' => ["col-sm-2", "col-form-label"],
-            ],
-            'errorAttributes' => [
-                'class' => ['invalid-feedback'],
-            ],
-            'helpAttributes' => [
-                'class' => ["form-text", "text-muted"],
-            ],
-            'class' => ['form-control'],
-        ]);
-        if(isset($config['error']) && $config['error']){
-            $config['class'][] = 'is-invalid';
-        }
-
         if(!isset($this->fields[$name])){
             throw new \RuntimeException("{$name} 不存在的字段类型");
         }else{
             $class = $this->fields[$name];
+            /** @var Field $field */
             $field = new $class($config);
+            if(isset($config['error']) && $config['error']){
+                $field->addClass("is-invalid");
+            }
             return $field;
         }
     }

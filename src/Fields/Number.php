@@ -10,11 +10,10 @@ namespace Kyanag\Form\Fields;
 
 use Kyanag\Form\Field;
 
-class Number extends Field
+class Number extends Text
 {
-    public function renderInput()
+    public function getType()
     {
-        $this->_attributes['type'] = "number";
-        return "<input {$this->renderAttributes()}/>";
+        return "number";
     }
 }

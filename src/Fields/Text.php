@@ -20,9 +20,14 @@ use Kyanag\Form\Field;
 class Text extends Field
 {
 
+    public function getType(){
+        return "text";
+    }
+
     public function renderInput()
     {
-        $this->_attributes['type'] = "text";
-        return "<input {$this->renderAttributes()}/>";
+        $attributes = $this->getAttributes();
+        $attributes['type'] = $this->getType();
+        return "<input {$this->renderAttributes($attributes)}/>";
     }
 }
