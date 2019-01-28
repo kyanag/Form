@@ -53,9 +53,9 @@ EOF;
 
     public $error;
 
-    public function __construct($config = [])
+    public function __construct(array $config = [])
     {
-        FieldManager::init($this, $config);
+        parent::__construct($config);
         $this->_index = static::$count++;
     }
 

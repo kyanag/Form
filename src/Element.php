@@ -14,6 +14,11 @@ abstract class Element
 
     protected $_attributes = [];
 
+    public function __construct($config = [])
+    {
+        FieldManager::init($this, $config);
+    }
+
     protected function isProperty($name, $value = null){
         return true;
     }
