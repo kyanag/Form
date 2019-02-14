@@ -53,9 +53,8 @@ EOF;
 
     public $error;
 
-    public function __construct($config = [])
+    public function __construct()
     {
-        FieldManager::init($this, $config);
         $this->_index = static::$count++;
     }
 

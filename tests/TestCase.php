@@ -8,11 +8,13 @@
 
 namespace Kyanag\Form\Tests;
 
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
-use Kyanag\Form\Element;
-use Symfony\Component\DomCrawler\Crawler;
-
-abstract class TestCase extends \PHPUnit\Framework\TestCase
+/**
+ * Class TestCase
+ * @package Kyanag\Form\Tests
+ */
+abstract class TestCase extends PHPUnitTestCase
 {
 
     public function createCrawler($html){
@@ -22,14 +24,14 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     public function assertAttributeEq($html, $attr, $value){
-        $this->assertEquals($this->createCrawler($html)->attr($attr), $value);
+        $this::assertEquals($this->createCrawler($html)->attr($attr), $value);
     }
 
     public function assertTagName($html, $tagName){
-
+        static::assertEquals($this->createCrawler($html)->nodeName(), $tagName);
     }
 
-    public function assertValue($input, $name){
+    public function assertInnerHtml($input, $name){
 
     }
 

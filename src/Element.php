@@ -41,7 +41,7 @@ abstract class Element
     abstract public function render();
 
     protected function renderAttributes($attributes = null){
-        $attributes = $attributes ?: $this->_attributes;
+        $attributes = $attributes ?: $this->getAttributes();
 
         $items = [];
         foreach($attributes as $name => $value){

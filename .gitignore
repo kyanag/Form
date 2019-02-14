@@ -1,5 +1,4 @@
 /vendor
 /.idea
 /composer.lock
-preview.php
-/a.jpg
+/test.log

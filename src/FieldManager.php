@@ -47,36 +47,8 @@ class FieldManager
     }
 
     public function register($name, $class){
-        if(class_exists($class)){
-            $this->fields[$name] = $class;
-        }
+        $this->fields[$name] = $class;
         return $this;
-    }
-
-    /**
-     * @param $name
-     * @param array $config
-     * @return Field
-     */
-    public function produce($name, $config = []){
-        if(!isset($this->fields[$name])){
-            throw new \RuntimeException("{$name} 不存在的字段类型");
-        }else{
-            $class = $this->fields[$name];
-            /** @var Field $field */
-            $field = new $class($config);
-            if(isset($config['error']) && $config['error']){
-                $field->addClass("is-invalid");
-            }
-            return $field;
-        }
-    }
-
-    public static function init($object, $properties = []){
-        foreach($properties as $property => $value){
-            $object->{$property} = $value;
-        }
-        return $object;
     }
 
     public function toOptions()
