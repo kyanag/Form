@@ -1,6 +1,13 @@
 {
-    "name": "kyanag/form",
+    "name": "kyanag/forms",
     "description": "Form",
+    "type": "library",
+    "authors": [
+        {
+            "name": "kyanag",
+            "email": "gongzuo_yk@foxmail.com"
+        }
+    ],
     "require": {
         "phpunit/phpunit": "^6.5"
     },
@@ -16,5 +23,6 @@
         "psr-4": {
             "Kyanag\\Form\\Tests\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
