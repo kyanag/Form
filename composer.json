@@ -17,12 +17,17 @@
     "autoload": {
         "psr-4": {
             "Kyanag\\Form\\": "src/"
-        }
+        },
+        "files": [
+            "./functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Kyanag\\Form\\Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev"
+        },
+        "files": [
+            "./tests/functions.php"
+        ]
+    }
 }

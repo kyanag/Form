@@ -8,10 +8,8 @@
 
 namespace Kyanag\Form\Widgets;
 
-
-use Kyanag\Form\Element;
-use Kyanag\Form\ElementFactory;
 use Kyanag\Form\Interfaces\Renderable;
+use function Kyanag\Form\object_create;
 
 class FormButtonGroup implements Renderable
 {
@@ -19,12 +17,12 @@ class FormButtonGroup implements Renderable
     public function render()
     {
         $buttonGroup = [
-            ElementFactory::create(Button::class, [
+            object_create(Button::class, [
                 'type' => "submit",
                 'class' => "btn btn-primary",
                 'label' => "提交",
             ])->render(),
-            ElementFactory::create(Button::class, [
+            object_create(Button::class, [
                 'type' => "reset",
                 'class' => "btn btn-primary btn btn-default",
                 'label' => "重置",

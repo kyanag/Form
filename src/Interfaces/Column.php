@@ -1,21 +1,45 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2019/2/15
+ * Time: 11:55
+ */
 
 namespace Kyanag\Form\Interfaces;
 
-interface Column
+
+use Kyanag\Form\Traits\Configurable;
+
+/**
+ * Class Column
+ * @package Kyanag\Form\Column
+ * @property string $label
+ * @property string $name
+ * @property string $help
+ * @property string $error
+ */
+class Column
 {
-    /**
-     * @param $scene mixed 场景
-     *      用于判断字段是否活动
-     * @return bool
-     */
-    public function isActive($scene);
 
-    public function getLabel();
+    use Configurable;
 
-    /**
-     * class_name
-     * @return string
-     */
-    public function getFieldClass();
+    protected $inspector;
+
+    protected $fieldClass;
+
+    public function getFieldClass()
+    {
+        return $this->fieldClass;
+    }
+
+    public function setFieldClass($fieldClass){
+        $this->fieldClass = $fieldClass;
+    }
+
+    public function isActive($scene)
+    {
+        return true;
+    }
+
 }

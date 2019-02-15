@@ -51,6 +51,15 @@ class FieldManager
         return $this;
     }
 
+    public static function create($class, $config = []){
+        /** @var Field $object */
+        $object = object_create($class, $config);
+        if(isset($config['error']) && $config['error']){
+            $object->addClass("is-invalid");
+        }
+        return $object;
+    }
+
     public function toOptions()
     {
         $typeOptions = [];

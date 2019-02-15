@@ -8,7 +8,7 @@
 
 namespace Kyanag\Form\Tests;
 
-use Kyanag\Form\ElementFactory;
+use function Kyanag\Form\object_init;
 
 /**
  * Class ElementTest
@@ -28,7 +28,7 @@ class ElementTest extends TestCase
         $this->assertAttributeEq($element->render(), "name", null);
         $this->assertTagName($element->render(), "a");
 
-        ElementFactory::init($element, $attributes);
+        object_init($element, $attributes);
 
         foreach ($attributes as $name => $value){
             $this->assertAttributeEq($element->render(), $name, $value);

@@ -9,21 +9,21 @@
 namespace Kyanag\Form;
 
 
+use Kyanag\Form\Traits\Configurable;
+
 abstract class Element
 {
 
-    protected $_attributes = [];
+    use Configurable;
 
-    protected function isProperty($name, $value = null){
-        return true;
-    }
+    protected $_attributes = [];
 
     public function __set($name, $value)
     {
         $method = "set" . ucfirst($name);
         if(method_exists($this, $method)){
             $this->{$method}($value);
-        }else if($this->isProperty($name, $value)){
+        }else if($this->isProperty($name)){
             $this->_attributes[$name] = $value;
         }else{
             throw new \RuntimeException("attribute not allowed");
