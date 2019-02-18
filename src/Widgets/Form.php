@@ -41,7 +41,8 @@ class Form extends Element implements Renderable
             $elements[] = $field->render();
         }
         $elements[] = $this->renderButton();
+        var_dump(end($elements));exit();
         $elements[] = $this->endForm();
-        return $elements;
+        return implode("", $elements);
     }
 }

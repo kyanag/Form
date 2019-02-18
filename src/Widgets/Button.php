@@ -16,6 +16,6 @@ class Button extends Element
     public function render()
     {
         $label = $this->_attributes['label'];
-        return "<button {$this->renderAttributes()}/>{$label}<button>";
+        return "<button {$this->renderAttributes()}/>{$label}</button>";
     }
 }

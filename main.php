@@ -20,5 +20,4 @@ $form = \Kyanag\Form\object_init($form, [
     'action' => "/a.php",
     'method' => "post",
 ]);
-
-var_dump($inspector->fields());
+echo $form->render();

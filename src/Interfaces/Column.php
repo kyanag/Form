@@ -34,6 +34,8 @@ abstract class Column
 
     protected $help;
 
+    protected $options;
+
     protected $error;
 
     protected $value;

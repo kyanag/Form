@@ -19,6 +19,7 @@ class Column extends \Kyanag\Form\Interfaces\Column
         return FieldManager::create($class, [
             'label' => $this->label,
             'name' => $this->name,
+            'options' => $this->options,
             'help' => $this->help
         ]);
     }
