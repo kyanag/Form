@@ -9,6 +9,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
+use Kyanag\Form\Field;
 use Kyanag\Form\Traits\Configurable;
 
 /**
@@ -17,9 +18,8 @@ use Kyanag\Form\Traits\Configurable;
  * @property string $label
  * @property string $name
  * @property string $help
- * @property string $error
  */
-class Column
+abstract class Column
 {
 
     use Configurable;
@@ -27,6 +27,16 @@ class Column
     protected $inspector;
 
     protected $fieldClass;
+
+    protected $label;
+
+    protected $name;
+
+    protected $help;
+
+    protected $error;
+
+    protected $value;
 
     public function getFieldClass()
     {
@@ -42,4 +52,8 @@ class Column
         return true;
     }
 
+    /**
+     * @return Field
+     */
+    abstract function toField();
 }

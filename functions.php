@@ -7,10 +7,6 @@
  */
 namespace Kyanag\Form;
 
-
-use function foo\func;
-use Kyanag\Form\Traits\Configurable;
-
 function object_init($object, $config = []){
     foreach($config as $name => $value){
         $object->$name = $value;

@@ -6,10 +6,20 @@
  * Time: 11:55
  */
 
-namespace Kyanag\Form\Column;
+namespace Kyanag\Form\Substances;
 
+
+use Kyanag\Form\FieldManager;
 
 class Column extends \Kyanag\Form\Interfaces\Column
 {
 
+    public function toField(){
+        $class = $this->fieldClass;
+        return FieldManager::create($class, [
+            'label' => $this->label,
+            'name' => $this->name,
+            'help' => $this->help
+        ]);
+    }
 }
