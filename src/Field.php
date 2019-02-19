@@ -94,6 +94,24 @@ EOF;
         return '';
     }
 
+    public function catchValue($form){
+        $name = @$this->_attributes['name'];
+        if($name && isset($form[$name])){
+            $this->value = $form[$name];
+            return true;
+        }
+        return false;
+    }
+
+    public function catchError($errors){
+        $name = $this->name;
+        if(isset($errors[$name])){
+            $this->errors = $errors[$name];
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return string
      */

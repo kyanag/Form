@@ -9,6 +9,8 @@
 namespace Kyanag\Form;
 
 
+use Kyanag\Form\Interfaces\Renderable;
+
 class BaseElement extends Element
 {
 
@@ -16,9 +18,22 @@ class BaseElement extends Element
 
     protected $isDoubleClosed = true;
 
+    protected $html;
+
     public function setTagName($tagName){
         $this->tagName = $tagName;
         return $this;
+    }
+
+    public function setHtml($html){
+        $this->html = $html;
+    }
+
+    public function getHtml(){
+        if($this->html instanceof Renderable){
+            return $this->html->render();
+        }
+        return $this->html;
     }
 
     public function setIsDoubleClosed(bool $bool){
@@ -28,7 +43,7 @@ class BaseElement extends Element
 
     public function render()
     {
-        return $this->isDoubleClosed ? "<{$this->tagName} {$this->renderAttributes()}></{$this->tagName}>" : "<{$this->tagName} {$this->renderAttributes()}/>";
+        return $this->isDoubleClosed ? "<{$this->tagName} {$this->renderAttributes()}>{$this->getHtml()}</{$this->tagName}>" : "<{$this->tagName} {$this->renderAttributes()}/>";
     }
 
 }

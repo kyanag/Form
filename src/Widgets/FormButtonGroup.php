@@ -8,6 +8,7 @@
 
 namespace Kyanag\Form\Widgets;
 
+use Kyanag\Form\BaseElement;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\object_create;
 
@@ -17,21 +18,23 @@ class FormButtonGroup implements Renderable
     public function render()
     {
         $buttonGroup = [
-            object_create(Button::class, [
+            object_create(BaseElement::class, [
+                'tagName' => "button",
                 'type' => "submit",
                 'class' => "btn btn-primary",
-                'label' => "提交",
+                'html' => "提交",
             ])->render(),
-            object_create(Button::class, [
+            object_create(BaseElement::class, [
+                'tagName' => "button",
                 'type' => "reset",
                 'class' => "btn btn-primary btn btn-default",
-                'label' => "重置",
-            ])->render()
+                'html' => "重置",
+            ])->render(),
         ];
-        $buttonStr = implode("", $buttonGroup);
+        $buttonStr = implode(" ", $buttonGroup);
         return <<<EOF
-<div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">{$buttonStr}</div>
+<div class="form-group row">
+    <div class="col-sm-offset-2 col-sm-8 text-center">{$buttonStr}</div>
  </div>
 EOF;
     }

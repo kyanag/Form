@@ -19,6 +19,10 @@ class Checkbox extends Radio
         'type' => "checkbox",
     ];
 
+    public function getName(){
+        return isset($this->_attributes['name']) ? ($this->_attributes['name'] . "[]") : null;
+    }
+
     public function selected($value)
     {
         if(is_array($this->value)){

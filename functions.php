@@ -9,6 +9,9 @@ namespace Kyanag\Form;
 
 function object_init($object, $config = []){
     foreach($config as $name => $value){
+        if($value === false or is_null($value)){
+            continue;
+        }
         $object->$name = $value;
     }
     return $object;

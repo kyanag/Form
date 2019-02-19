@@ -11,6 +11,7 @@ namespace Kyanag\Form\Fields;
 
 class Editor extends Textarea
 {
+    protected $_attributes = [];
 
     public static function getClassName(){
         return "kyanag-form-editor";
@@ -27,8 +28,16 @@ class Editor extends Textarea
 
         $value = @$attributes['value'];
         unset($attributes['value']);
+        unset($attributes['value']);
+        return "<div {$this->renderAttributes($attributes)}/>{$value}</div>" . $this->renderHidden();
+    }
 
-        return "<textarea {$this->renderAttributes($attributes)}/>{$value}</textarea>";
+    public function renderHidden(){
+        $value = @$this->_attributes['value'];
+        $attributes = [
+            'name' => @$this->_attributes['name']
+        ];
+        return "<textarea style='display: none' {$this->renderAttributes($attributes)}>{$value}</textarea>";
     }
 
 }

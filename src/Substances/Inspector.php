@@ -19,6 +19,8 @@ class Inspector implements \Kyanag\Form\Interfaces\Inspector
 
     protected $columns = [];
 
+    protected $fields = null;
+
     public function primaryKey()
     {
         return "id";
@@ -31,9 +33,12 @@ class Inspector implements \Kyanag\Form\Interfaces\Inspector
 
     public function fields()
     {
-        return array_map(function($column){
-            return $column->toField();
-        }, $this->columns);
+        if(is_null($this->fields)){
+            $this->fields = array_map(function($column){
+                return $column->toField();
+            }, $this->columns);
+        }
+        return $this->fields;
     }
 
     public function setColumns($columns){

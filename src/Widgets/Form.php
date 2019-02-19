@@ -12,10 +12,17 @@ class Form extends Element implements Renderable
 
     protected $inspector;
 
+    protected $_attributes = [
+        'role' => "form"
+    ];
+
     public function __construct(Inspector $inspector){
         $this->inspector = $inspector;
     }
 
+    /**
+     * @return \Kyanag\Form\Field[]
+     */
     public function getActiveFields(){
         return $this->inspector->fields();
     }
@@ -37,12 +44,23 @@ class Form extends Element implements Renderable
         $elements = [
             $this->beginForm()
         ];
-        foreach ($this->inspector->fields() as $field){
+        foreach ($this->getActiveFields() as $field){
             $elements[] = $field->render();
         }
         $elements[] = $this->renderButton();
-        var_dump(end($elements));exit();
         $elements[] = $this->endForm();
         return implode("", $elements);
+    }
+
+    public function fill($data){
+        foreach($this->getActiveFields() as $field){
+            $field->catchValue($data);
+        }
+    }
+
+    public function fillError($errors){
+        foreach($this->getActiveFields() as $field){
+            $field->catchError($errors);
+        }
     }
 }

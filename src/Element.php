@@ -32,7 +32,14 @@ abstract class Element
 
     public function __get($name)
     {
-        return isset($this->_attributes[$name]) ? $this->_attributes[$name] : null;
+        $method = "get" . ucfirst($name);
+        if(method_exists($this, $method)){
+            return $this->{$method}();
+        }else if($this->isProperty($name)){
+            return isset($this->_attributes[$name]) ? $this->_attributes[$name] : null;
+        }else{
+            throw new \RuntimeException("attribute not allowed");
+        }
     }
 
     /**
