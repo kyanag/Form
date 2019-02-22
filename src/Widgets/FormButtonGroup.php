@@ -8,7 +8,7 @@
 
 namespace Kyanag\Form\Widgets;
 
-use Kyanag\Form\BaseElement;
+use Kyanag\Form\Widgets\BaseElement;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\object_create;
 

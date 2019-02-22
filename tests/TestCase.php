@@ -27,6 +27,10 @@ abstract class TestCase extends PHPUnitTestCase
         $this::assertEquals($this->createCrawler($html)->attr($attr), $value);
     }
 
+    public function assertHasAttribute($html, $attr){
+        $this::assertNull($this->createCrawler($html)->attr($attr));
+    }
+
     public function assertTagName($html, $tagName){
         static::assertEquals($this->createCrawler($html)->nodeName(), $tagName);
     }

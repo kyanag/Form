@@ -9,37 +9,23 @@
 namespace Kyanag\Form;
 
 
+use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Traits\Configurable;
 
-abstract class Element
+abstract class Element implements Renderable
 {
 
     use Configurable;
 
     protected $_attributes = [];
 
-    public function __set($name, $value)
+    protected function setProperty($name, $value)
     {
-        $method = "set" . ucfirst($name);
-        if(method_exists($this, $method)){
-            $this->{$method}($value);
-        }else if($this->isProperty($name)){
-            $this->_attributes[$name] = $value;
-        }else{
-            throw new \RuntimeException("attribute not allowed");
-        }
+        $this->_attributes[$name] = $value;
     }
 
-    public function __get($name)
-    {
-        $method = "get" . ucfirst($name);
-        if(method_exists($this, $method)){
-            return $this->{$method}();
-        }else if($this->isProperty($name)){
-            return isset($this->_attributes[$name]) ? $this->_attributes[$name] : null;
-        }else{
-            throw new \RuntimeException("attribute not allowed");
-        }
+    protected function getProperty($name){
+        return @$this->_attributes[$name];
     }
 
     /**
@@ -64,13 +50,13 @@ abstract class Element
                 $items[] = $this->renderAttr("data-{$name}", $val);
             }
             return implode(" ", $items);
-        }else if(is_bool($value)){
+        }else if(is_bool($value) or is_null($value)){
             return $value === true ? $name : "";
         }else if(is_array($value)){
             $str = implode(" ", $value);
-            return "{$name}='{$str}'";
+            return "{$name}=\"{$str}\"";
         }else{
-            return "{$name}='{$value}'";
+            return "{$name}=\"{$value}\"";
         }
     }
 

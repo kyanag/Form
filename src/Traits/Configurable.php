@@ -12,19 +12,29 @@ namespace Kyanag\Form\Traits;
 trait Configurable
 {
 
-    public function isProperty($name){
-        return true;
-    }
-
     public function __set($name, $value)
     {
         $method = "set" . ucfirst($name);
         if(method_exists($this, $method)){
             $this->{$method}($value);
-        }else if($this->isProperty($name)){
+        }else{
+            $this->setProperty($name, $value);
+        }
+    }
+
+    protected function setProperty($name, $value){
+        if(property_exists(static::class, $name)){
             $this->{$name} = $value;
         }else{
-            throw new \RuntimeException("attribute not allowed");
+            throw new \Exception("attribute not allowed");
+        }
+    }
+
+    protected function getProperty($name){
+        if(property_exists(static::class, $name)){
+            return $this->{$name};
+        }else{
+            throw new \Exception("attribute not allowed");
         }
     }
 
@@ -33,10 +43,8 @@ trait Configurable
         $method = "get" . ucfirst($name);
         if(method_exists($this, $method)){
             return $this->{$method}($name);
-        }else if($this->isProperty($name)){
-            return $this->{$name};
         }else{
-            throw new \RuntimeException("attribute not allowed");
+            return $this->getProperty($name);
         }
     }
 }

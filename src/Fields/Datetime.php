@@ -12,7 +12,7 @@ namespace Kyanag\Form\Fields;
 class Datetime extends Text
 {
 
-    public $type = "datetime";
+    public $type = "date";
 
     public function getType(){
         return $this->type;

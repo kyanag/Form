@@ -22,8 +22,8 @@ class ElementTest extends TestCase
             'href' => "http://www.baidu.com",
         ];
 
-        $element = new \Kyanag\Form\BaseElement();
-        $element->setTagName("a");
+        $element = new \Kyanag\Form\Widgets\BaseElement();
+        $element->tagName = "a";
 
         $this->assertAttributeEq($element->render(), "name", null);
         $this->assertTagName($element->render(), "a");
