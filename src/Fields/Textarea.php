@@ -13,12 +13,22 @@ use Kyanag\Form\Field;
 class Textarea extends Field
 {
 
+    public function getDefaultAttributes()
+    {
+        return $defaultAttributes = array_filter([
+            'id' => $this->id,
+            'name' => $this->name,
+            'class' => $this->class,
+            'readonly' => $this->reanonly,
+            'disabled' => $this->disabled,
+            'autofocus' => $this->autofocus,
+        ], function($item){
+            return !is_null($item);
+        });
+    }
+
     public function renderInput(){
-        $attributes = $this->getAttributes();
-
-        $value = @$attributes['value'];
-        unset($attributes['value']);
-
-        return "<textarea {$this->renderAttributes($attributes)}/>{$value}</textarea>";
+        $value = $this->value;
+        return "<textarea {$this->renderAttributes()}/>{$value}</textarea>";
     }
 }

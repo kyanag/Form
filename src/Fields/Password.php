@@ -13,8 +13,8 @@ use Kyanag\Form\Field;
 class Password extends Text
 {
 
-    public function getType()
+    public function renderInput()
     {
-        return "password";
+        return "<input type=\"password\" {$this->renderAttributes()}/>";
     }
 }

@@ -86,3 +86,9 @@ function getColumns(){
         ]
     ];
 }
+
+
+function array_sort($array, $func = "sort"){
+    $func($array);
+    return $array;
+}

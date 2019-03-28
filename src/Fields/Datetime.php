@@ -11,10 +11,8 @@ namespace Kyanag\Form\Fields;
 
 class Datetime extends Text
 {
-
-    public $type = "date";
-
-    public function getType(){
-        return $this->type;
+    public function renderInput()
+    {
+        return "<input type=\"datetime-local\" {$this->renderAttributes()}/>";
     }
 }

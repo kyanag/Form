@@ -12,8 +12,21 @@ use Kyanag\Form\Field;
 
 class Number extends Text
 {
-    public function getType()
+
+    public $min;
+
+    public $max;
+
+    public function getExtraAttributes()
     {
-        return "number";
+        return [
+            'min' => $this->min,
+            'max' => $this->max,
+        ];
+    }
+
+    public function renderInput()
+    {
+        return "<input type=\"number\" {$this->renderAttributes()}/>";
     }
 }

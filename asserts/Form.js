@@ -7,6 +7,17 @@ function Form(element){
                 let editor = new window.wangEditor(element);
                 editor.create();
             }
+            if($(this).hasClass("kyanag-form-image")){
+                var name = $(this).attr("name");
+                $(this).fileinput({
+                    'language':"zh",
+                    'uploadExtraData':{name:name},
+                    'uploadUrl':"upload.php",
+                    showRemove :false,
+                }).on("fileuploaded", function (event, data, previewId, index){
+                    console.log(event);
+                });
+            }
         });
     }
 }

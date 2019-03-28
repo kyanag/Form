@@ -16,11 +16,7 @@ class Select extends Field
     /**
      * @var ['value' => $value, 'name' => $name][]
      */
-    protected $options;
-
-    protected function setOptions($options){
-        $this->options = $options;
-    }
+    public $options;
 
     public function selected($value){
         return $this->value == $value;
