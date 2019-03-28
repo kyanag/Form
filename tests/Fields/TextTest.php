@@ -16,24 +16,14 @@ use Kyanag\Form\Tests\TestCase;
 class TextTest extends TestCase
 {
 
-    public function testRenderInput(){
-        $attributes = [
-            'name' => "username"
+    public function testGetAttributes(){
+        $targetAttributes = [
+            //"id" => "test-text",
+            "name" => "username",
         ];
+        /** @var Text $text */
+        $text = object_create(Text::class, $targetAttributes);
+        $attributes = $text->getAttributes();
 
-        $text = object_create(Text::class, $attributes);
-
-        $this->assertTagName($text->renderInput(), "input");
-
-        $this->assertAttributeEq($text->renderInput(), "name", "username");
-
-        $this->assertHasAttribute($text->renderInput(), "ttt");
-
-        $text->ttt = "123";
-        $this->assertAttributeEq($text->renderInput(), "ttt", "123");
-        $text->ttt = null;
-
-        $this->assertHasAttribute($text->renderInput(), "ttt");
     }
-
 }

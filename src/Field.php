@@ -8,30 +8,23 @@
 
 namespace Kyanag\Form;
 
+use Kyanag\Form\Interfaces\Renderable;
 
 /**
  * Class Field
  * @package app\fields
- * @property $id
- * @property $name
- * @property $value
- * @property $label
- * @property $error
- * @property $help
  */
-abstract class Field extends Element
+abstract class Field implements Renderable
 {
     static protected $count = 1;
 
     protected $_index;
 
-    public $_template = <<<EOF
+    protected $_template = <<<EOF
 <div class="form-group row">{label}<div class="col-sm-8">{input}{error}{help}</div></div>
 EOF;
 
-    protected $_attributes = [
-        'class' => ['form-control'],
-    ];
+    protected $_parts = [];
 
     public $labelAttributes = [
         'class' => ["col-sm-2", "col-form-label"],
@@ -45,31 +38,53 @@ EOF;
         'class' => ["form-text", "text-muted"],
     ];
 
-    protected $_parts = [];
+    /**
+     * 控件id
+     * @var string
+     */
+    public $id;
+    /**
+     * 控件name
+     * @var string
+     */
+    public $name;
+
+    public $value;
+
+    public $type;
+
+    public $attributes = [];
+
+    public $class = ['form-control'];
 
     public $label;
 
-    public $help;
+    public $help = null;
 
     public $error;
+
+    public $reanonly;
+
+    public $disabled;
+
+    public $autofocus;
+
+    public $required;
+
+    public $title;
+    
 
     public function __construct()
     {
         $this->_index = static::$count++;
     }
 
-    public function setTemplate($template){
+    public function template($template){
         $this->_template = $template;
+        return $this;
     }
 
-    public function generateId(){
-        $this->id = uniqid("a") . $this->_index;
-        return $this->id;
-    }
-
-    protected function renderInput(){
-        return "";
-    }
+    abstract protected function renderInput();
 
     protected function renderLabel(){
         $label = $this->label ?: $this->name;
@@ -104,5 +119,69 @@ EOF;
         $this->_parts["{input}"] = $this->renderInput();
 
         return strtr($this->_template, $this->_parts);
+    }
+
+    public function getDefaultAttributes(){
+        return $defaultAttributes = array_filter([
+            'id' => $this->id,
+            'name' => $this->name,
+            'value' => $this->value,
+            'class' => $this->class,
+            'readonly' => $this->reanonly,
+            'disabled' => $this->disabled,
+            'autofocus' => $this->autofocus,
+        ], function($item){
+            return !is_null($item);
+        });
+    }
+
+    public function getExtraAttributes(){
+        return [];
+    }
+
+    public function getAttributes(){
+        $defaultAttributes = $this->getDefaultAttributes();
+        $extraAttributes = $this->getExtraAttributes();
+        return array_merge($this->attributes, $defaultAttributes, $extraAttributes);
+    }
+
+    public function getAttributesNames(){
+        return array_keys($this->getDefaultAttributes(), $this->getExtraAttributes());
+    }
+
+    protected function renderAttributes($attributes = null){
+        $attributes = !is_null($attributes) ? $attributes : $this->getAttributes();
+
+        $items = [];
+        foreach($attributes as $name => $value){
+            $items[] = $this->renderAttr($name, $value);
+        }
+        return implode(" ", $items);
+    }
+
+    protected function renderAttr($name, $value){
+        if($name == "data"){
+            $items = [];
+            foreach($value as $name => $val){
+                $items[] = $this->renderAttr("data-{$name}", $val);
+            }
+            return implode(" ", $items);
+        }else if(is_bool($value) or is_null($value)){
+            return $value === true ? $name : null;
+        }else if(is_array($value)){
+            $str = implode(" ", $value);
+            return "{$name}=\"{$str}\"";
+        }else{
+            return "{$name}=\"{$value}\"";
+        }
+    }
+
+    public function setAttr($name, $value = null){
+        $this->attributes[$name] = $value;
+        return $this;
+    }
+
+    public function getAttr($name){
+        return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
     }
 }

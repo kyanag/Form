@@ -14,18 +14,12 @@ use Kyanag\Form\Field;
 class Image extends File
 {
 
-    public $accepts = [".png", ".jpeg", ".gif", ".jpg"];
-
-
-    protected function renderButton(){
-        $upBtnAttributes = [
-            'class' => ["btn", "input-group-btn", "btn-primary", "kyanag-forms-upload"],
-            'data' => [
-                'target' => $this->id,
-                'accept' => implode(",", $this->accepts),
-            ],
-            'type' => "button"
+    public function getExtraAttributes()
+    {
+        return [
+            'type' => "file",
+            'accept' => "image/*",
+            'class' => array_merge($this->class, ['kyanag-form-image']),
         ];
-        return "<div class=\"input-group-prepend btn-group\"><button {$this->renderAttributes($upBtnAttributes)}>选择文件</button></div>";
     }
 }

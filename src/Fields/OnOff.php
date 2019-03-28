@@ -22,12 +22,4 @@ class OnOff extends Radio
             'name' => "否",
         ]
     ];
-
-    public function isProperty($name, $value = null)
-    {
-        if($name == "options"){
-            return false;
-        }
-        return true;
-    }
 }

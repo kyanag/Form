@@ -8,6 +8,8 @@
 
 namespace Kyanag\Form\Tests;
 
+use Kyanag\Form\Field;
+use Kyanag\Form\Interfaces\Renderable;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 /**
@@ -23,20 +25,22 @@ abstract class TestCase extends PHPUnitTestCase
         return $dom->filterXPath("//body/*");
     }
 
-    public function assertAttributeEq($html, $attr, $value){
-        $this::assertEquals($this->createCrawler($html)->attr($attr), $value);
+    public function getAttributes(Field $element){
+        $attributes = $this->createCrawler($element->render())->getNode(0)->attributes;
+        $array = [];
+        /**
+         * @var  $name
+         * @var \DOMAttr $attribute
+         */
+        foreach ($attributes as $name => $attribute){
+            $array[$attribute->name] = $attribute->value;
+        }
+        return $array;
     }
 
-    public function assertHasAttribute($html, $attr){
-        $this::assertNull($this->createCrawler($html)->attr($attr));
+    public static function assertAttribute($attr, $targetAttr){
+        $attr = is_array($attr) ? implode(" ", $attr) : $attr;
+        $targetAttr = is_array($targetAttr) ? implode(" ", $targetAttr) : $targetAttr;
+        static::assertEquals($attr, $targetAttr);
     }
-
-    public function assertTagName($html, $tagName){
-        static::assertEquals($this->createCrawler($html)->nodeName(), $tagName);
-    }
-
-    public function assertInnerHtml($input, $name){
-
-    }
-
 }
