@@ -10,12 +10,10 @@ namespace Kyanag\Form\Fields;
 
 use Kyanag\Form\Field;
 
+
 /**
- * Class Text
+ * @Annotation
  * @package Kyanag\Form\Fields
- * @property @id
- * @property @name
- * @property @value
  */
 class Text extends Field
 {

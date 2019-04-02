@@ -9,10 +9,17 @@
 namespace Kyanag\Form\Fields;
 
 
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class Hidden extends Text
 {
 
-    protected $_template = "{input}";
+    public function init()
+    {
+        $this->_template = "{input}";
+    }
 
     public function renderInput()
     {

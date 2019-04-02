@@ -18,11 +18,12 @@ class TextTest extends TestCase
 
     public function testGetAttributes(){
         $targetAttributes = [
-            //"id" => "test-text",
+            "@id" => Text::class,
+            "id" => "test-text",
             "name" => "username",
         ];
         /** @var Text $text */
-        $text = object_create(Text::class, $targetAttributes);
+        $text = object_create($targetAttributes);
         $attributes = $text->getAttributes();
 
     }

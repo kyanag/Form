@@ -9,10 +9,13 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "^6.5",
+        "psr/container": "^1.0",
+        "doctrine/annotations": "^1.4"
     },
     "require-dev":{
-        "symfony/dom-crawler": "^3.4"
+        "symfony/dom-crawler": "^3.4",
+        "league/container": "^3.2"
     },
     "autoload": {
         "psr-4": {

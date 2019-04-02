@@ -9,6 +9,10 @@
 namespace Kyanag\Form\Fields;
 
 
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class Editor extends Textarea
 {
 

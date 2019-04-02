@@ -8,7 +8,10 @@
 
 namespace Kyanag\Form\Fields;
 
-
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class Radio extends Select
 {
     public $subTemplate = '<div class="form-check form-check-inline">{input}{label}</div>';

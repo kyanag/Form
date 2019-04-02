@@ -77,6 +77,11 @@ EOF;
     public function __construct()
     {
         $this->_index = static::$count++;
+        $this->init();
+    }
+
+    public function init(){
+
     }
 
     public function template($template){

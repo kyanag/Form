@@ -9,17 +9,24 @@
 namespace Kyanag\Form\Fields;
 
 
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class OnOff extends Radio
 {
 
-    protected $options = [
-        [
-            'value' => 1,
-            'name' => "是",
-        ],
-        [
-            'value' => 0,
-            'name' => "否",
-        ]
-    ];
+    public function init()
+    {
+        $this->options = [
+            [
+                'value' => 1,
+                'name' => "是",
+            ],
+            [
+                'value' => 0,
+                'name' => "否",
+            ]
+        ];
+    }
 }

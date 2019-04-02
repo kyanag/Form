@@ -5,24 +5,29 @@
  * Date: 2019/2/18
  * Time: 14:07
  */
-require "./vendor/autoload.php";
+$loader = require "./vendor/autoload.php";
 
 $columns = getColumns();
+
+(new \Kyanag\Form\App(new \League\Container\Container()))->registerGlobal();
+
+$actionBar = new \Kyanag\Form\Formatters\ActionBar();
+
+\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader(array($loader, "loadClass"));
+var_dump($actionBar->render());exit();
 
 if($_POST){
     var_dump($_FILES);
     var_dump($_POST);exit();
 }
-/** @var \Kyanag\Form $form */
+/** @var \Kyanag\Form\Widgets\Form $form */
 $form = new \Kyanag\Form\Widgets\Form();
 foreach ($columns as $column){
-    $class = $column['fieldClass'];
-    unset($column['fieldClass']);
-
-    $form->field(\Kyanag\Form\object_create($class, $column));
+    $form->field(\Kyanag\Form\object_create($column));
 }
 
-$csrf = \Kyanag\Form\object_create(\Kyanag\Form\Fields\Hidden::class, [
+$csrf = \Kyanag\Form\object_create([
+        '@id' => \Kyanag\Form\Fields\Hidden::class,
     'name' => "_csrf",
     'value' => rand(10000, 888888)
 ]);

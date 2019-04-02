@@ -62,14 +62,16 @@ class Form extends Field
             "<div class=\"form-group row\"><div class=\"col-sm-offset-2 col-sm-8 text-center\">"
         ];
         if($this->submitButton === true){
-            $elements[] = object_create(Button::class, [
+            $elements[] = object_create([
+                '@id' => Button::class,
                 'type' => "submit",
                 'class' => "btn btn-primary",
                 'html' => "提交",
             ])->render();
         }
         if($this->resetButton === true){
-            $elements[] = object_create(Button::class, [
+            $elements[] = object_create([
+                '@id' => Button::class,
                 'type' => "reset",
                 'class' => "btn btn-primary btn btn-default",
                 'html' => "重置",

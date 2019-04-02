@@ -8,17 +8,9 @@
 namespace Kyanag\Form;
 
 function object_init($object, $config = []){
-    foreach($config as $name => $value){
-        if($value === false or is_null($value)){
-            continue;
-        }
-        $object->$name = $value;
-    }
-    return $object;
+    return App::formGlobal()->initObject($object, $config);
 }
 
-function object_create($class, $config = []){
-    $field = new $class();
-    object_init($field, $config);
-    return $field;
+function object_create($config = []){
+    return App::formGlobal()->createObject($config);
 }

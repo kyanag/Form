@@ -11,6 +11,10 @@ namespace Kyanag\Form\Fields;
 
 use Kyanag\Form\Field;
 
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class File extends Field
 {
 

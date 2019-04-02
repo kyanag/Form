@@ -11,12 +11,19 @@ namespace Kyanag\Form\Fields;
 
 use Kyanag\Form\Field;
 
+/**
+ * @Annotation
+ * @package Kyanag\Form\Fields
+ */
 class Button extends Field
 {
 
-    protected $_template = "{input}";
-
     public $html;
+
+    public function init()
+    {
+        $this->_template = "{input}";
+    }
 
     protected function renderInput()
     {
