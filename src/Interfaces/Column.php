@@ -9,6 +9,8 @@
 namespace Kyanag\Form\Interfaces;
 
 
+use Kyanag\Form\Field;
+
 interface Column
 {
 
@@ -57,8 +59,8 @@ interface Column
     public function editFormatter($scenario = null);
 
     /**
-     * @return mixed|null
+     * @return Field
      */
-    public function searcher();
+    public function toField();
 
 }

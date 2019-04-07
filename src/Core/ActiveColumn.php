@@ -8,6 +8,7 @@
 
 namespace Kyanag\Form\Core;
 
+use Kyanag\Form\Fields\Text;
 use Kyanag\Form\Formatters\Same;
 use Kyanag\Form\Interfaces\Column as IColumn;
 use Kyanag\Form\Interfaces\FormatterInterface;
@@ -16,27 +17,48 @@ use function Kyanag\Form\object_create;
 class ActiveColumn implements IColumn
 {
 
-    protected $config;
+    public $label;
 
-    public function __construct($config)
-    {
-        $this->config = $config;
-    }
+    public $name;
+
+    public $fieldClass = Text::class;
+
+    public $help;
+
+    public $rules;
+
+    public $on_list;
+
+    public $on_edit;
+
+    public $showFormatter;
+
+    public $editFormatter;
 
     public function label()
     {
-        return $this->config['label'];
+        return $this->label;
     }
 
 
     public function name()
     {
-        return $this->config['name'];
+        return $this->name;
+    }
+
+    public function toField(){
+        $object = [
+            "@id" => $this->fieldClass,
+            'name' => $this->name(),
+            'label' => $this->label(),
+            'help' => $this->help(),
+        ];
+        return object_create($object);
     }
 
     public function help()
     {
-        return isset($this->config['help']) ? $this->config['help']: null;
+        return $this->help;
     }
 
     public function rules(){
@@ -47,16 +69,11 @@ class ActiveColumn implements IColumn
      * @return bool
      */
     public function on_list($scenario = null):bool {
-        return isset($this->config['on_list']) ? $this->config['on_list'] : true;
+        return boolval($this->on_list);
     }
 
     public function on_edit($scenario = null):bool {
-        return isset($this->config['on_edit']) ? $this->config['on_edit'] : true;
-    }
-
-    public function searcher()
-    {
-        // TODO: Implement searcher() method.
+        return boolval($this->on_edit);
     }
 
     /**
@@ -66,7 +83,7 @@ class ActiveColumn implements IColumn
     public function showFormatter($scenario = null)
     {
         if(isset($this->config['showFormatter'])){
-            $formatter = object_create($this->config['showFormatter']);
+            $formatter = object_create($this->showFormatter);
         }else{
             $formatter = object_create([
                 "@id" => Same::class
@@ -82,7 +99,7 @@ class ActiveColumn implements IColumn
     public function editFormatter($scenario = null)
     {
         if(isset($this->config['showFormatter'])){
-            $formatter = object_create($this->config['editFormatter']);
+            $formatter = object_create($this->editFormatter);
         }else{
             $formatter = object_create([
                 "@id" => Same::class
