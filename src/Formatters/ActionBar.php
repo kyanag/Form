@@ -10,6 +10,7 @@ namespace Kyanag\Form\Formatters;
 
 
 use Kyanag\Form\Fields\Button;
+use Kyanag\Form\Fields\Text;
 use Kyanag\Form\Interfaces\FormatterInterface;
 use function Kyanag\Form\object_create;
 use Kyanag\Form\Traits\FormatterConfiguration;
@@ -46,16 +47,16 @@ class ActionBar implements FormatterInterface
     /**
      * restful 基本路由地址
      * exp: posts
+     * @Text(label="restful路由地址")
      * @var string
      */
     public $baseRoute = "";
 
 
-    public function __invoke($value, $record = [], $index = null, $field = null, $pk = "id")
+    public function __invoke($value, $record = [], $index = null)
     {
         $button = [];
         if($this->show){
-            $value = $record[$pk];
             $href = $this->baseRoute . "/" . $value;
             $button[] = object_create([
                 '@id' => A::class,
@@ -65,7 +66,6 @@ class ActionBar implements FormatterInterface
             ]);
         }
         if($this->edit){
-            $value = $record[$pk];
             $href = $this->baseRoute . "/" . $value . "/edit";
             $button[] = object_create([
                 '@id' => A::class,
@@ -75,7 +75,6 @@ class ActionBar implements FormatterInterface
             ]);
         }
         if($this->delete){
-            $value = $record[$pk];
             $button[] = object_create([
                 '@id' => A::class,
                 'class' => "btn btn-outline-primary btn-sm",

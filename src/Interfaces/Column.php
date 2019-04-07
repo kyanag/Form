@@ -40,9 +40,13 @@ interface Column
      */
     public function rules();
 
-    public function on_list($scenario = null);
+    /**
+     * @param null $scenario
+     * @return mixed
+     */
+    public function on_list($scenario = null):bool ;
 
-    public function on_edit($scenario = null);
+    public function on_edit($scenario = null):bool ;
 
     /**
      * @return mixed|null

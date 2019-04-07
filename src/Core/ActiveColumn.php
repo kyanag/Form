@@ -8,7 +8,10 @@
 
 namespace Kyanag\Form\Core;
 
+use Kyanag\Form\Formatters\Same;
 use Kyanag\Form\Interfaces\Column as IColumn;
+use Kyanag\Form\Interfaces\FormatterInterface;
+use function Kyanag\Form\object_create;
 
 class ActiveColumn implements IColumn
 {
@@ -43,11 +46,11 @@ class ActiveColumn implements IColumn
     /**
      * @return bool
      */
-    public function on_list($scenario = null){
+    public function on_list($scenario = null):bool {
         return isset($this->config['on_list']) ? $this->config['on_list'] : true;
     }
 
-    public function on_edit($scenario = null) {
+    public function on_edit($scenario = null):bool {
         return isset($this->config['on_edit']) ? $this->config['on_edit'] : true;
     }
 
@@ -56,13 +59,35 @@ class ActiveColumn implements IColumn
         // TODO: Implement searcher() method.
     }
 
+    /**
+     * @param null $scenario
+     * @return FormatterInterface|null
+     */
     public function showFormatter($scenario = null)
     {
-        // TODO: Implement showFormatter() method.
+        if(isset($this->config['showFormatter'])){
+            $formatter = object_create($this->config['showFormatter']);
+        }else{
+            $formatter = object_create([
+                "@id" => Same::class
+            ]);
+        }
+        return $formatter;
     }
 
+    /**
+     * @param null $scenario
+     * @return FormatterInterface|null
+     */
     public function editFormatter($scenario = null)
     {
-        // TODO: Implement editFormatter() method.
+        if(isset($this->config['showFormatter'])){
+            $formatter = object_create($this->config['editFormatter']);
+        }else{
+            $formatter = object_create([
+                "@id" => Same::class
+            ]);
+        }
+        return $formatter;
     }
 }

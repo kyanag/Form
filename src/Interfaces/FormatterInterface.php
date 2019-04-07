@@ -9,9 +9,9 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface FormatterInterface
+interface FormatterInterface extends Renderable
 {
 
-    public function __invoke($value, $record = [], $index = null, $field = null, $pk = "id");
+    public function __invoke($value, $record = [], $index = null);
 
 }

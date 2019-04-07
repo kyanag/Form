@@ -10,6 +10,7 @@ namespace Kyanag\Form\Traits;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Kyanag\Form\Annotations\Widget;
 use Kyanag\Form\Fields\OnOff;
+use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\object_create;
 
 /**
@@ -28,9 +29,23 @@ trait FormatterConfiguration
         $class = get_class($this);
         /** @var array<ReflectionProperty> $properties */
         $properties = (new \ReflectionClass($class))->getProperties();
+
+        $widgets = [];
         foreach ($properties as $property){
-            $widget = $reader->getPropertyAnnotation($property, Widget::class);
+            $annotations = $reader->getPropertyAnnotations($property);
+            foreach ($annotations as $annotation){
+                if($annotation instanceof Renderable){
+                    if(property_exists(get_class($annotation), "value")){
+                        $annotation->value = $property->getValue($this);
+                        $annotation->name = $property->name;
+                    }
+                    $widgets[] = $annotation;
+                }
+            }
         }
+        return implode("", array_map(function($widget){
+            return $widget->render();
+        }, $widgets));
     }
 
 }
