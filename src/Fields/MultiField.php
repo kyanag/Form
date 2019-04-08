@@ -18,6 +18,8 @@ class MultiField extends Field
     protected $fields = [];
 
     public function addField(Field $field){
+        $namespace = $this->namespace ? $this->namespace . $this->name : $this->name;
+        $field->namespace = $namespace;
         $this->fields[] = $field;
     }
 

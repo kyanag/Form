@@ -8,23 +8,15 @@
 
 namespace Kyanag\Form\Formatters;
 
-
-use Kyanag\Form\Fields\Button;
-use Kyanag\Form\Fields\Text;
-use Kyanag\Form\Interfaces\FormatterInterface;
+use Kyanag\Form\Interfaces\Analysable;
 use function Kyanag\Form\object_create;
-use Kyanag\Form\Traits\FormatterConfiguration;
-use Kyanag\Form\Fields\OnOff;
 use Kyanag\Form\Widgets\A;
 
 /**
- * Class ActionBar
- * @package Kyanag\Form\Formatters
+ * @label 操作栏
  */
-class ActionBar implements FormatterInterface
+class ActionBar implements Analysable
 {
-
-    use FormatterConfiguration;
 
     /**
      * @OnOff(label="显示按钮")

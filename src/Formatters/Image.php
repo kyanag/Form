@@ -10,14 +10,14 @@ namespace Kyanag\Form\Formatters;
 
 
 use Kyanag\Form\Fields\Number;
-use Kyanag\Form\Interfaces\FormatterInterface;
-use Kyanag\Form\Traits\FormatterConfiguration;
+use Kyanag\Form\Interfaces\Analysable;
+use Kyanag\Form\Fields\Text;
 
-class Image implements FormatterInterface
+/**
+ * @label 图片
+ */
+class Image implements Analysable
 {
-
-    use FormatterConfiguration;
-
     /**
      * @Number(label="宽度")
      */
@@ -29,13 +29,18 @@ class Image implements FormatterInterface
     public $height;
 
 
+    /**
+     * @var string
+     * @Text(label="域")
+     */
     public $domain = "/";
 
 
     public function __invoke($value, $record = [], $index = null)
     {
+        $value = $this->domain . $value;
         return <<<EOF
-<a href="javascript" class="thumbnail">
+<a href="javascript:void()" class="thumbnail">
     <img src="{$value}" alt="通用的占位符缩略图">
 </a>
 EOF;

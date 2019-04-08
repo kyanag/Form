@@ -16,6 +16,20 @@ use function Kyanag\Form\object_create;
 class ActiveColumn implements IColumn
 {
 
+    public $label;
+
+    public $name;
+
+    public $help;
+
+    public $rules = [];
+
+    public $on_list = true;
+
+    public $on_edit = true;
+
+    public $filter;
+
     protected $config;
 
     public function __construct($config)

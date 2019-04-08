@@ -9,21 +9,17 @@
 namespace Kyanag\Form\Formatters;
 
 
-use Kyanag\Form\Fields\Checkbox;
-use Kyanag\Form\Interfaces\FormatterInterface;
-use function Kyanag\Form\object_create;
+use Kyanag\Form\Interfaces\Analysable;
 
-class Choose implements FormatterInterface
+/**
+ * @label 选择框
+ */
+class Choose implements Analysable
 {
 
     public function __invoke($value, $record = [], $index = null)
     {
         return "<input type=\"checkbox\" class=\"form-check-input\" name='{$index}' value='{$value}'/>";
-    }
-
-    public function render()
-    {
-        return null;
     }
 
 }

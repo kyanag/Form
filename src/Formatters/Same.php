@@ -9,19 +9,18 @@
 namespace Kyanag\Form\Formatters;
 
 
+use Kyanag\Form\Interfaces\Analysable;
 use Kyanag\Form\Interfaces\FormatterInterface;
 
-class Same implements FormatterInterface
+/**
+ * @label 原始内容
+ */
+class Same implements Analysable
 {
 
     public function __invoke($value, $record = [], $index = null)
     {
         return $value;
-    }
-
-    public function render()
-    {
-        return "";
     }
 
 }

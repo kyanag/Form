@@ -72,7 +72,8 @@ EOF;
     public $required;
 
     public $title;
-    
+
+    public $namespace;
 
     public function __construct()
     {
@@ -129,7 +130,7 @@ EOF;
     public function getDefaultAttributes(){
         return $defaultAttributes = array_filter([
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->getNameAttribute(),
             'value' => $this->value,
             'class' => $this->class,
             'readonly' => $this->reanonly,
@@ -138,6 +139,21 @@ EOF;
         ], function($item){
             return !is_null($item);
         });
+    }
+
+    public function getNameAttribute(){
+        if(!$this->namespace){
+            $name = "{$this->namespace}.{$this->name}";
+            $nodes = explode(".", $name);
+            foreach ($nodes as $index => $node){
+                if($index != 0){
+                    $node = "[{$node}]";
+                }
+                $nodes[$index] = $node;
+            }
+            return implode("", $nodes);
+        }
+        return $this->name;
     }
 
     public function getExtraAttributes(){
