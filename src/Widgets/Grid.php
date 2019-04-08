@@ -12,9 +12,12 @@ namespace Kyanag\Form\Widgets;
 use Kyanag\Form\Interfaces\Column;
 use Kyanag\Form\Interfaces\Inspector;
 use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Traits\WidgetAttribute;
 
 abstract class Grid implements Renderable
 {
+
+    use WidgetAttribute;
 
     protected $inspector;
 
@@ -36,13 +39,20 @@ abstract class Grid implements Renderable
      */
     abstract function getData();
 
+    public function getAttributes(){
+        return [
+            'class' => "table"
+        ];
+    }
 
     public function render()
     {
         $eles = [
+            "<table {$this->renderAttributes($this->getAttributes())}>",
             $this->renderHeader(),
             $this->renderBody(),
-            $this->renderFooter()
+            $this->renderFooter(),
+            "</table>"
         ];
         return implode("", $eles);
     }
