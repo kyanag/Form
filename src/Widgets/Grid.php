@@ -100,7 +100,9 @@ EOF;
             "<thead><tr>"
         ];
         foreach ($this->getColumns() as $column){
-            $ths[] = "<th scope=\"col\">{$column->label()}</th>";
+            if($column->on_list()){
+                $ths[] = "<th scope=\"col\">{$column->label()}</th>";
+            }
         }
         $ths[] = "</tr></thead>";
         return implode("", $ths);
@@ -122,9 +124,11 @@ EOF;
             "<tr>"
         ];
         foreach ($this->getColumns() as $column){
-            $func = $column->showFormatter();
-            $name = $column->name();
-            $elements[] = "<td>{$func($value[$name], $value, $name)}</td>";
+            if($column->on_list()){
+                $func = $column->showFormatter();
+                $name = $column->name();
+                $elements[] = "<td>{$func($value[$name], $value, $name)}</td>";
+            }
         }
         $elements[] = "</tr>";
         return implode("", $elements);

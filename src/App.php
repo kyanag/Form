@@ -41,8 +41,7 @@ class App
 
     public function initObject($object, $config = []){
         foreach ($config as $name => $value){
-            if(substr($name, 0, 1) === "@"){
-                $name = substr($name, 1);
+            if(is_array($value) && isset($value['@id'])){
                 $value = $this->createObject($value);
             }
             $object->{$name} = $value;

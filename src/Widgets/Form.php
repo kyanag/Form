@@ -32,7 +32,7 @@ class Form extends Field
 
     public $enctype;
 
-    public function field(Renderable $field){
+    public function pushField(Renderable $field){
         if($field instanceof File){
             $this->enctype = "multipart/form-data";
         }

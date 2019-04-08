@@ -142,7 +142,7 @@ EOF;
     }
 
     public function getNameAttribute(){
-        if(!$this->namespace){
+        if(!is_null($this->namespace)){
             $name = "{$this->namespace}.{$this->name}";
             $nodes = explode(".", $name);
             foreach ($nodes as $index => $node){

@@ -27,9 +27,9 @@ class ActiveColumn implements IColumn
 
     public $rules;
 
-    public $on_list;
+    public $on_list = true;
 
-    public $on_edit;
+    public $on_edit = true;
 
     public $showFormatter;
 
@@ -82,8 +82,8 @@ class ActiveColumn implements IColumn
      */
     public function showFormatter($scenario = null)
     {
-        if(isset($this->config['showFormatter'])){
-            $formatter = object_create($this->showFormatter);
+        if(is_callable($this->showFormatter)){
+            $formatter = $this->showFormatter;
         }else{
             $formatter = object_create([
                 "@id" => Same::class

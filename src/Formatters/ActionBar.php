@@ -45,11 +45,11 @@ class ActionBar implements Analysable
     public $baseRoute = "";
 
 
-    public function __invoke($value, $record = [], $index = null)
+    public function __invoke($value, $record = [], $name)
     {
         $button = [];
         if($this->show){
-            $href = $this->baseRoute . "/" . $value;
+            $href = $this->baseRoute . "/view?{$name}="  . $value;
             $button[] = object_create([
                 '@id' => A::class,
                 'class' => "btn btn-outline-primary btn-sm",
@@ -58,7 +58,7 @@ class ActionBar implements Analysable
             ]);
         }
         if($this->edit){
-            $href = $this->baseRoute . "/" . $value . "/edit";
+            $href = $this->baseRoute . "/edit?{$name}=" . $value;
             $button[] = object_create([
                 '@id' => A::class,
                 'class' => "btn btn-outline-primary btn-sm",
@@ -70,16 +70,19 @@ class ActionBar implements Analysable
             $button[] = object_create([
                 '@id' => A::class,
                 'class' => "btn btn-outline-primary btn-sm",
-                'innerHtml' => "编辑",
+                'innerHtml' => "删除",
                 'href' => $href,
                 'data' => [
                     'confirm' => true,
                     'method' => "delete",
                     'payload' => "{}",
-                    'fetch-url' => $this->baseRoute . "/" . $value,
+                    'fetch-url' => $this->baseRoute . "/delete?{$name}=" . $value,
                 ],
             ]);
         }
+        return implode(" ", array_map(function($button){
+            return $button->render();
+        }, $button));
     }
 
 }
