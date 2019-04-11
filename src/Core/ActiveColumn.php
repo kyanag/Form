@@ -85,9 +85,7 @@ class ActiveColumn implements IColumn
         if(is_callable($this->showFormatter)){
             $formatter = $this->showFormatter;
         }else{
-            $formatter = object_create([
-                "@id" => Same::class
-            ]);
+            return null;
         }
         return $formatter;
     }
@@ -101,9 +99,7 @@ class ActiveColumn implements IColumn
         if(isset($this->config['showFormatter'])){
             $formatter = object_create($this->editFormatter);
         }else{
-            $formatter = object_create([
-                "@id" => Same::class
-            ]);
+            return null;
         }
         return $formatter;
     }
