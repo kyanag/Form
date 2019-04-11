@@ -15,8 +15,24 @@ namespace Kyanag\Form\Fields;
  */
 class Datetime extends Text
 {
+
+    public $data = [
+        'format' => "yyyy-mm-dd",
+        'language' => "zh-CN",
+        'autoclose' => 1,
+    ];
+
+    public function getExtraAttributes()
+    {
+        return [
+            'type' => "text",
+            'class' => array_merge($this->class, ["kyanag-form-datetime"]),
+            'data' => $this->data,
+        ];
+    }
+
     public function renderInput()
     {
-        return "<input type=\"datetime-local\" {$this->renderAttributes()}/>";
+        return "<input {$this->renderAttributes()}/>";
     }
 }

@@ -18,6 +18,14 @@ function Form(element){
                     console.log(event);
                 });
             }
+            if($(this).hasClass("kyanag-form-datetime")){
+                var data = $(this).data();
+                $(this).datepicker(data);
+            }
+            if($(this).hasClass("kyanag-form-multiselect")){
+                var data = $(this).data();
+                $(this).select2(data);
+            }
         });
     }
 }

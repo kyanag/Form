@@ -34,6 +34,6 @@ class Select extends Field
             $items[] = "<option value='{$option['value']}' {$selected}>{$option['name']}</option>";
         }
         $options = implode("", $items);
-        return "<select {$this->renderAttributes()}>{$options}</select>";
+        return "<select {$this->renderAttributes($this->getAttributes())}>{$options}</select>";
     }
 }

@@ -47,6 +47,15 @@ function getColumns(){
             ],
         ],
         [
+            'label' => "关键词",
+            'name' => "keywords",
+            '@id' => \Kyanag\Form\Fields\MultiSelect::class,
+            'options' => [
+                ['value' => 0, "name" => "显示"],
+                ['value' => 1, "name" => "不显示"],
+            ],
+        ],
+        [
             'label' => "内容模板",
             'name' => "tpl",
             'help' => "内容模板",
@@ -83,7 +92,7 @@ function getColumns(){
                 ['value' => 0, "name" => "显示"],
                 ['value' => 1, "name" => "不显示"],
             ],
-        ]
+        ],
     ];
 }
 
