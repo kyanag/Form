@@ -4,15 +4,13 @@ namespace Kyanag\Form\Widgets;
 
 use Kyanag\Form\Field;
 use Kyanag\Form\Fields\Button;
-use Kyanag\Form\Fields\File;
-use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\object_create;
+use Kyanag\Form\Traits\MultiField;
 
 class Form extends Field
 {
 
-    /** @var Field[] */
-    protected $fields = [];
+    use MultiField;
 
     protected $submitButton = true;
 
@@ -22,22 +20,13 @@ class Form extends Field
         'role' => "form"
     ];
 
-    public $class;
-
-    public $value;
+    public $class = [];
 
     public $method;
 
     public $action;
 
     public $enctype;
-
-    public function pushField(Renderable $field){
-        if($field instanceof File){
-            $this->enctype = "multipart/form-data";
-        }
-        $this->fields[] = $field;
-    }
 
     public function getExtraAttributes()
     {
@@ -81,28 +70,14 @@ class Form extends Field
         return implode(" ", $elements);
     }
 
-    protected function renderInput()
-    {
-        $value = $this->value;
-        $elements = [];
-        foreach ($this->fields as $field){
-            $name = $field->name;
-            if(isset($value[$name])){
-                $field->value = $value[$name];
-            }
-            $elements[] = $field->render();
-        }
-        return implode("\n", $elements);
-    }
-
     public function render()
     {
         $elements = [
-            $this->beginForm()
+            $this->beginForm(),
+            $this->renderInput(),
+            $this->renderButtons(),
+            $this->endForm(),
         ];
-        $elements[] = $this->renderInput();
-        $elements[] = $this->renderButtons();
-        $elements[] = $this->endForm();
         return implode("", $elements);
     }
 

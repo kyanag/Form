@@ -19,16 +19,14 @@ class Textarea extends Field
 
     public function getDefaultAttributes()
     {
-        return $defaultAttributes = array_filter([
+        return $defaultAttributes = [
             'id' => $this->id,
             'name' => $this->name,
             'class' => $this->class,
             'readonly' => $this->reanonly,
             'disabled' => $this->disabled,
             'autofocus' => $this->autofocus,
-        ], function($item){
-            return !is_null($item);
-        });
+        ];
     }
 
     public function renderInput(){

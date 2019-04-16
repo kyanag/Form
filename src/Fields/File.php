@@ -18,19 +18,34 @@ use Kyanag\Form\Field;
 class File extends Field
 {
 
+    public static $UPLOAD_URL;
+
+    public static $DOMAIN;
+
     public $accept;
+
+    public $data;
 
     public function getExtraAttributes()
     {
         return [
-            'type' => "file",
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-file']),
+            'data' => $this->getDataAttribute(),
+            'disabled' => true,
+        ];
+    }
+
+    public function getDataAttribute(){
+        return [
+            'domain' => (static::$DOMAIN . $this->value) ?: null,
+            'url' => $this->value,
+            'upload_url' => static::$UPLOAD_URL,
         ];
     }
 
     public function renderInput()
     {
-        return "<input type=\"file\" {$this->renderAttributes()}/>";
+        return "<input type=\"file\" {$this->renderAttributes()}/><input type=\"hidden\" name=\"{$this->getNameAttribute()}\" value=\"{$this->value}\">";
     }
 }

@@ -18,7 +18,7 @@ if($_POST){
 /** @var \Kyanag\Form\Widgets\Form $form */
 $form = new \Kyanag\Form\Widgets\Form();
 foreach ($columns as $column){
-    $form->pushField(\Kyanag\Form\object_create($column));
+    $form->pushPart(\Kyanag\Form\object_create($column));
 }
 
 $csrf = \Kyanag\Form\object_create([
@@ -41,7 +41,7 @@ $form->value = [
     'keywords' => [0, 1],
     'tpl' => "./content.html",
     'created_at' => "2019-03-28",
-    'bg_img' => "a.jpg",
+    'bg_img' => "a.png",
     'context' => "<h1>联盟日报</h1>",
     'status' => 1,
 ];
@@ -54,8 +54,11 @@ $form->value = [
     <link href="https://cdn.bootcss.com/wangEditor/10.0.13/wangEditor.min.css" rel="stylesheet">
     <link href="/asserts/wangEditor.fix.css" rel="stylesheet">
     <link href="https://libs.cdnjs.net/bootstrap-fileinput/5.0.1/css/fileinput.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/explorer-fa/theme.css" />
     <link href="https://libs.cdnjs.net/select2/4.0.6-rc.1/css/select2.min.css" rel="stylesheet">
     <link href="/asserts/bootstrap4-select2.css" rel="stylesheet">
+
+    <link href="/asserts/bootstrap4-fileinput-icon.fix.css" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -71,6 +74,7 @@ $form->value = [
 </div>
 <script src="https://cdn.bootcss.com/wangEditor/10.0.13/wangEditor.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://libs.cdnjs.net/bootstrap-fileinput/5.0.1/js/fileinput.js"></script>
 <script src="https://libs.cdnjs.net/bootstrap-fileinput/5.0.1/js/locales/zh.js"></script>
 <script src="https://libs.cdnjs.net/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>

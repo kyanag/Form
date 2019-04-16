@@ -51,8 +51,6 @@ EOF;
 
     public $value;
 
-    public $type;
-
     public $attributes = [];
 
     public $class = ['form-control'];
@@ -72,8 +70,6 @@ EOF;
     public $required;
 
     public $title;
-
-    public $namespace;
 
     public function __construct()
     {
@@ -142,18 +138,14 @@ EOF;
     }
 
     public function getNameAttribute(){
-        if(!is_null($this->namespace)){
-            $name = "{$this->namespace}.{$this->name}";
-            $nodes = explode(".", $name);
-            foreach ($nodes as $index => $node){
-                if($index != 0){
-                    $node = "[{$node}]";
-                }
-                $nodes[$index] = $node;
+        if(is_string($this->name)){
+            $names = explode(".", $this->name);
+            if(count($names) == 1){
+                return $names[0];
             }
-            return implode("", $nodes);
+            $first = array_shift($names);
+            return "{$first}[" . implode("][", $names) . "]";
         }
-        return $this->name;
     }
 
     public function getExtraAttributes(){

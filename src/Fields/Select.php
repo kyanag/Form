@@ -26,6 +26,13 @@ class Select extends Field
         return $this->value == $value;
     }
 
+    public function getExtraAttributes()
+    {
+        return [
+            'value' => null,
+        ];
+    }
+
     protected function renderInput()
     {
         $items = [];

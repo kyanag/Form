@@ -9,17 +9,23 @@
 namespace Kyanag\Form\Fields;
 
 
-use Kyanag\Form\Field;
+use Kyanag\Form\Traits\MultiValue;
 
 class MultiSelect extends Select
 {
+
+    use MultiValue;
+
+    /**
+     * @var array
+     */
+    public $value = [];
 
     public function getExtraAttributes()
     {
         return [
             'class' => array_merge($this->class, ['kyanag-form-multiselect']),
             'multiple' => true,
-            'name' => $this->getNameAttribute() . "[]",
             'value' => null,
         ];
     }

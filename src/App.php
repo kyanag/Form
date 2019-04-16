@@ -41,10 +41,12 @@ class App
 
     public function initObject($object, $config = []){
         foreach ($config as $name => $value){
-            if(is_array($value) && isset($value['@id'])){
-                $value = $this->createObject($value);
+            $method = "set" . ucfirst($name);
+            if(method_exists($object, $method)){
+                $object->{$method}($value);
+            }else {
+                $object->{$name} = $value;
             }
-            $object->{$name} = $value;
         }
         return $object;
     }

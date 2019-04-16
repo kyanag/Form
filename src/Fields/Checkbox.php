@@ -7,6 +7,7 @@
  */
 
 namespace Kyanag\Form\Fields;
+use Kyanag\Form\Traits\MultiValue;
 
 
 /**
@@ -16,19 +17,14 @@ namespace Kyanag\Form\Fields;
 class Checkbox extends Radio
 {
 
+    use MultiValue;
+
     public $subAttributes = [
         'class' => [
             'form-check-input'
         ],
         'type' => "checkbox",
     ];
-
-    public function getExtraAttributes()
-    {
-        return [
-            'name' => is_null($this->name) ? null : "{$this->name}[]"
-        ];
-    }
 
     public function selected($value)
     {
