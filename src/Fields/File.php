@@ -10,6 +10,7 @@ namespace Kyanag\Form\Fields;
 
 
 use Kyanag\Form\Field;
+use function Kyanag\Form\object_create;
 
 /**
  * @Annotation
@@ -17,10 +18,6 @@ use Kyanag\Form\Field;
  */
 class File extends Field
 {
-
-    public static $UPLOAD_URL;
-
-    public static $DOMAIN;
 
     public $accept;
 
@@ -32,15 +29,15 @@ class File extends Field
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-file']),
             'data' => $this->getDataAttribute(),
-            'disabled' => true,
+            'name' => null,
         ];
     }
 
     public function getDataAttribute(){
         return [
-            'domain' => (static::$DOMAIN . $this->value) ?: null,
+            'domain' => object_create(["@id" => "kyanag.form.file.domain"]),
             'url' => $this->value,
-            'upload_url' => static::$UPLOAD_URL,
+            'upload_url' => object_create(["@id" => "kyanag.form.file.uploa_url"]),
         ];
     }
 

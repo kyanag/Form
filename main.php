@@ -7,9 +7,20 @@
  */
 $loader = require "./vendor/autoload.php";
 
+define("APP_PATH", __DIR__);
+
 $columns = getColumns();
 
-(new \Kyanag\Form\App(new \League\Container\Container()))->registerGlobal();
+$container = new \League\Container\Container();
+
+$container->add('kyanag.form.image.uploa_url', "/examples/upload.php");
+$container->add('kyanag.form.file.uploa_url', "/examples/upload.php");
+
+$container->add('kyanag.form.file.domain', "");
+$container->add('kyanag.form.image.domain', "");
+
+$app = new \Kyanag\Form\App($container);
+$app->registerGlobal();
 
 if($_POST){
     var_dump($_FILES);
@@ -41,7 +52,7 @@ $form->value = [
     'keywords' => [0, 1],
     'tpl' => "./content.html",
     'created_at' => "2019-03-28",
-    'bg_img' => "a.png",
+    'bg_img' => "examples/3be2be8f8c5494eef2bc8d2027f5e0fe99257e2d.jpg",
     'context' => "<h1>联盟日报</h1>",
     'status' => 1,
 ];
@@ -58,25 +69,20 @@ $form->value = [
     <link href="https://libs.cdnjs.net/select2/4.0.6-rc.1/css/select2.min.css" rel="stylesheet">
     <link href="/asserts/bootstrap4-select2.css" rel="stylesheet">
 
-    <link href="/asserts/bootstrap4-fileinput-icon.fix.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.css" />
 </head>
 <body>
-<div>
-    <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control ">
-        <div class="input-group-addon">
-            <span class="glyphicon glyphicon-th"></span>
-        </div>
-    </div>
-</div>
 <div class="col-md-6">
     <?=$form->render()?>
 </div>
 <script src="https://cdn.bootcss.com/wangEditor/10.0.13/wangEditor.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 <script src="https://libs.cdnjs.net/bootstrap-fileinput/5.0.1/js/fileinput.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.js"></script>
 <script src="https://libs.cdnjs.net/bootstrap-fileinput/5.0.1/js/locales/zh.js"></script>
+
 <script src="https://libs.cdnjs.net/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://libs.cdnjs.net/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 
@@ -85,16 +91,7 @@ $form->value = [
 
 <script src="/asserts/Form.js"></script>
 <script>
-    var elements = document.getElementsByTagName("form");
-    if(elements.length >= 1){
-        let form = new Form(elements[0]);
-        form.init();
-    }
-    $(document).off('.datepicker.data-api');
-    $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
-        startDate: '-3d'
-    });
+    $("form").initForm();
 </script>
 </body>
 </html>

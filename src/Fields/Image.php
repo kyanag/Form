@@ -10,6 +10,7 @@ namespace Kyanag\Form\Fields;
 
 
 use Kyanag\Form\Field;
+use function Kyanag\Form\object_create;
 
 /**
  * @Annotation
@@ -21,9 +22,19 @@ class Image extends File
     public function getExtraAttributes()
     {
         return [
-            'type' => "file",
-            'accept' => "image/*",
+            'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-image']),
+            'data' => $this->getDataAttribute(),
+            //'disabled' => true,
         ];
     }
+
+    public function getDataAttribute(){
+        return [
+            'domain' => object_create(["@id" => "kyanag.form.image.domain"]),
+            'url' => $this->value,
+            'upload_url' => object_create(["@id" => "kyanag.form.image.uploa_url"]),
+        ];
+    }
+
 }
