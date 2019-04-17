@@ -13,11 +13,10 @@ $columns = getColumns();
 
 $container = new \League\Container\Container();
 
-$container->add('kyanag.form.image.uploa_url', "/examples/upload.php");
-$container->add('kyanag.form.file.uploa_url', "/examples/upload.php");
-
-$container->add('kyanag.form.file.domain', "");
-$container->add('kyanag.form.image.domain', "");
+$container->add('form.image.upload_url', "/examples/upload.php");
+$container->add('form.file.upload_url', "/examples/upload.php");
+$container->add('form.file.domain', "");
+$container->add('form.image.domain', "");
 
 $app = new \Kyanag\Form\App($container);
 $app->registerGlobal();
@@ -32,14 +31,32 @@ foreach ($columns as $column){
     $form->pushPart(\Kyanag\Form\object_create($column));
 }
 
+$manyValue = \Kyanag\Form\object_create([
+        "@id" => \Kyanag\Form\Fields\MultiField::class,
+    'name' => "aaa",
+]);
+$manyValue->pushPart(\Kyanag\Form\object_create([
+    'label' => "新闻标题",
+    'name' => "title",
+    'help' => "最少两个字符",
+    '@id' => \Kyanag\Form\Fields\Text::class,
+]));
+$manyValue->pushPart(\Kyanag\Form\object_create([
+    '@id' => \Kyanag\Form\Fields\Text::class,
+    'name' => "bbbb",
+    'value' => rand(10000, 888888)
+]));
+$form->pushPart($manyValue);
+
 $csrf = \Kyanag\Form\object_create([
-        '@id' => \Kyanag\Form\Fields\Hidden::class,
+    '@id' => \Kyanag\Form\Fields\Hidden::class,
     'name' => "_csrf",
     'value' => rand(10000, 888888)
 ]);
 
 $form = \Kyanag\Form\object_init($form, [
     'action' => "",
+    'enctype' => "multipart/form-data",
     'method' => "post",
 ]);
 

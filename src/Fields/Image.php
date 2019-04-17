@@ -24,16 +24,8 @@ class Image extends File
         return [
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-image']),
-            'data' => $this->getDataAttribute(),
-            //'disabled' => true,
-        ];
-    }
-
-    public function getDataAttribute(){
-        return [
-            'domain' => object_create(["@id" => "kyanag.form.image.domain"]),
-            'url' => $this->value,
-            'upload_url' => object_create(["@id" => "kyanag.form.image.uploa_url"]),
+            'data' => $this->getOptionsAttribute(),
+            'name' => $this->name,
         ];
     }
 

@@ -15,7 +15,7 @@ use Kyanag\Form\Fields\AutoComplete;
 use Kyanag\Form\Fields\Datetime;
 use Kyanag\Form\Fields\Hidden;
 use Kyanag\Form\Fields\Image;
-use Kyanag\Form\Fields\MultiSelect;
+use Kyanag\Form\Fields\Select2;
 use Kyanag\Form\Fields\Number;
 use Kyanag\Form\Fields\Password;
 use Kyanag\Form\Fields\Select;
@@ -96,7 +96,7 @@ class ColumnBuilder
 
     public static function multiSelect(){
         $static = new static();
-        $static->config['fieldClass'] = MultiSelect::class;
+        $static->config['fieldClass'] = Select2::class;
         return $static;
     }
 

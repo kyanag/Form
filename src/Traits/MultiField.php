@@ -21,8 +21,6 @@ trait MultiField
 {
     protected $parts = [];
 
-    public $namespace = null;
-
     public function pushPart(Renderable $part){
         $this->parts[] = $part;
     }
@@ -33,31 +31,34 @@ trait MultiField
     public function setValue($value)
     {
         $this->value = (array)$value;
+        foreach ($this->parts as $part){
+            $name = $part->name;
+            if(isset($this->value[$name])){
+                $part->value = $this->value[$name];
+            }
+        }
     }
 
     protected function renderInput()
     {
         return implode("", array_map(function(Renderable $field){
-            if($field instanceof Field){
-                $name = $field->name;
-                $value = $this->getPartValue($name);
-                if(!is_null($value)){
-                    $field->value = $value;
-                }
-            }
-            return $field->render();
+            return $this->renderPart($field);
         }, $this->parts));
     }
 
-    protected function getPartValue($name){
-        if(isset($this->value[$name])){
-            return $this->value[$name];
-        }else{
-            return null;
+    protected function renderPart(Renderable $part){
+        if($part instanceof Field){
+            $part = clone $part;    //可以多次输出
+            $part->name = $this->formatPartName($part);
         }
+        return $part->render();
     }
 
-    protected function buildName($path, $is_){
-
+    protected function formatPartName($part){
+        if($this->name){
+            return "{$this->name}.{$part->name}";
+        }else{
+            return $part->name;
+        }
     }
 }

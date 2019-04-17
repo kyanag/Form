@@ -49,7 +49,7 @@ function getColumns(){
         [
             'label' => "关键词",
             'name' => "keywords",
-            '@id' => \Kyanag\Form\Fields\MultiSelect::class,
+            '@id' => \Kyanag\Form\Fields\Select2::class,
             'options' => [
                 ['value' => 0, "name" => "显示"],
                 ['value' => 1, "name" => "不显示"],

@@ -15,17 +15,6 @@ use Kyanag\Form\Interfaces\Renderable;
 class MultiField extends Field
 {
 
-    protected $fields = [];
-
-    public function addField(Field $field){
-        $this->fields[] = $field;
-    }
-
-    protected function renderInput()
-    {
-        return implode("", array_map(function(Renderable $field){
-            return $field->render();
-        }, $this->fields));
-    }
+    use \Kyanag\Form\Traits\MultiField;
 
 }
