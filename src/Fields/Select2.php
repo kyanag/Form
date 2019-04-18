@@ -33,7 +33,11 @@ class Select2 extends Select
     }
 
     public function selected($value){
-        return in_array($value, $this->value);
+        if($this->multiple){
+            return in_array($value, (array)$this->value);
+        }else{
+            return parent::selected($value);
+        }
     }
 
     public function getNameAttribute(){
