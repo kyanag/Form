@@ -7,19 +7,28 @@
  */
 
 namespace Kyanag\Form;
+use Kyanag\Form\Fields\Select;
 
 /**
+ * @method self name(string $name)
+ * @method self label(string $label)
+ * @method self help(string $help)
+ * @method self error(string $error)
+ * @method self title(string $title)
+ * @method self data(array $data);
+ * @method self value(string|array $value);
  * Class FieldBuilder
  * @package Kyanag\Form
- * @method static name(string $name = "")
  */
 class FieldBuilder
 {
 
     protected $field;
 
-    protected $name;
-
+    /**
+     * FieldBuilder constructor.
+     * @param Field|Select $field
+     */
     public function __construct(Field $field)
     {
         $this->field = $field;
@@ -27,15 +36,7 @@ class FieldBuilder
 
     public function __call($name, $arguments)
     {
-        // TODO: Implement __call() method.
-    }
-
-//    public function name($name){
-//        $this->field-
-//    }
-
-    public function label(string $label = null){
-        $this->field->label = $label;
+        $this->field->{$name} = $arguments[0];
         return $this;
     }
 
@@ -51,5 +52,42 @@ class FieldBuilder
 
     public function required(){
         $this->field->required = true;
+        return $this;
+    }
+
+    public function disabled(){
+        $this->field->disabled = true;
+        return $this;
+    }
+
+    public function multiple(){
+        $this->field->multiple = true;
+        return $this;
+    }
+
+    public function options(array $options){
+        $this->field->options = $options;
+        return $this;
+    }
+
+    public function ajax($url){
+        $options = [
+            'url' => $url,
+        ];
+        return $this->jsOptions($options);
+    }
+
+    public function jsOptions($options){
+        if(is_null($this->field->data)){
+            $this->field->data = [];
+        }
+        $this->field->data = array_merge($this->field->data, [
+            'js-options' => base64_encode(json_encode($options)),
+        ]);
+        return $this;
+    }
+
+    public function toField(){
+        return $this->field;
     }
 }

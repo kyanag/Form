@@ -181,14 +181,7 @@ EOF;
 
     protected function renderAttr($name, $value){
         if($name == "data"){
-            if(is_array($value)){
-                $items = [];
-                foreach($value as $name => $val){
-                    $items[] = $this->renderAttr("data-{$name}", $val);
-                }
-                return implode(" ", $items);
-            }
-            return null;
+            return $this->renderDataAttr("data", $value);
         }else if(is_bool($value) or is_null($value)){
             return $value === true ? $name : null;
         }else if(is_array($value)){
@@ -197,6 +190,18 @@ EOF;
         }else{
             return "{$name}=\"{$value}\"";
         }
+    }
+
+    protected function renderDataAttr($name, $value){
+        $items = [];
+        if(is_array($value)){
+            foreach ($value as $index => $val){
+                $items[] = $this->renderDataAttr("{$name}-{$index}", $val);
+            }
+        }else{
+            $items[] = "{$name}=\"{$value}\"";;
+        }
+        return implode(" ", $items);
     }
 
     public function setAttr($name, $value = null){

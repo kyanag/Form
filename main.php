@@ -21,6 +21,11 @@ $container->add('form.image.domain', "");
 $app = new \Kyanag\Form\App($container);
 $app->registerGlobal();
 
+$text = new \Kyanag\Form\Fields\Text();
+$fieldBuilder = new \Kyanag\Form\FieldBuilder($text);
+$fieldBuilder->name("111")->label("111");
+$fieldBuilder->ajax("http://www.baidu.com");
+
 if($_POST){
     var_dump($_FILES);
     var_dump($_POST);exit();
@@ -30,6 +35,7 @@ $form = new \Kyanag\Form\Widgets\Form();
 foreach ($columns as $column){
     $form->pushPart(\Kyanag\Form\object_create($column));
 }
+$form->pushPart($fieldBuilder->toField());
 
 $csrf = \Kyanag\Form\object_create([
     '@id' => \Kyanag\Form\Fields\Hidden::class,
@@ -43,7 +49,7 @@ $form = \Kyanag\Form\object_init($form, [
     'method' => "post",
 ]);
 
-$form->setValue([
+$form->value = ([
     'id' => 1,
     'title' => "号外号外",
     'category_id' => 2,
