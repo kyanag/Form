@@ -24,8 +24,6 @@ abstract class Field implements Renderable
 <div class="form-group row">{label}<div class="col-sm-8">{input}{error}{help}</div></div>
 EOF;
 
-    protected $_parts = [];
-
     public $labelAttributes = [
         'class' => ["col-sm-2", "col-form-label"],
     ];
@@ -49,6 +47,9 @@ EOF;
      */
     public $name;
 
+    /**
+     * @var string|array
+     */
     public $value;
 
     public $attributes = [];
@@ -57,28 +58,33 @@ EOF;
 
     public $label;
 
-    public $help = null;
+    public $help;
 
     public $error;
-
+    /**
+     * @var bool
+     */
     public $reanonly;
-
+    /**
+     * @var bool
+     */
     public $disabled;
-
+    /**
+     * @var bool
+     */
     public $autofocus;
-
+    /**
+     * @var bool
+     */
     public $required;
 
     public $title;
 
+    public $data;
+
     public function __construct()
     {
         $this->_index = static::$count++;
-        $this->init();
-    }
-
-    public function init(){
-
     }
 
     public function template($template){
@@ -115,16 +121,16 @@ EOF;
      * @return string
      */
     public function render(){
-        $this->_parts["{label}"] = $this->renderLabel();
-        $this->_parts["{help}"] = $this->renderHelp();
-        $this->_parts["{error}"] = $this->renderError();
-        $this->_parts["{input}"] = $this->renderInput();
-
-        return strtr($this->_template, $this->_parts);
+        $parts = [];
+        $parts["{label}"] = $this->renderLabel();
+        $parts["{help}"] = $this->renderHelp();
+        $parts["{error}"] = $this->renderError();
+        $parts["{input}"] = $this->renderInput();
+        return strtr($this->_template, $parts);
     }
 
     public function getDefaultAttributes(){
-        return $defaultAttributes = array_filter([
+        return [
             'id' => $this->id,
             'name' => $this->getNameAttribute(),
             'value' => $this->value,
@@ -132,20 +138,23 @@ EOF;
             'readonly' => $this->reanonly,
             'disabled' => $this->disabled,
             'autofocus' => $this->autofocus,
-        ], function($item){
-            return !is_null($item);
-        });
+            'data' => $this->data,
+        ];
     }
 
     public function getNameAttribute(){
         if(is_string($this->name)){
             $names = explode(".", $this->name);
-            if(count($names) == 1){
-                return $names[0];
-            }
-            $first = array_shift($names);
-            return "{$first}[" . implode("][", $names) . "]";
+        }else if(is_array($this->name)){
+            $names = $this->name;
+        }else{
+            $names = (array)$this->name;
         }
+        if(count($names) == 1){
+            return $names[0];
+        }
+        $first = array_shift($names);
+        return "{$first}[" . implode("][", $names) . "]";
     }
 
     public function getExtraAttributes(){
@@ -162,9 +171,7 @@ EOF;
         return array_keys($this->getDefaultAttributes(), $this->getExtraAttributes());
     }
 
-    protected function renderAttributes($attributes = null){
-        $attributes = !is_null($attributes) ? $attributes : $this->getAttributes();
-
+    protected function renderAttributes(array $attributes){
         $items = [];
         foreach($attributes as $name => $value){
             $items[] = $this->renderAttr($name, $value);
@@ -174,11 +181,14 @@ EOF;
 
     protected function renderAttr($name, $value){
         if($name == "data"){
-            $items = [];
-            foreach($value as $name => $val){
-                $items[] = $this->renderAttr("data-{$name}", $val);
+            if(is_array($value)){
+                $items = [];
+                foreach($value as $name => $val){
+                    $items[] = $this->renderAttr("data-{$name}", $val);
+                }
+                return implode(" ", $items);
             }
-            return implode(" ", $items);
+            return null;
         }else if(is_bool($value) or is_null($value)){
             return $value === true ? $name : null;
         }else if(is_array($value)){

@@ -10,8 +10,6 @@ namespace Kyanag\Form\Fields;
 
 
 use Kyanag\Form\Field;
-use function Kyanag\Form\object_create;
-use Kyanag\Form\Traits\UploadField;
 
 /**
  * @Annotation
@@ -20,24 +18,19 @@ use Kyanag\Form\Traits\UploadField;
 class File extends Field
 {
 
-    use UploadField;
-
-    public $accept;
-
-    public $data;
+    public $accept = "*/*";
 
     public function getExtraAttributes()
     {
         return [
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-file']),
-            'data' => $this->getOptionsAttribute(),
             'name' => $this->name,
         ];
     }
 
     public function renderInput()
     {
-        return "<input type=\"file\" {$this->renderAttributes()}/>";
+        return "<input type=\"file\" {$this->renderAttributes($this->getAttributes())}/>";
     }
 }

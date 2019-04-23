@@ -16,17 +16,15 @@ namespace Kyanag\Form\Fields;
 class OnOff extends Radio
 {
 
-    public function init()
-    {
-        $this->options = [
-            [
-                'value' => 1,
-                'name' => "是",
-            ],
-            [
-                'value' => 0,
-                'name' => "否",
-            ]
-        ];
-    }
+    public $options = [
+        [
+            'value' => 1,
+            'name' => "是",
+        ],
+        [
+            'value' => 0,
+            'name' => "否",
+        ]
+    ];
+
 }

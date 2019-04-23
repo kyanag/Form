@@ -9,9 +9,6 @@
 namespace Kyanag\Form\Fields;
 
 
-use Kyanag\Form\Field;
-use function Kyanag\Form\object_create;
-
 /**
  * @Annotation
  * @package Kyanag\Form\Fields
@@ -19,12 +16,13 @@ use function Kyanag\Form\object_create;
 class Image extends File
 {
 
+    public $accept = "image/*";
+
     public function getExtraAttributes()
     {
         return [
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-image']),
-            'data' => $this->getOptionsAttribute(),
             'name' => $this->name,
         ];
     }

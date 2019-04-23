@@ -54,6 +54,7 @@ function getColumns(){
                 ['value' => 0, "name" => "显示"],
                 ['value' => 1, "name" => "不显示"],
             ],
+            'multiple' => true,
         ],
         [
             'label' => "内容模板",

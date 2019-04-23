@@ -19,6 +19,6 @@ class Password extends Text
 
     public function renderInput()
     {
-        return "<input type=\"password\" {$this->renderAttributes()}/>";
+        return "<input type=\"password\" {$this->renderAttributes($this->getAttributes())}/>";
     }
 }

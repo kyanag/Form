@@ -20,6 +20,6 @@ class Text extends Field
 
     public function renderInput()
     {
-        return "<input type=\"text\" {$this->renderAttributes()}/>";
+        return "<input type=\"text\" {$this->renderAttributes($this->getAttributes())}/>";
     }
 }

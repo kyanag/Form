@@ -39,7 +39,7 @@ class Form extends Field
     }
 
     protected function beginForm(){
-        return "<form {$this->renderAttributes()}>";
+        return "<form {$this->renderAttributes($this->getAttributes())}>";
     }
 
     protected function endForm(){
@@ -55,7 +55,7 @@ class Form extends Field
                 '@id' => Button::class,
                 'type' => "submit",
                 'class' => "btn btn-primary",
-                'html' => "提交",
+                'value' => "提交",
             ])->render();
         }
         if($this->resetButton === true){
@@ -63,7 +63,7 @@ class Form extends Field
                 '@id' => Button::class,
                 'type' => "reset",
                 'class' => "btn btn-primary btn btn-default",
-                'html' => "重置",
+                'value' => "重置",
             ])->render();
         }
         $elements[] = "</div></div>";

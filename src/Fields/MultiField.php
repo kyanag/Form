@@ -1,20 +1,24 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ykgon
- * Date: 2019/4/6
- * Time: 00:15
+ * User: Administrator
+ * Date: 2019/4/23
+ * Time: 15:10
  */
 
 namespace Kyanag\Form\Fields;
 
 
 use Kyanag\Form\Field;
-use Kyanag\Form\Interfaces\Renderable;
 
 class MultiField extends Field
 {
 
-    use \Kyanag\Form\Traits\MultiField;
+    public $fields = [];
+
+    protected function renderInput()
+    {
+        // TODO: Implement renderInput() method.
+    }
 
 }

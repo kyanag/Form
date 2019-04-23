@@ -19,7 +19,7 @@ class Textarea extends Field
 
     public function getDefaultAttributes()
     {
-        return $defaultAttributes = [
+        return [
             'id' => $this->id,
             'name' => $this->name,
             'class' => $this->class,
@@ -31,6 +31,6 @@ class Textarea extends Field
 
     public function renderInput(){
         $value = $this->value;
-        return "<textarea {$this->renderAttributes()}/>{$value}</textarea>";
+        return "<textarea {$this->renderAttributes($this->getAttributes())}/>{$value}</textarea>";
     }
 }

@@ -17,19 +17,24 @@ use Kyanag\Form\Field;
 class Select extends Field
 {
 
+    public $multiple = false;
     /**
      * @var ['value' => $value, 'name' => $name][]
      */
-    public $options;
+    public $options = [];
 
     public function selected($value){
+        if(is_array($this->value)){
+            return in_array($value, $this->value);
+        }
         return $this->value == $value;
     }
 
     public function getExtraAttributes()
     {
         return [
-            'value' => null,
+            'value' => null,    //覆盖value属性
+            'multiple' => $this->multiple,
         ];
     }
 

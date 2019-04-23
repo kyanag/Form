@@ -28,7 +28,7 @@ class Editor extends Textarea
         $this->class[] = static::getClassName();
 
         $value = $this->value;
-        return "<div {$this->renderAttributes()}/>{$value}</div>" . $this->renderHidden();
+        return "<div {$this->renderAttributes($this->getAttributes())}/>{$value}</div>" . $this->renderHidden();
     }
 
     public function renderHidden(){

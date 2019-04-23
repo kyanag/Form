@@ -46,7 +46,7 @@ trait UploadField
         return object_create(["@id" => "form.file.domain"]) . $this->value;
     }
 
-    public function getOptionsAttribute(){
+    public function getJsOptionsAttribute(){
         return [
             'initial-preview' => $this->resourceUrl(),
             'initial-caption' => $this->value,

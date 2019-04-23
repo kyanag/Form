@@ -20,14 +20,11 @@ class Button extends Field
 
     public $html;
 
-    public function init()
-    {
-        $this->_template = "{input}";
-    }
+    protected $_template = "{input}";
 
     protected function renderInput()
     {
-        return "<button {$this->renderAttributes()}>{$this->html}</button>";
+        return "<button {$this->renderAttributes($this->getAttributes())}>{$this->value}</button>";
     }
 
 }

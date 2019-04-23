@@ -31,23 +31,6 @@ foreach ($columns as $column){
     $form->pushPart(\Kyanag\Form\object_create($column));
 }
 
-$manyValue = \Kyanag\Form\object_create([
-        "@id" => \Kyanag\Form\Fields\MultiField::class,
-    'name' => "aaa",
-]);
-$manyValue->pushPart(\Kyanag\Form\object_create([
-    'label' => "新闻标题",
-    'name' => "title",
-    'help' => "最少两个字符",
-    '@id' => \Kyanag\Form\Fields\Text::class,
-]));
-$manyValue->pushPart(\Kyanag\Form\object_create([
-    '@id' => \Kyanag\Form\Fields\Text::class,
-    'name' => "bbbb",
-    'value' => rand(10000, 888888)
-]));
-$form->pushPart($manyValue);
-
 $csrf = \Kyanag\Form\object_create([
     '@id' => \Kyanag\Form\Fields\Hidden::class,
     'name' => "_csrf",
@@ -60,7 +43,7 @@ $form = \Kyanag\Form\object_init($form, [
     'method' => "post",
 ]);
 
-$form->value = [
+$form->setValue([
     'id' => 1,
     'title' => "号外号外",
     'category_id' => 2,
@@ -72,7 +55,7 @@ $form->value = [
     'bg_img' => "examples/3be2be8f8c5494eef2bc8d2027f5e0fe99257e2d.jpg",
     'context' => "<h1>联盟日报</h1>",
     'status' => 1,
-];
+]);
 
 ?>
 <html>
