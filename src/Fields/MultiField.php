@@ -10,15 +10,26 @@ namespace Kyanag\Form\Fields;
 
 
 use Kyanag\Form\Field;
+use Kyanag\Form\Interfaces\Renderable;
 
 class MultiField extends Field
 {
 
-    public $fields = [];
+    protected $parts = [];
+
+    public function pushPart(Renderable $part){
+        $this->parts[] = $part;
+    }
 
     protected function renderInput()
     {
-        // TODO: Implement renderInput() method.
+        return implode("", array_map(function(Renderable $field){
+            return $this->renderPart($field);
+        }, $this->parts));
+    }
+
+    protected function renderPart(Renderable $part){
+        return $part->render();
     }
 
 }

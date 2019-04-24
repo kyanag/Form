@@ -5,12 +5,10 @@ namespace Kyanag\Form\Widgets;
 use Kyanag\Form\Field;
 use Kyanag\Form\Fields\Button;
 use function Kyanag\Form\object_create;
-use Kyanag\Form\Traits\MultiField;
+use Kyanag\Form\Fields\MultiField;
 
-class Form extends Field
+class Form extends MultiField
 {
-
-    use MultiField;
 
     protected $submitButton = true;
 
@@ -31,6 +29,8 @@ class Form extends Field
     public function getExtraAttributes()
     {
         return [
+            'name' => null,
+            'data' => null,
             'method' => $this->method,
             'action' => $this->action,
             'enctype' => $this->enctype,
@@ -51,20 +51,24 @@ class Form extends Field
             "<div class=\"form-group row\"><div class=\"col-sm-offset-2 col-sm-8 text-center\">"
         ];
         if($this->submitButton === true){
-            $elements[] = object_create([
-                '@id' => Button::class,
-                'type' => "submit",
-                'class' => "btn btn-primary",
-                'value' => "提交",
-            ])->render();
+            $submitBtn = new Button();
+            $submitBtn->type = "submit";
+            $submitBtn->class = [
+                "btn btn-primary"
+            ];
+            $submitBtn->value = "提交";
+
+            $elements[] = $submitBtn->render();
         }
         if($this->resetButton === true){
-            $elements[] = object_create([
-                '@id' => Button::class,
-                'type' => "reset",
-                'class' => "btn btn-primary btn btn-default",
-                'value' => "重置",
-            ])->render();
+            $resetBtn = new Button();
+            $resetBtn->type = "reset";
+            $resetBtn->class = [
+                "btn btn-default"
+            ];
+            $resetBtn->value = "重置";
+
+            $elements[] = $resetBtn->render();
         }
         $elements[] = "</div></div>";
         return implode(" ", $elements);

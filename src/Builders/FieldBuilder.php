@@ -6,17 +6,16 @@
  * Time: 14:15
  */
 
-namespace Kyanag\Form;
-use Kyanag\Form\Fields\Select;
+namespace Kyanag\Form\Builders;
+
+use Kyanag\Form\Field;
 
 /**
- * @method self name(string $name)
  * @method self label(string $label)
  * @method self help(string $help)
- * @method self error(string $error)
  * @method self title(string $title)
  * @method self data(array $data);
- * @method self value(string|array $value);
+ * @property string name
  * Class FieldBuilder
  * @package Kyanag\Form
  */
@@ -25,10 +24,6 @@ class FieldBuilder
 
     protected $field;
 
-    /**
-     * FieldBuilder constructor.
-     * @param Field|Select $field
-     */
     public function __construct(Field $field)
     {
         $this->field = $field;
@@ -37,6 +32,29 @@ class FieldBuilder
     public function __call($name, $arguments)
     {
         $this->field->{$name} = $arguments[0];
+        return $this;
+    }
+
+    public function __get($name)
+    {
+        return $this->field->{$name};
+    }
+
+    public function name($name){
+        $this->field->name = $name;
+        return $this;
+    }
+
+    public function error($error){
+        $this->field->error = $error;
+        return $this->addClass("is-invalid");
+    }
+
+    public function value($value){
+        if(isset($this->field->multiple) && $this->field->multiple){
+            $value = (array)$value;
+        }
+        $this->field->value = $value;
         return $this;
     }
 
@@ -67,6 +85,14 @@ class FieldBuilder
 
     public function options(array $options){
         $this->field->options = $options;
+        return $this;
+    }
+
+    public function addClass($class){
+        if(!is_array($this->field->class)){
+            $this->field->class = (array)$this->field->class;
+        }
+        $this->field->class[] = $class;
         return $this;
     }
 

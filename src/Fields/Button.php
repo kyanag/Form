@@ -18,9 +18,17 @@ use Kyanag\Form\Field;
 class Button extends Field
 {
 
-    public $html;
+    public $type;
 
     protected $_template = "{input}";
+
+    public function getExtraAttributes()
+    {
+        return [
+            'type' => $this->type,
+            'name' => null,
+        ];
+    }
 
     protected function renderInput()
     {

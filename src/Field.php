@@ -174,7 +174,9 @@ EOF;
     protected function renderAttributes(array $attributes){
         $items = [];
         foreach($attributes as $name => $value){
-            $items[] = $this->renderAttr($name, $value);
+            if(!is_null($value)){
+                $items[] = $this->renderAttr($name, $value);
+            }
         }
         return implode(" ", $items);
     }
