@@ -48,14 +48,22 @@ EOF;
     public $name;
 
     /**
-     * @var string|array
+     * @var string|array|number
      */
     public $value;
 
+    /**
+     * 控件其他属性
+     * @var array
+     */
     public $attributes = [];
 
     public $class = ['form-control'];
 
+    /**
+     * 标签
+     * @var string
+     */
     public $label;
 
     public $help;

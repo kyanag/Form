@@ -13,6 +13,7 @@ use Kyanag\Form\Fields\MultiField;
 use Kyanag\Form\Fields\Checkbox;
 use Kyanag\Form\Fields\Editor;
 use Kyanag\Form\Fields\Hidden;
+use Kyanag\Form\Fields\Number;
 use Kyanag\Form\Fields\Radio;
 use Kyanag\Form\Fields\Select;
 use Kyanag\Form\Fields\Text;
@@ -67,6 +68,10 @@ class NestedFormBuilder extends FieldBuilder
         return $this->pushFieldBuilder(new Editor())->name($name)->label($label);
     }
 
+    public function number($name, $label = null){
+        return $this->pushFieldBuilder(new Number())->name($name)->label($label);
+    }
+
     public function value($data){
         /** @var FieldBuilder $builder */
         foreach ($this->builders as $builder){
@@ -80,7 +85,7 @@ class NestedFormBuilder extends FieldBuilder
     /**
      * @param $name
      * @param null $label
-     * @param callable<ActiveForm> $callback
+     * @param callable<static> $callback
      */
     public function hasMany($name, $label = null, callable $callback){
         //$form = new VirtualForm();

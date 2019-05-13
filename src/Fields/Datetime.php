@@ -11,6 +11,7 @@ namespace Kyanag\Form\Fields;
 
 /**
  * @Annotation
+ * @property string $a
  * @package Kyanag\Form\Fields
  */
 class Datetime extends Text

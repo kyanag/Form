@@ -16,10 +16,9 @@ namespace Kyanag\Form\Fields;
 class Hidden extends Text
 {
 
-    public $_template = "{input}";
-
     public function renderInput()
     {
+        $this->_template = "{input}";
         return "<input type=\"hidden\" {$this->renderAttributes($this->getAttributes())}/>";
     }
 }

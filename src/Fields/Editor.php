@@ -16,17 +16,15 @@ namespace Kyanag\Form\Fields;
 class Editor extends Textarea
 {
 
-    public $class = [];
-
-    public static function getClassName(){
-        return "kyanag-form-editor";
+    public function getExtraAttributes()
+    {
+        return [
+            'class' => array_merge((array)$this->class, ["kyanag-form-editor"]),
+        ];
     }
-
 
     public function renderInput()
     {
-        $this->class[] = static::getClassName();
-
         $value = $this->value;
         return "<div {$this->renderAttributes($this->getAttributes())}/>{$value}</div>" . $this->renderHidden();
     }
