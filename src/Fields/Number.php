@@ -31,6 +31,6 @@ class Number extends Text
 
     public function renderInput()
     {
-        return "<input type=\"number\" {$this->renderAttributes()}/>";
+        return "<input type=\"number\" {$this->renderAttributes($this->getAttributes())}/>";
     }
 }

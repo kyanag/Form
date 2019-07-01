@@ -86,16 +86,17 @@ class NestedFormBuilder extends FieldBuilder
      * @param $name
      * @param null $label
      * @param callable<static> $callback
+     * @todo
      */
     public function hasMany($name, $label = null, callable $callback){
         //$form = new VirtualForm();
-
+        //TODO
     }
 
     /**
      * @param $name
      * @param $label
-     * @param callable(ActiveForm) $callback
+     * @param callable<NestedFormBuilder> $callback
      */
     public function hasOne($name, $label, callable $callback){
         $formBuilder = new NestedFormBuilder(new MultiField());

@@ -9,21 +9,17 @@
         }
     ],
     "require": {
-        "phpunit/phpunit": "^6.5",
-        "psr/container": "^1.0",
         "doctrine/annotations": "^1.4"
     },
     "require-dev":{
+        "phpunit/phpunit": "^6.5",
         "symfony/dom-crawler": "^3.4",
         "league/container": "^3.2"
     },
     "autoload": {
         "psr-4": {
             "Kyanag\\Form\\": "src/"
-        },
-        "files": [
-            "./functions.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
