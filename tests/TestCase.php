@@ -25,9 +25,6 @@ abstract class TestCase extends PHPUnitTestCase
 
     protected function setUp()
     {
-        $container = new \League\Container\Container();
-        $container->add(AnnotationReader::class);
-        $app = new App($container);
-        $this->app = $app;
+
     }
 }

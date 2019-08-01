@@ -20,6 +20,18 @@ use Kyanag\Form\Fields\Text;
 use Kyanag\Form\Fields\Textarea;
 use Kyanag\Form\Field;
 
+/**
+ * Class NestedFormBuilder
+ * @package Kyanag\Form\Builders
+ *
+ * @method FieldBuilder text($name, $label = null)
+ * @method FieldBuilder radio($name, $label = null)
+ * @method FieldBuilder select($name, $label = null)
+ * @method FieldBuilder datetime($name, $label = null)
+ * @method FieldBuilder editor($name, $label = null)
+ * @method FieldBuilder textarea($name, $label = null)
+ * @method FieldBuilder number($name, $label = null)
+ */
 class NestedFormBuilder extends FieldBuilder
 {
     /**
@@ -27,25 +39,50 @@ class NestedFormBuilder extends FieldBuilder
      */
     protected $builders = [];
 
+    protected static $fields = [
+        'text' => Text::class,
+        'radio' => Radio::class,
+        'select' => Select::class,
+        'datetime' => Datetime::class,
+        'textarea' => Textarea::class,
+        'editor' => Editor::class,
+        'number' => Number::class,
+    ];
+
+    public static function register($name, $className){
+        static::$fields[$name] = $className;
+    }
+
+    /**
+     * @param $name
+     * @return Field
+     */
+    protected static function resolve($name){
+        if(isset(static::$fields[$name])){
+            $className = static::$fields[$name];
+            $field = new $className();
+            return $field;
+        }else{
+            throw new \Exception("未注册的字段类型");
+        }
+    }
+
+    public function __call($name, $arguments)
+    {
+        $field_name = $arguments[0];
+        $label = @$arguments[1] ?: $field_name;
+
+        $field = static::resolve($name);
+        return $this->pushFieldBuilder($field)->name($field_name)->label($label);
+    }
+
     public function __construct(MultiField $field)
     {
         parent::__construct($field);
     }
 
-    public function text($name, $label = null){
-        return $this->pushFieldBuilder(new Text())->name($name)->label($label);
-    }
-
     public function hidden($name){
         return $this->pushFieldBuilder(new Hidden())->name($name);
-    }
-
-    public function radio($name, $label = null){
-        return $this->pushFieldBuilder(new Radio())->name($name)->label($label);
-    }
-
-    public function select($name, $label = null){
-        return $this->pushFieldBuilder(new Select())->name($name)->label($label);
     }
 
     public function multiSelect($name, $label = null){
@@ -54,22 +91,6 @@ class NestedFormBuilder extends FieldBuilder
 
     public function checkbox($name, $label = null){
         return $this->pushFieldBuilder(new Checkbox())->name($name)->label($label)->multiple();
-    }
-
-    public function datetime($name, $label = null){
-        return $this->pushFieldBuilder(new Datetime())->name($name)->label($label);
-    }
-
-    public function textarea($name, $label){
-        return $this->pushFieldBuilder(new Textarea())->name($name)->label($label);
-    }
-
-    public function editor($name, $label){
-        return $this->pushFieldBuilder(new Editor())->name($name)->label($label);
-    }
-
-    public function number($name, $label = null){
-        return $this->pushFieldBuilder(new Number())->name($name)->label($label);
     }
 
     public function value($data){
