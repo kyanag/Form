@@ -98,6 +98,14 @@ function getColumns(){
 }
 
 
+function toUnderScore($str)
+{
+    $dstr = preg_replace_callback('/([A-Z]+)/', function($matchs) {
+        return '_'.strtolower($matchs[0]);
+    },$str);
+    return trim(preg_replace('/_{2,}/','_',$dstr),'_');
+}
+
 function array_sort($array, $func = "sort"){
     $func($array);
     return $array;

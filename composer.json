@@ -8,18 +8,18 @@
             "email": "gongzuo_yk@foxmail.com"
         }
     ],
-    "require": {
-        "doctrine/annotations": "^1.4"
-    },
+    "require": {},
     "require-dev":{
         "phpunit/phpunit": "^6.5",
-        "symfony/dom-crawler": "^3.4",
         "league/container": "^3.2"
     },
     "autoload": {
         "psr-4": {
             "Kyanag\\Form\\": "src/"
-        }
+        },
+        "files": [
+            "./src/functions.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

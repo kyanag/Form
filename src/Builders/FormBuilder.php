@@ -18,11 +18,6 @@ use Kyanag\Form\Widgets\Form;
 class FormBuilder extends NestedFormBuilder
 {
 
-    public function __construct(Form $field)
-    {
-        parent::__construct($field);
-    }
-
     public function action($action){
         $this->field->action = $action;
         return $this;

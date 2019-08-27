@@ -1,0 +1,14 @@
+.kyanag-form-ajaximage-preview {
+    height: 200px;
+    cursor: pointer;
+}
+
+.kyanag-form-ajaximage-card{
+    cursor: pointer;
+}
+
+.kyanag-form-ajaximage-preview > img{
+    object-fit:cover;
+    width: auto;
+    height: auto;
+}

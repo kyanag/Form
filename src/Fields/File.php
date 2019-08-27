@@ -24,12 +24,12 @@ class File extends Field
     {
         return [
             'accept' => $this->accept,
-            'class' => array_merge($this->class, ['kyanag-form-file']),
+            'class' => $this->class,
             'name' => $this->name,
         ];
     }
 
-    public function renderInput()
+    protected function renderInput()
     {
         return "<input type=\"file\" {$this->renderAttributes($this->getAttributes())}/>";
     }

@@ -18,7 +18,7 @@ class NestedFormBuilderTest extends TestCase
 {
 
     protected function newNestedFormBuilder(){
-        return new NestedFormBuilder(new Form());
+        return new NestedFormBuilder(new Form(), $this->container);
     }
 
     protected function getField($fieldBuilder){
@@ -40,7 +40,7 @@ class NestedFormBuilderTest extends TestCase
     }
 
     public function testRegister(){
-        NestedFormBuilder::register("noname", Text::class);
+        $this->container->add("noname", Text::class);
 
         $formBuilder = $this->newNestedFormBuilder();
         $fieldBuilder = $formBuilder->noname("test", "测试");

@@ -19,6 +19,7 @@ use Kyanag\Form\Fields\Select;
 use Kyanag\Form\Fields\Text;
 use Kyanag\Form\Fields\Textarea;
 use Kyanag\Form\Field;
+use Psr\Container\ContainerInterface;
 
 /**
  * Class NestedFormBuilder
@@ -34,55 +35,53 @@ use Kyanag\Form\Field;
  */
 class NestedFormBuilder extends FieldBuilder
 {
+
+    protected $container;
+
     /**
      * @var FieldBuilder[]
      */
     protected $builders = [];
 
-    protected static $fields = [
-        'text' => Text::class,
-        'radio' => Radio::class,
-        'select' => Select::class,
-        'datetime' => Datetime::class,
-        'textarea' => Textarea::class,
-        'editor' => Editor::class,
-        'number' => Number::class,
-    ];
+    /**
+     * NestedFormBuilder constructor.
+     * @param MultiField $field
+     *
+     * must has 'hidden', 'checkbox', 'multi_field'
+     * @param ContainerInterface $container
+     */
+    public function __construct(MultiField $field, ContainerInterface $container)
+    {
+        parent::__construct($field);
 
-    public static function register($name, $className){
-        static::$fields[$name] = $className;
+        $this->container = $container;
     }
 
-    /**
-     * @param $name
-     * @return Field
-     */
-    protected static function resolve($name){
-        if(isset(static::$fields[$name])){
-            $className = static::$fields[$name];
-            $field = new $className();
+
+    protected function resolve($name){
+        if($this->container->has($name)){
+            $field = $this->container->get($name);
             return $field;
-        }else{
-            throw new \Exception("未注册的字段类型");
         }
+        return false;
     }
 
     public function __call($name, $arguments)
     {
-        $field_name = $arguments[0];
-        $label = @$arguments[1] ?: $field_name;
+        $field = $this->resolve($name);
+        if($field !== false){
+            $field_name = $arguments[0];
+            $label = @$arguments[1] ?: $field_name;
 
-        $field = static::resolve($name);
-        return $this->pushFieldBuilder($field)->name($field_name)->label($label);
-    }
-
-    public function __construct(MultiField $field)
-    {
-        parent::__construct($field);
+            return $this->pushFieldBuilder($field)->name($field_name)->label($label);
+        }else{
+            parent::__call($name, $arguments);
+        }
     }
 
     public function hidden($name){
-        return $this->pushFieldBuilder(new Hidden())->name($name);
+        $field = $this->resolve("hidden");
+        return $this->pushFieldBuilder($field)->name($name);
     }
 
     public function multiSelect($name, $label = null){
@@ -90,7 +89,8 @@ class NestedFormBuilder extends FieldBuilder
     }
 
     public function checkbox($name, $label = null){
-        return $this->pushFieldBuilder(new Checkbox())->name($name)->label($label)->multiple();
+        $field = $this->resolve("checkbox");
+        return $this->pushFieldBuilder($field)->name($name)->label($label)->multiple();
     }
 
     public function value($data){
@@ -120,7 +120,8 @@ class NestedFormBuilder extends FieldBuilder
      * @param callable<NestedFormBuilder> $callback
      */
     public function hasOne($name, $label, callable $callback){
-        $formBuilder = new NestedFormBuilder(new MultiField());
+        $multi_field = $this->resolve("multi_field");
+        $formBuilder = new NestedFormBuilder($multi_field, $this->container);
         $this->builders[] = $formBuilder;
         call_user_func_array($callback, [$formBuilder]);
         return $formBuilder->name($name)->label($label);

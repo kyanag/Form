@@ -16,6 +16,8 @@ namespace Kyanag\Form\Fields;
 class Editor extends Textarea
 {
 
+    public $class = [];
+
     public function getExtraAttributes()
     {
         return [
