@@ -8,16 +8,7 @@
 
 namespace Kyanag\Form\Builders;;
 
-use Kyanag\Form\Fields\Datetime;
 use Kyanag\Form\Fields\MultiField;
-use Kyanag\Form\Fields\Checkbox;
-use Kyanag\Form\Fields\Editor;
-use Kyanag\Form\Fields\Hidden;
-use Kyanag\Form\Fields\Number;
-use Kyanag\Form\Fields\Radio;
-use Kyanag\Form\Fields\Select;
-use Kyanag\Form\Fields\Text;
-use Kyanag\Form\Fields\Textarea;
 use Kyanag\Form\Field;
 use Psr\Container\ContainerInterface;
 
@@ -109,7 +100,7 @@ class NestedFormBuilder extends FieldBuilder
      * @param callable<static> $callback
      * @todo
      */
-    public function hasMany($name, $label = null, callable $callback){
+    public function hasMany($name, $label, callable $callback){
         //$form = new VirtualForm();
         //TODO
     }

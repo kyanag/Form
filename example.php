@@ -38,6 +38,9 @@ function fromBuilder(){
     $formBuilder->ajax_image("bg_img", "图片")->help("111");
 
     $formBuilder->hasOne("member", "测试hasOne", function(\Kyanag\Form\Builders\NestedFormBuilder $form){
+        //去掉HasOne 的 label 部分
+        $form->disableLabel();
+
         $form->text("name", "名称")->required();
         $form->text("mobile", "电话号")->required();
     });

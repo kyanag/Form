@@ -116,4 +116,12 @@ class FieldBuilder
     public function toField(){
         return $this->field;
     }
+
+    /**
+     * @return $this
+     */
+    public function disableLabel(){
+        $this->field->template("<div class=\"form-group row\"><div class=\"col-sm-12\">{input}{error}{help}</div></div>");
+        return $this;
+    }
 }
