@@ -14,7 +14,6 @@ class AjaxImage extends AjaxFile
         return [
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-ajaximage']),
-            'name' => $this->name,
         ];
     }
 

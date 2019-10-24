@@ -48,9 +48,9 @@ class Radio extends Select
     }
 
     protected function renderOption($option, $index){
-        if(!isset($this->subAttributes['id'])) $this->subAttributes['id'] = $this->name . "-{$index}";
+        if(!isset($this->subAttributes['id'])) $this->subAttributes['id'] = $this->getNameAttribute() . "-{$index}";
 
-        $this->subAttributes['name'] = $this->name;
+        $this->subAttributes['name'] = $this->getNameAttribute();
         $this->subAttributes['value'] = $option['value'];
         $this->subAttributes['checked'] = $this->selected($option['value']);
         $this->subLabelAttributes['for'] = $this->subAttributes['id'];

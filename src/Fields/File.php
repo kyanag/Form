@@ -25,7 +25,6 @@ class File extends Field
         return [
             'accept' => $this->accept,
             'class' => $this->class,
-            'name' => $this->name,
         ];
     }
 

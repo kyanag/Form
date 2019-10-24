@@ -34,7 +34,7 @@ class Editor extends Textarea
     public function renderHidden(){
         $value = $this->value;
         $attributes = [
-            'name' => $this->name,
+            'name' => $this->getNameAttribute(),
         ];
         return "<textarea style='display: none' {$this->renderAttributes($attributes)}>{$value}</textarea>";
     }

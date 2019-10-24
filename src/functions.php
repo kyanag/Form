@@ -11,9 +11,7 @@ function toUnderScore($str)
 }
 
 function fieldMappings(){
-
-    $basepath = ".";
-    $files = glob("{$basepath}/src/Fields/*");
+    $files = glob(__DIR__ . "/Fields/*");
 
     $_ = [];
 

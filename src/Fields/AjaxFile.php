@@ -13,7 +13,6 @@ class AjaxFile extends File
         return [
             'accept' => $this->accept,
             'class' => array_merge($this->class, ['kyanag-form-ajaxfile']),
-            'name' => $this->name,
         ];
     }
 
