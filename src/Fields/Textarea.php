@@ -17,15 +17,13 @@ use Kyanag\Form\Field;
 class Textarea extends Field
 {
 
-    public function getDefaultAttributes()
+    public function getExtraAttributes()
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'class' => $this->class,
-            'readonly' => $this->reanonly,
+            'value' => null,
             'disabled' => $this->disabled,
             'autofocus' => $this->autofocus,
+            'data' => $this->data,
         ];
     }
 

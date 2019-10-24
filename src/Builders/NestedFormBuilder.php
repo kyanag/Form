@@ -118,7 +118,7 @@ class NestedFormBuilder extends FieldBuilder
         return $formBuilder->name($name)->label($label);
     }
 
-    protected function pushFieldBuilder(Field $field){
+    public function pushFieldBuilder(Field $field){
         $builder = new FieldBuilder($field);
         $this->builders[] = $builder;
         return $builder;
