@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface InputControlElement extends Renderable
+interface InputComponent extends Renderable
 {
 
     /**

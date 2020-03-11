@@ -4,14 +4,14 @@
 namespace Kyanag\Form;
 
 use Kyanag\Form\Interfaces\FormInterface;
-use Kyanag\Form\Interfaces\InputControlElement;
+use Kyanag\Form\Interfaces\InputComponent;
 
-class FormBuilder implements InputControlElement,FormInterface
+class FormBuilder implements InputComponent,FormInterface
 {
 
     protected $form;
 
-    /** @var array<string, InputControlElement>  */
+    /** @var array<string, InputComponent>  */
     protected $elements = [];
 
     public function __construct(FormInterface $form)
@@ -51,7 +51,7 @@ class FormBuilder implements InputControlElement,FormInterface
 
     public function setValue($value)
     {
-        /** @var InputControlElement $element */
+        /** @var InputComponent $element */
         foreach ($this->elements as $name => $element){
             if(isset($value[$name])){
                 $element->setValue($value[$name]);
@@ -62,7 +62,7 @@ class FormBuilder implements InputControlElement,FormInterface
     public function __call($name, $arguments)
     {
         $element = call_user_func_array([$this->form, $name], $arguments);
-        if($element instanceof InputControlElement){
+        if($element instanceof InputComponent){
             //第一个参数就是控件名称
             $elementName = $arguments[0];
             $this->elements[$elementName] = $element;

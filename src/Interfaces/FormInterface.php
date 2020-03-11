@@ -10,7 +10,7 @@ interface FormInterface
      * 普通输入框
      * @param $name
      * @param null $label
-     * @return InputControlElement
+     * @return InputComponent
      */
     public function text($name, $label = null);
 
@@ -19,7 +19,7 @@ interface FormInterface
      * @param $name
      * @param null $label
      * @param array $options
-     * @return InputControlElement
+     * @return InputComponent
      */
     public function radio($name, $label = null, $options = []);
 
@@ -28,7 +28,7 @@ interface FormInterface
      * @param $name
      * @param null $label
      * @param array $options
-     * @return InputControlElement
+     * @return InputComponent
      */
     public function select($name, $label = null, $options = []);
 
@@ -46,14 +46,14 @@ interface FormInterface
      * @param $name
      * @param null $label
      * @param array $options
-     * @return InputControlElement
+     * @return InputComponent
      */
     public function checkbox($name, $label = null, $options = []);
 
     /**
      * @param $name
      * @param null $label
-     * @return InputControlElement
+     * @return InputComponent
      */
     public function file($name, $label = null);
 

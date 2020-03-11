@@ -35,6 +35,10 @@ class Element implements Renderable
         $this->elements = $elements;
     }
 
+    public function setAttribute($name, $attribute){
+        $this->attributes[$name] = $attribute;
+    }
+
     protected function renderStart(){
         return implode(" ", [
             "<{$this->tagName}",
