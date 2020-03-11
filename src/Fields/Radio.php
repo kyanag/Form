@@ -10,7 +10,7 @@ namespace Kyanag\Form\Fields;
 
 /**
  * @Annotation
- * @package Kyanag\Form\Fields
+ * @package Kyanag\FormBuilder\Fields
  */
 class Radio extends Select
 {

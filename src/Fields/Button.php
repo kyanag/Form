@@ -12,7 +12,7 @@ namespace Kyanag\Form\Fields;
 use Kyanag\Form\Field;
 
 /**
- * @package Kyanag\Form\Fields
+ * @package Kyanag\FormBuilder\Fields
  */
 class Button extends Field
 {

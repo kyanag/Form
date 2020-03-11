@@ -11,7 +11,7 @@ namespace Kyanag\Form\Fields;
 
 /**
  * @Annotation
- * @package Kyanag\Form\Fields
+ * @package Kyanag\FormBuilder\Fields
  */
 class Checkbox extends Radio
 {

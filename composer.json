@@ -1,5 +1,5 @@
 {
-    "name": "kyanag/forms",
+    "name": "kyanag/form",
     "description": "Form",
     "type": "library",
     "authors": [
@@ -10,8 +10,7 @@
     ],
     "require": {},
     "require-dev":{
-        "phpunit/phpunit": "^6.5",
-        "league/container": "^3.2"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {

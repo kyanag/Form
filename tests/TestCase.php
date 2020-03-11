@@ -18,7 +18,7 @@ use Psr\Container\ContainerInterface;
 
 /**
  * Class TestCase
- * @package Kyanag\Form\Tests
+ * @package Kyanag\FormBuilder\Tests
  */
 abstract class TestCase extends PHPUnitTestCase
 {
@@ -37,7 +37,7 @@ abstract class TestCase extends PHPUnitTestCase
 
         foreach ($files as $file){
             $name = str_replace(".php", "", basename($file));
-            $className = "Kyanag\\Form\\Fields\\{$name}";
+            $className = "Kyanag\\FormBuilder\\Fields\\{$name}";
 
             $container->add(toUnderScore($name), $className);
         }

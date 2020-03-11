@@ -12,7 +12,7 @@ use Kyanag\Form\Field;
 
 /**
  * @Annotation
- * @package Kyanag\Form\Fields
+ * @package Kyanag\FormBuilder\Fields
  */
 class Textarea extends Field
 {

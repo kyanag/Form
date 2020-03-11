@@ -12,7 +12,7 @@ namespace Kyanag\Form\Fields;
 /**
  * @Annotation
  * @property string $a
- * @package Kyanag\Form\Fields
+ * @package Kyanag\FormBuilder\Fields
  */
 class Datetime extends Text
 {
