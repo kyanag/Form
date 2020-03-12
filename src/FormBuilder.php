@@ -3,79 +3,33 @@
 
 namespace Kyanag\Form;
 
-use Kyanag\Form\Interfaces\FormInterface;
+use Kyanag\Form\Interfaces\FormBodyInterface;
+use Kyanag\Form\Interfaces\FormDataInterface;
 use Kyanag\Form\Interfaces\InputComponent;
+use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Traits\FormDataTrait;
 
-class FormBuilder implements InputComponent,FormInterface
+class FormBuilder implements FormDataInterface, Renderable
 {
 
-    protected $form;
+    use FormDataTrait;
+
+    protected $body;
 
     /** @var array<string, InputComponent>  */
-    protected $elements = [];
+    protected $components = [];
 
-    public function __construct(FormInterface $form)
+    public function __construct(FormBodyInterface $body)
     {
-        $this->form = $form;
-    }
-
-    public function text($name, $label = null)
-    {
-        return $this->__call(__METHOD__, [$name, $label]);
-    }
-
-    public function textarea($name, $label = null)
-    {
-        return $this->__call(__METHOD__, [$name, $label]);
-    }
-
-    public function file($name, $label = null)
-    {
-        return $this->__call(__METHOD__, [$name, $label]);
-    }
-
-    public function radio($name, $label = null, $options = [])
-    {
-        return $this->__call(__METHOD__, [$name, $label, $options]);
-    }
-
-    public function select($name, $label = null, $options = [])
-    {
-        return $this->__call(__METHOD__, [$name, $label, $options]);
-    }
-
-    public function checkbox($name, $label = null, $options = [])
-    {
-        return $this->__call(__METHOD__, [$name, $label, $options]);
-    }
-
-    public function setValue($value)
-    {
-        /** @var InputComponent $element */
-        foreach ($this->elements as $name => $element){
-            if(isset($value[$name])){
-                $element->setValue($value[$name]);
-            }
-        }
-    }
-
-    public function __call($name, $arguments)
-    {
-        $element = call_user_func_array([$this->form, $name], $arguments);
-        if($element instanceof InputComponent){
-            //第一个参数就是控件名称
-            $elementName = $arguments[0];
-            $this->elements[$elementName] = $element;
-        }
-        return $element;
+        $this->body = $body;
     }
 
     public function render()
     {
-        return $this->toForm()->render();
+        return $this->getBody()->render();
     }
 
-    public function built(){
-        return $this->form;
+    public function getBody(){
+        return $this->body;
     }
 }

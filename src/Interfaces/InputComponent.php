@@ -4,12 +4,21 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface InputComponent extends Renderable
+interface InputComponent
 {
 
     /**
      * @param mixed $value
-     * @return mixed
      */
     public function setValue($value);
+
+    /**
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * @return Renderable
+     */
+    public function toRenderable();
 }

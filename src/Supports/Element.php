@@ -5,15 +5,17 @@ namespace Kyanag\Form\Supports;
 
 
 use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Traits\ElementAttributesTrait;
 
 class Element implements Renderable
 {
+
+    use ElementAttributesTrait;
+
     const E_CLOSE_SINGLE = 0;   //单闭和标签
     const E_CLOSE_DOUBLE = 1;   //双闭合标签
 
     protected $tagName;
-
-    protected $attributes = [];
 
     protected $closeType = 1;   //默认双闭合
 
@@ -35,39 +37,12 @@ class Element implements Renderable
         $this->elements = $elements;
     }
 
-    public function setAttribute($name, $attribute){
-        $this->attributes[$name] = $attribute;
-    }
-
     protected function renderStart(){
         return implode(" ", [
             "<{$this->tagName}",
             $this->renderAttributes(),
             ($this->closeType == 1 ? ">": "/>")
         ]);
-    }
-
-    protected function renderAttributes(){
-        $_ = [];
-        foreach ($this->attributes as $name => $value){
-            $_ = $this->renderAttribute($name, $value);
-        }
-        return implode(" ", $_);
-    }
-
-    protected function renderAttribute($name, $value){
-        if($name == "data"){
-            //TODO
-            return "";
-        }else{
-            if(is_bool($value)){
-                return $name;
-            }
-            if(is_array($value)){
-                $value = implode(" ", $value);
-            }
-            return "{$name}=\"{$value}\"";
-        }
     }
 
     protected function renderElements(){
