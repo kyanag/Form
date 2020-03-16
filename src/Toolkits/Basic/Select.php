@@ -9,6 +9,7 @@ use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Supports\Element;
 use Kyanag\Form\Supports\ElementAdapter;
 use Kyanag\Form\Traits\ElementAttributesTrait;
+use function Kyanag\Form\renderOptions;
 
 class Select extends Text
 {
@@ -22,10 +23,7 @@ class Select extends Text
     }
 
     protected function getElements(){
-        $optionStr = implode("", array_map(function($option){
-            $selected = $option['value'] == $this->value ? "selected" : "";
-            return "<option value=\"{$option['value']}\" {$selected}>{$option['title']}</option>";
-        }, $this->options));
+        $optionStr = renderOptions($this->options);
 
         return new Element(
             "select",

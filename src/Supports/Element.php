@@ -4,13 +4,16 @@
 namespace Kyanag\Form\Supports;
 
 
+use Kyanag\Form\Interfaces\ElementInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Traits\ElementAttributesTrait;
+use Kyanag\Form\Traits\ElementTrait;
 
-class Element implements Renderable
+class Element implements ElementInterface
 {
 
     use ElementAttributesTrait;
+    use ElementTrait;
 
     const E_CLOSE_SINGLE = 0;   //单闭和标签
     const E_CLOSE_DOUBLE = 1;   //双闭合标签
@@ -18,9 +21,6 @@ class Element implements Renderable
     protected $tagName;
 
     protected $closeType = 1;   //默认双闭合
-
-    /** @var array<Element>  */
-    protected $elements = [];
 
     /**
      * Element constructor.

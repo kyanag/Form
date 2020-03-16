@@ -5,9 +5,9 @@ namespace Kyanag\Form\Interfaces;
 
 
 use Kyanag\Form\Traits\ElementAttributesTrait;
-use Kyanag\Form\Traits\FormBodyTrait;
+use Kyanag\Form\Traits\ElementTrait;
 
-abstract class AbstractFormBody implements FormBodyInterface
+abstract class AbstractForm implements ElementInterface
 {
 
     const METHOD_GET = "GET";
@@ -20,7 +20,7 @@ abstract class AbstractFormBody implements FormBodyInterface
 
     use ElementAttributesTrait;
 
-    use FormBodyTrait;
+    use ElementTrait;
 
     public function setMethod($method){
         $this->setAttribute("method", strtoupper($method));

@@ -3,64 +3,49 @@
 
 ### 说明
 
->基于 bootstrap4 封装的 Form 组件
-
-
-> 向 Yii2 和 laravel-admin 借鉴很多 
+> 数据处理 和 render 分开， 可以自定义表单主题
 
 
 ```php
-$container = new \League\Container\Container();
+$bs3Theme = new \Kyanag\Form\Toolkits\Bootstrap3\Bootstrap3();
+    $bs3Theme->setAction("");
+    $bs3Theme->setEnctype("");
+    $bs3Theme->setMethod("POST");
 
-//注册 控件
-foreach (\Kyanag\Form\fieldMappings() as $name => $class){
-    $container->add($name, $class);
-}
+    $form =  new Kyanag\Form\Form($bs3Theme);
+
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "标题"));  //bootstrap3 控件
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Select("category_id", "分类", [
+            1 => "单机",
+            2 => "网游",
+            '类型' => [
+                3 => 'FPS',
+                4 => "RPG"
+            ],
+    ]));
+
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Checkbox("tags", "标签", [
+        ['value' => 1, "title" => "端游"],
+        ['value' => 2, "title" => "mmorpg"],
+        ['value' => 3, "title" => "手游"]
+    ]));
+
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Textarea("content", "富文本"));
+
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Radio("status", "状态", [
+        ['value' => 1, "title" => "可见"],
+        ['value' => 0, "title" => "不可见"]
+    ]));
 
 
-$formBuilder = new \Kyanag\Form\Builders\FormBuilder(new \Kyanag\Form\Widgets\Form(), $container);
-$formBuilder->method("get");
-
-$formBuilder->hidden("id");
-$formBuilder->text("title", "标题")->help("111")->error("长度不够");
-$formBuilder->select("category_id", "分类")->options([
-    ['value' => 1, "name" => "单机"],
-    ['value' => 2, "name" => "网游"]
-]);
-
-$formBuilder->checkbox("tags", "标签")->options([
-    ['value' => 1, "name" => "端游"],
-    ['value' => 2, "name" => "mmorpg"]
-]);
-
-$formBuilder->datetime("created_at", "发布日期");
-
-$formBuilder->ajax_image("bg_img", "图片")->help("111");
-
-$formBuilder->hasOne("member", "测试hasOne", function(\Kyanag\Form\Builders\NestedFormBuilder $form){
-    $form->text("name", "名称")->required();
-    $form->text("mobile", "电话号")->required();
-});
-
-$formBuilder->editor("context", "内容");
-
-$formBuilder->value([
-    'id' => 1,
-    'title' => "号外号外",
-    'category_id' => 2,
-    'desc' => "燃烧军团入侵了!!",
-    'tags' => [1, 2],
-    'created_at' => "2019-03-28",
-    'bg_img' => "asserts/p.png",
-    'context' => "<h1>联盟日报</h1>",
-    'member' => [
-        'name' => "张三",
-        "mobile" => "337845818"
-    ],
-    'status' => 1,
-]);
-$form = $formBuilder->toField();
-
-$formBuilder->render()
+    $form->setValue([
+        'id' => 1,
+        'title' => "号外号外",
+        'category_id' => 1,
+        'tags' => [1],
+        'content' => "联盟日报",
+        'status' => 0,
+    ]);
+    return $form;
 ```
-![图片](./asserts/p.png)

@@ -3,10 +3,9 @@
 
 namespace Kyanag\Form\Toolkits\Basic;
 
+use Kyanag\Form\Interfaces\AbstractForm;
 
-use Kyanag\Form\FormBody;
-
-class Form extends FormBody
+class Form extends AbstractForm
 {
 
 }

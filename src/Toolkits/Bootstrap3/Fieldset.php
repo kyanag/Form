@@ -4,18 +4,18 @@
 namespace Kyanag\Form\Toolkits\Bootstrap3;
 
 
-use Kyanag\Form\Interfaces\FormBodyInterface;
-use Kyanag\Form\Interfaces\FormDataInterface;
+use Kyanag\Form\Interfaces\ElementInterface;
+use Kyanag\Form\Interfaces\MultiInputComponent;
 use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
-use Kyanag\Form\Traits\FormBodyTrait;
-use Kyanag\Form\Traits\FormDataTrait;
+use Kyanag\Form\Traits\ElementTrait;
+use Kyanag\Form\Traits\MultiInputComponentTrait;
 
-class Fieldset implements FormDataInterface,InputComponent,FormBodyInterface
+class Fieldset implements MultiInputComponent,InputComponent,ElementInterface
 {
 
-    use FormDataTrait;
-    use FormBodyTrait;
+    use MultiInputComponentTrait;
+    use ElementTrait;
 
     protected $name;
 

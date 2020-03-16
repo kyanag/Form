@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface FormDataInterface
+interface MultiInputComponent extends InputComponent
 {
 
     /**
@@ -13,8 +13,4 @@ interface FormDataInterface
      */
     public function addComponent(InputComponent $component);
 
-    /**
-     * @return FormBodyInterface
-     */
-    public function getBody();
 }

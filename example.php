@@ -10,45 +10,51 @@ $loader = require "./vendor/autoload.php";
 define("APP_PATH", __DIR__);
 
 /**
- * @return \Kyanag\Form\FormBuilder
+ * @return \Kyanag\Form\Form
  */
 function fromBasicBuilder(){
 
-    $formBody = new \Kyanag\Form\Toolkits\Basic\Form();
-    $formBody->setMethod("get");
+    $bs3Theme = new \Kyanag\Form\Toolkits\Bootstrap3\Bootstrap3();
+    $bs3Theme->setAction("");
+    $bs3Theme->setEnctype("");
+    $bs3Theme->setMethod("POST");
 
-    $formBuilder = new \Kyanag\Form\FormBuilder($formBody);
+    $form =  new Kyanag\Form\Form($bs3Theme);
 
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Text("title", "标题"));
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Select("category_id", "分类", [
-        ['value' => 1, "title" => "单机"],
-        ['value' => 2, "title" => "网游"]
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "标题"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Select("category_id", "分类", [
+            1 => "单机",
+            2 => "网游",
+            '类型' => [
+                3 => 'FPS',
+                4 => "RPG"
+            ],
     ]));
 
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Checkbox("tags", "标签", [
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Checkbox("tags", "标签", [
         ['value' => 1, "title" => "端游"],
         ['value' => 2, "title" => "mmorpg"],
         ['value' => 3, "title" => "手游"]
     ]));
 
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Textarea("content", "富文本"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Textarea("content", "富文本"));
 
-    $formBuilder->addComponent(new \Kyanag\Form\Toolkits\Basic\Radio("status", "状态", [
+    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Radio("status", "状态", [
         ['value' => 1, "title" => "可见"],
-        ['value' => 2, "title" => "不可见"]
+        ['value' => 0, "title" => "不可见"]
     ]));
 
 
-    $formBuilder->setValue([
+    $form->setValue([
         'id' => 1,
         'title' => "号外号外",
-        'category_id' => 2,
-        'tags' => [1, 2],
+        'category_id' => 1,
+        'tags' => [1],
         'content' => "联盟日报",
-        'status' => 1,
+        'status' => 0,
     ]);
-    return $formBuilder;
+    return $form;
 }
 
 
@@ -57,11 +63,12 @@ $formBuilder = fromBasicBuilder();
 <html lang="zh">
 <head>
     <title></title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="row">
     <div class="col-md-6">
-        <?=$formBuilder->render()?>
+        <?=$formBuilder->toRenderable()->render()?>
     </div>
 </div>
 </body>

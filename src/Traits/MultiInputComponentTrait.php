@@ -4,15 +4,15 @@
 namespace Kyanag\Form\Traits;
 
 
-use Kyanag\Form\Interfaces\FormDataInterface;
+use Kyanag\Form\Interfaces\MultiInputComponent;
 use Kyanag\Form\Interfaces\InputComponent;
 
 /**
  * Trait FormData
  * @package Kyanag\Form\Traits
- * @mixin FormDataInterface
+ * @mixin MultiInputComponent
  */
-trait FormDataTrait
+trait MultiInputComponentTrait
 {
 
     /** @var array<string, InputComponent>  */
@@ -21,8 +21,6 @@ trait FormDataTrait
     public function addComponent(InputComponent $component)
     {
         $this->components[] = $component;
-        $this->getBody()->addElement($component->toRenderable());
-
         return $component;
     }
 

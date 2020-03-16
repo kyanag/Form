@@ -10,16 +10,19 @@ function toUnderScore($str)
     return trim(preg_replace('/_{2,}/','_',$dstr),'_');
 }
 
-function fieldMappings(){
-    $files = glob(__DIR__ . "/Fields/*");
-
+function renderOptions($options){
     $_ = [];
-
-    foreach ($files as $file){
-        $name = str_replace(".php", "", basename($file));
-        $className = __NAMESPACE__ . "\\Fields\\{$name}";
-
-        $_[toUnderScore($name)] = $className;
+    foreach ($options as $value => $text){
+        if(is_array($text)){
+            $optgroup_options = renderOptions($text);
+            $_[] = "<optgroup label=\"{$value}\">{$optgroup_options}</optgroup>";
+        }else{
+            $_[] = "<option value=\"{$value}\">{$text}</option>";
+        }
     }
-    return $_;
+    return implode("\n", $_);
+}
+
+function randomString($prefix = null){
+    return uniqid($prefix);
 }

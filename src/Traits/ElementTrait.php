@@ -6,7 +6,7 @@ namespace Kyanag\Form\Traits;
 
 use Kyanag\Form\Interfaces\Renderable;
 
-trait FormBodyTrait
+trait ElementTrait
 {
 
     /**
