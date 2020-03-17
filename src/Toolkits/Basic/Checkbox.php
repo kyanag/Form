@@ -10,7 +10,7 @@ class Checkbox extends Select
 {
 
 
-    protected function getElements()
+    protected function getElement()
     {
         $this->value = (array)$this->value;
 

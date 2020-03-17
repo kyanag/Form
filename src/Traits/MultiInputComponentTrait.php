@@ -35,4 +35,13 @@ trait MultiInputComponentTrait
         }
     }
 
+    public function setError($error){
+        /** @var InputComponent $component */
+        foreach ($this->components as $component){
+            $name = $component->getName();
+            if(isset($error[$name])){
+                $component->setError($error[$name]);
+            }
+        }
+    }
 }

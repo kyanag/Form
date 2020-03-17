@@ -15,14 +15,23 @@ abstract class AbstractForm implements ElementInterface
     const METHOD_DELETE = "DELETE";
 
     const ENCTYPE_DEFAULT = "application/x-www-form-urlencoded";
-    const ENCTYPE_FORM = "multipart/form-data";
+    const ENCTYPE_FORMDATA = "multipart/form-data";
     const ENCTYPE_PLAIN = "text/plain";
 
     use ElementAttributesTrait;
-
     use ElementTrait;
 
-    public function setMethod($method){
+    protected $overrideMethod;
+
+    /**
+     * @param $method
+     * @param bool $override
+     */
+    public function setMethod($method, $override = false){
+        if($override){
+            $method = "POST";
+            $this->overrideMethod = strtoupper($method);
+        }
         $this->setAttribute("method", strtoupper($method));
     }
 
@@ -36,6 +45,10 @@ abstract class AbstractForm implements ElementInterface
 
     protected function renderBegin(){
         return "<form {$this->renderAttributes()}>";
+    }
+
+    protected function renderOverrideMethod(){
+        return $this->overrideMethod ? "<input type=\"hidden\" name=\"_method\" value=\"{$this->overrideMethod}\">" : "";
     }
 
     protected function renderElements(){
@@ -52,6 +65,7 @@ abstract class AbstractForm implements ElementInterface
     {
         return implode("\n", [
             $this->renderBegin(),
+            $this->renderOverrideMethod(),
             $this->renderElements(),
             $this->renderEnd()
         ]);

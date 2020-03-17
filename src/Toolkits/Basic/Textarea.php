@@ -9,7 +9,7 @@ use Kyanag\Form\Supports\Element;
 class Textarea extends Text
 {
 
-    protected function getElements()
+    protected function getElement()
     {
         return new Element("textarea", [
             'name' => $this->name,

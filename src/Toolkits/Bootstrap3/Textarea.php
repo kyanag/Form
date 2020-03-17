@@ -9,19 +9,16 @@ use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
 use Kyanag\Form\Traits\InputComponentTrait;
 
-class Text implements InputComponent, Renderable
+class Textarea implements InputComponent, Renderable
 {
 
     use InputComponentTrait;
 
     public function __construct($name, $label = null)
     {
-        $label = $label ?: $name;
-
-        $this->label = $label;
         $this->name = $name;
+        $this->label = $label ?: $name;
     }
-
 
     public function toRenderable()
     {
@@ -39,7 +36,7 @@ class Text implements InputComponent, Renderable
 <div class="form-group {$hasError}">
     <label for="form-{$id}" class="col-sm-2 control-label">{$this->label}</label>
     <div class="col-sm-4">
-      <input type="text" name="{$this->name}" id="form-{$id}" class="form-control" value="{$this->value}">
+        <textarea class="form-control" id="form-{$id}" rows="3" name="{$this->name}">{$this->value}</textarea>
     </div>
     <p class="col-sm-6 help-block">{$helpText}</p>
  </div>

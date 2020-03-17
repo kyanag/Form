@@ -9,7 +9,7 @@ interface MultiInputComponent extends InputComponent
 
     /**
      * @param InputComponent $component
-     * @return mixed
+     * @return InputComponent
      */
     public function addComponent(InputComponent $component);
 

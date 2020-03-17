@@ -4,11 +4,7 @@
 namespace Kyanag\Form\Toolkits\Basic;
 
 
-use Kyanag\Form\Interfaces\InputComponent;
-use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Supports\Element;
-use Kyanag\Form\Supports\ElementAdapter;
-use Kyanag\Form\Traits\ElementAttributesTrait;
 use function Kyanag\Form\renderOptions;
 
 class Select extends Text
@@ -22,8 +18,8 @@ class Select extends Text
         $this->options = $options;
     }
 
-    protected function getElements(){
-        $optionStr = renderOptions($this->options);
+    protected function getElement(){
+        $optionStr = $this->renderOptions();
 
         return new Element(
             "select",
@@ -35,6 +31,27 @@ class Select extends Text
                 $optionStr
             ]
         );
+    }
+
+    protected function renderOptions(){
+        $_ = [];
+        foreach ($this->options as $value => $text){
+            if(is_array($text)){
+                $optgroup_options = renderOptions($text);
+                $_[] = "<optgroup label=\"{$value}\">{$optgroup_options}</optgroup>";
+            }else{
+                $selectedValue = $this->selected($value) ? "selected" : "";
+                $_[] = "<option value=\"{$value}\" {$selectedValue}>{$text}</option>";
+            }
+        }
+        return implode("\n", $_);
+    }
+
+    protected function selected($value){
+        if(is_array($this->value)){
+            return in_array($value, $this->value);
+        }
+        return $value == $this->value;
     }
 
 }

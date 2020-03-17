@@ -32,13 +32,14 @@ function fromBasicBuilder(){
             ],
     ]));
 
-    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Checkbox("tags", "标签", [
-        ['value' => 1, "title" => "端游"],
-        ['value' => 2, "title" => "mmorpg"],
-        ['value' => 3, "title" => "手游"]
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Checkbox("tags", "标签", [
+            1 => "端游",
+        2 => "mmorpg",
+        3 => "手游",
+        4 => "3D"
     ]));
 
-    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Textarea("content", "富文本"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Textarea("content", "富文本"));
 
     $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Radio("status", "状态", [
         ['value' => 1, "title" => "可见"],
@@ -50,9 +51,12 @@ function fromBasicBuilder(){
         'id' => 1,
         'title' => "号外号外",
         'category_id' => 1,
-        'tags' => [1],
+        'tags' => [1, 2, 4],
         'content' => "联盟日报",
         'status' => 0,
+    ]);
+    $form->setError([
+            //'title' => "textTitleErrpr",
     ]);
     return $form;
 }

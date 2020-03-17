@@ -8,15 +8,12 @@ use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Supports\Element;
 use Kyanag\Form\Traits\ElementAttributesTrait;
+use Kyanag\Form\Traits\InputComponentTrait;
 
 class Hidden implements InputComponent,Renderable
 {
 
-    protected $label;
-
-    protected $name;
-
-    protected $value;
+    use InputComponentTrait;
 
     public function __construct($name, $label = null)
     {

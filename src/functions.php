@@ -10,14 +10,15 @@ function toUnderScore($str)
     return trim(preg_replace('/_{2,}/','_',$dstr),'_');
 }
 
-function renderOptions($options){
+function renderOptions($options, $selectedValue = null){
     $_ = [];
     foreach ($options as $value => $text){
         if(is_array($text)){
             $optgroup_options = renderOptions($text);
             $_[] = "<optgroup label=\"{$value}\">{$optgroup_options}</optgroup>";
         }else{
-            $_[] = "<option value=\"{$value}\">{$text}</option>";
+            $selectedValue = $value == $selectedValue ? "selected" : "";
+            $_[] = "<option value=\"{$value}\" {$selectedValue}>{$text}</option>";
         }
     }
     return implode("\n", $_);

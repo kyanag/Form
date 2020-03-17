@@ -8,15 +8,12 @@ use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Supports\Element;
 use Kyanag\Form\Traits\ElementAttributesTrait;
+use Kyanag\Form\Traits\InputComponentTrait;
 
 class Text implements InputComponent,Renderable
 {
 
-    protected $label;
-
-    protected $name;
-
-    protected $value;
+    use InputComponentTrait;
 
     public function __construct($name, $label = null)
     {
@@ -26,22 +23,12 @@ class Text implements InputComponent,Renderable
         $this->name = $name;
     }
 
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    protected function getElements(){
+    protected function getElement(){
         $attributes = [
             'type' => "text",
             'value' => $this->value,
         ];
         return new Element("input", $attributes, 0);
-    }
-
-    public function getName()
-    {
-        return $this->name;
     }
 
     public function toRenderable()
@@ -51,6 +38,6 @@ class Text implements InputComponent,Renderable
 
     public function render()
     {
-        return "<p>{$this->label}: {$this->getElements()->render()}</p>";
+        return "<p>{$this->label}: {$this->getElement()->render()}</p>";
     }
 }

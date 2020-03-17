@@ -10,7 +10,7 @@ class Radio extends Select
 {
 
 
-    protected function getElements()
+    protected function getElement()
     {
         $elements = [];
         foreach ($this->options as $option){

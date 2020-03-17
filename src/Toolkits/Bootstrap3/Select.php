@@ -8,18 +8,12 @@ use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
 use function Kyanag\Form\renderOptions;
+use Kyanag\Form\Traits\InputComponentTrait;
 
 class Select implements InputComponent, Renderable
 {
-    protected $name;
 
-    protected $label;
-
-    protected $error;
-
-    protected $help;
-
-    protected $value;
+    use InputComponentTrait;
 
     protected $options = [];
 
@@ -31,17 +25,6 @@ class Select implements InputComponent, Renderable
         $this->name = $name;
         $this->options = $options;
     }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
 
     public function toRenderable()
     {
@@ -55,17 +38,38 @@ class Select implements InputComponent, Renderable
         $hasError = $this->error ? "has-error" : "";
         $helpText = $this->error ?: $this->help;
 
-        $options = renderOptions($this->options);
+        $options = $this->renderOptions();
 
         $tpl = <<<TPL
 <div class="form-group {$hasError}">
     <label for="form-{$id}" class="col-sm-2 control-label">{$this->label}</label>
-    <div class="col-sm-10">
-      <select name="{$this->name}" id="form-{$id}" class="form-control">{$options}</select>
+    <div class="col-sm-4">
+        <select name="{$this->name}" id="form-{$id}" class="form-control">{$options}</select>
     </div>
     <p class="col-sm-6 help-block">{$helpText}</p>
-  </div>
+</div>
 TPL;
         return $tpl;
+    }
+
+    protected function renderOptions(){
+        $_ = [];
+        foreach ($this->options as $value => $text){
+            if(is_array($text)){
+                $optgroup_options = renderOptions($text);
+                $_[] = "<optgroup label=\"{$value}\">{$optgroup_options}</optgroup>";
+            }else{
+                $selectedValue = $this->selected($value) ? "selected" : "";
+                $_[] = "<option value=\"{$value}\" {$selectedValue}>{$text}</option>";
+            }
+        }
+        return implode("", $_);
+    }
+
+    protected function selected($value){
+        if(is_array($this->value)){
+            return in_array($value, $this->value);
+        }
+        return $value == $this->value;
     }
 }
