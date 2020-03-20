@@ -9,11 +9,11 @@ use Kyanag\Form\Interfaces\MultiInputComponent;
 use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Traits\ElementTrait;
+use Kyanag\Form\Traits\InputComponentTrait;
 use Kyanag\Form\Traits\MultiInputComponentTrait;
 
-class Fieldset implements MultiInputComponent,InputComponent,ElementInterface
+class Fieldset implements MultiInputComponent,ElementInterface
 {
-
     use MultiInputComponentTrait;
     use ElementTrait;
 
@@ -37,7 +37,8 @@ class Fieldset implements MultiInputComponent,InputComponent,ElementInterface
 
     public function render()
     {
-        return implode("\n", [
+
+        $fieldset = implode("\n", [
             "<fieldset name=\"{$this->name}\">",
             "<legend>{$this->label}</legend>",
             implode("\n", array_map(function($element){
@@ -45,6 +46,12 @@ class Fieldset implements MultiInputComponent,InputComponent,ElementInterface
             }, $this->elements)),
             "</fieldset>",
         ]);
+        $tpl = <<<TPL
+<div class="form-group">
+    <div class="col-sm-11 col-sm-offset-1">{$fieldset}</div>
+</div>
+TPL;
+        return $tpl;
     }
 
     public function toRenderable()

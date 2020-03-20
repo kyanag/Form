@@ -15,15 +15,22 @@ use Kyanag\Form\Interfaces\InputComponent;
 trait MultiInputComponentTrait
 {
 
+    use InputComponentTrait;
+
     /** @var array<string, InputComponent>  */
     protected $components = [];
 
     public function addComponent(InputComponent $component)
     {
         $this->components[] = $component;
+        $this->addElement($component->toRenderable());
         return $component;
     }
 
+    /**
+     * @param $value
+     * @param null $path
+     */
     public function setValue($value)
     {
         /** @var InputComponent $component */

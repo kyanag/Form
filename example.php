@@ -12,17 +12,20 @@ define("APP_PATH", __DIR__);
 /**
  * @return \Kyanag\Form\Form
  */
-function fromBasicBuilder(){
+function formBuilder(){
 
     $bs3Theme = new \Kyanag\Form\Toolkits\Bootstrap3\Bootstrap3();
     $bs3Theme->setAction("");
     $bs3Theme->setEnctype("");
     $bs3Theme->setMethod("POST");
 
+    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset("hasOne", "单关联");
+    $fieldset->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "子标题"));
+
     $form =  new Kyanag\Form\Form($bs3Theme);
 
     $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "标题"));
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\StaticLabel("title", "标题"));
     $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Select("category_id", "分类", [
             1 => "单机",
             2 => "网游",
@@ -41,10 +44,14 @@ function fromBasicBuilder(){
 
     $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Textarea("content", "富文本"));
 
-    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Radio("status", "状态", [
-        ['value' => 1, "title" => "可见"],
-        ['value' => 0, "title" => "不可见"]
+    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Radio("status", "状态", [
+            1 => "可见",
+        0 => "不可见"
     ]));
+
+    $form->addComponent($fieldset);
+
+    $form->addElement(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
 
 
     $form->setValue([
@@ -62,12 +69,13 @@ function fromBasicBuilder(){
 }
 
 
-$formBuilder = fromBasicBuilder();
+$formBuilder = formBuilder();
 ?>
 <html lang="zh">
 <head>
     <title></title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <style></style>
 </head>
 <body>
 <div class="row">

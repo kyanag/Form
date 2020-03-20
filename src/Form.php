@@ -14,23 +14,16 @@ use Kyanag\Form\Traits\MultiInputComponentTrait;
 class Form implements MultiInputComponent
 {
 
-    use MultiInputComponentTrait{
-        addComponent as addComponentFormTrait;
-    }
+    use MultiInputComponentTrait;
 
     /** @var ElementInterface */
     protected $element;
 
+    protected $js = [];
+
     public function __construct(ElementInterface $element)
     {
         $this->element = $element;
-    }
-
-    public function addComponent(InputComponent $component)
-    {
-        $this->addComponentFormTrait($component);
-        $this->addElement($component->toRenderable());
-        return $component;
     }
 
     public function addElement(Renderable $renderable)
@@ -56,5 +49,9 @@ class Form implements MultiInputComponent
     public function setHelp($help)
     {
         //pass
+    }
+
+    public function registerJs($js){
+
     }
 }
