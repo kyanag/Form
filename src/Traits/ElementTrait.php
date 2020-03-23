@@ -20,7 +20,7 @@ trait ElementTrait
      */
     protected $elements = [];
 
-    public function addElement(Renderable $renderable)
+    public function addRenderable(Renderable $renderable)
     {
         $this->elements[] = $renderable;
         return $renderable;

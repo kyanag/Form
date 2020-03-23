@@ -8,7 +8,9 @@
             "email": "gongzuo_yk@foxmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "doctrine/annotations": "^1.8"
+    },
     "require-dev":{
         "phpunit/phpunit": "^6.5"
     },

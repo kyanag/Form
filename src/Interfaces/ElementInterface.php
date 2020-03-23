@@ -11,6 +11,6 @@ interface ElementInterface extends Renderable
      * @param Renderable $renderable
      * @return Renderable
      */
-    public function addElement(Renderable $renderable);
+    public function addRenderable(Renderable $renderable);
 
 }

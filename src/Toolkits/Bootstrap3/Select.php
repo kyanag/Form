@@ -4,16 +4,14 @@
 namespace Kyanag\Form\Toolkits\Bootstrap3;
 
 
-use Kyanag\Form\Interfaces\InputComponent;
+use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
 use function Kyanag\Form\renderOptions;
-use Kyanag\Form\Traits\InputComponentTrait;
+use Kyanag\Form\Supports\Component;
 
-class Select implements InputComponent, Renderable
+class Select extends Component implements ComponentInterface, Renderable
 {
-
-    use InputComponentTrait;
 
     protected $options = [];
 

@@ -4,15 +4,13 @@
 namespace Kyanag\Form\Toolkits\Bootstrap3;
 
 
-use Kyanag\Form\Interfaces\InputComponent;
+use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
-use Kyanag\Form\Traits\InputComponentTrait;
+use Kyanag\Form\Supports\Component;
 
-class StaticLabel implements InputComponent, Renderable
+class StaticLabel extends Component implements ComponentInterface, Renderable
 {
-
-    use InputComponentTrait;
 
     public function __construct($name, $label = null)
     {

@@ -13,15 +13,15 @@ class Radio extends Select
     protected function getElement()
     {
         $elements = [];
-        foreach ($this->options as $option){
+        foreach ($this->options as $value => $text){
             $attributes = [
                 'type' => "radio",
                 'name' => $this->name,
-                'value' => $option['value'],
-                'checked' => ($option['value'] == $this->value),
+                'value' => $value,
+                'checked' => ($value == $this->value),
             ];
             $elements[] = new Element("input", $attributes, Element::E_CLOSE_SINGLE);
-            $elements[] = $option['title'];
+            $elements[] = $text;
             $elements[] = "<br>";
         }
         if(count($elements)){

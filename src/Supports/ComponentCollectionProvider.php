@@ -1,29 +1,22 @@
 <?php
 
 
-namespace Kyanag\Form\Traits;
+namespace Kyanag\Form\Supports;
 
 
-use Kyanag\Form\Interfaces\MultiInputComponent;
-use Kyanag\Form\Interfaces\InputComponent;
+use Kyanag\Form\Interfaces\ComponentInterface;
+use Kyanag\Form\Interfaces\ComponentCollectionInterface;
+use Kyanag\Form\Traits\ComponentCollectionAdapterTrait;
 
-/**
- * Trait FormData
- * @package Kyanag\Form\Traits
- * @mixin MultiInputComponent
- */
-trait MultiInputComponentTrait
+class ComponentCollectionProvider implements ComponentCollectionInterface
 {
 
-    use InputComponentTrait;
-
-    /** @var array<string, InputComponent>  */
+    /** @var array<string, ComponentInterface>  */
     protected $components = [];
 
-    public function addComponent(InputComponent $component)
+    public function addComponent(ComponentInterface $component)
     {
         $this->components[] = $component;
-        $this->addElement($component->toRenderable());
         return $component;
     }
 
@@ -33,7 +26,7 @@ trait MultiInputComponentTrait
      */
     public function setValue($value)
     {
-        /** @var InputComponent $component */
+        /** @var ComponentInterface $component */
         foreach ($this->components as $component){
             $name = $component->getName();
             if(isset($value[$name])){
@@ -43,7 +36,7 @@ trait MultiInputComponentTrait
     }
 
     public function setError($error){
-        /** @var InputComponent $component */
+        /** @var ComponentInterface $component */
         foreach ($this->components as $component){
             $name = $component->getName();
             if(isset($error[$name])){
@@ -51,4 +44,5 @@ trait MultiInputComponentTrait
             }
         }
     }
+
 }

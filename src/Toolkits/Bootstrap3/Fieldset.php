@@ -4,62 +4,71 @@
 namespace Kyanag\Form\Toolkits\Bootstrap3;
 
 
+use Kyanag\Form\Interfaces\ComponentInterface;
+use Kyanag\Form\Interfaces\ComponentCollectionInterface;
 use Kyanag\Form\Interfaces\ElementInterface;
-use Kyanag\Form\Interfaces\MultiInputComponent;
-use Kyanag\Form\Interfaces\InputComponent;
 use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Supports\Component;
+use Kyanag\Form\Supports\Element;
+use Kyanag\Form\Supports\ElementAdapter;
+use Kyanag\Form\Supports\ElementCollectionProvider;
+use Kyanag\Form\Traits\ComponentCollectionAdapterTrait;
+use Kyanag\Form\Traits\ElementAdapterTrait;
 use Kyanag\Form\Traits\ElementTrait;
-use Kyanag\Form\Traits\InputComponentTrait;
-use Kyanag\Form\Traits\MultiInputComponentTrait;
 
-class Fieldset implements MultiInputComponent,ElementInterface
+class Fieldset extends Component implements ComponentCollectionInterface, ElementInterface
 {
-    use MultiInputComponentTrait;
-    use ElementTrait;
 
-    protected $name;
+    use ComponentCollectionAdapterTrait;
 
-    protected $label;
+    /** @var ComponentCollectionInterface */
+    protected $componentCollection;
 
-    public function __construct($name, $label)
+    /**
+     * @var Element
+     */
+    protected $element;
+
+    public function __construct(ComponentCollectionInterface $componentCollection, $name = null, $label = null)
     {
+        $this->componentCollection = $componentCollection;
         $this->name = $name;
         $this->label = $label ?: $name;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getElement()
     {
-        return $this->name;
+        if(!$this->element){
+            $tagName = "fieldset";
+            $attributes = [
+                'name' => $this->name
+            ];
+            $closeType = Element::E_CLOSE_DOUBLE;
+            $elements = [
+                "<legend>{$this->label}</legend>"
+            ];
+
+            $this->element = new Element($tagName, $attributes, $closeType, $elements);
+        }
+        return $this->element;
+    }
+
+    public function getComponentCollection()
+    {
+        return $this->componentCollection;
     }
 
     public function render()
     {
-
-        $fieldset = implode("\n", [
-            "<fieldset name=\"{$this->name}\">",
-            "<legend>{$this->label}</legend>",
-            implode("\n", array_map(function($element){
-                return $element->render();
-            }, $this->elements)),
-            "</fieldset>",
-        ]);
         $tpl = <<<TPL
 <div class="form-group">
-    <div class="col-sm-11 col-sm-offset-1">{$fieldset}</div>
+    <div class="col-sm-11 col-sm-offset-1">{$this->getElement()->render()}</div>
 </div>
 TPL;
         return $tpl;
     }
 
     public function toRenderable()
-    {
-        return $this;
-    }
-
-    public function getBody()
     {
         return $this;
     }

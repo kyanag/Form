@@ -1,41 +1,29 @@
 <?php
 
 
-namespace Kyanag\Form\Traits;
+namespace Kyanag\Form\Supports;
 
 
-trait InputComponentTrait
+use Kyanag\Form\Interfaces\ComponentInterface;
+use Kyanag\Form\Traits\VariableTrait;
+
+abstract class Component implements ComponentInterface
 {
+    use VariableTrait;
+
 
     protected $label;
-
-    protected $value;
 
     protected $name;
 
     protected $help;
 
-    protected $error;
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value){
-        $this->value = $value;
-    }
 
     /**
      * @param string $help
      */
     public function setHelp($help){
         $this->help = $help;
-    }
-
-    /**
-     * @param string $error
-     */
-    public function setError($error){
-        $this->error = $error;
     }
 
     /**
@@ -52,5 +40,8 @@ trait InputComponentTrait
         return $this->name;
     }
 
-
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }

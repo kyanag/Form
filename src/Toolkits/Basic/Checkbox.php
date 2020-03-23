@@ -15,16 +15,16 @@ class Checkbox extends Select
         $this->value = (array)$this->value;
 
         $elements = [];
-        foreach ($this->options as $option){
+        foreach ($this->options as $value => $title){
             $attributes = [
                 'type' => "checkbox",
-                'name' => "{$this->name}[]",
-                'value' => $option['value'],
-                'checked' => in_array($option['value'], $this->value),
+                'name' => "{$this->name}",
+                'value' => $value,
+                'checked' => in_array($value, $this->value),
                 'autocomplete' => "off"                                         //firefox bug
             ];
             $elements[] = new Element("input", $attributes, Element::E_CLOSE_SINGLE);
-            $elements[] = $option['title'];
+            $elements[] = $title;
             $elements[] = "<br>";
         }
         if(count($elements)){

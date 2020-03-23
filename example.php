@@ -10,7 +10,7 @@ $loader = require "./vendor/autoload.php";
 define("APP_PATH", __DIR__);
 
 /**
- * @return \Kyanag\Form\Form
+ * @return \Kyanag\Form\ActiveForm
  */
 function formBuilder(){
 
@@ -19,10 +19,10 @@ function formBuilder(){
     $bs3Theme->setEnctype("");
     $bs3Theme->setMethod("POST");
 
-    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset("hasOne", "单关联");
+    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset(new \Kyanag\Form\Supports\ComponentCollectionProvider(), "hasOne", "单关联");
     $fieldset->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "子标题"));
 
-    $form =  new Kyanag\Form\Form($bs3Theme);
+    $form =  new Kyanag\Form\ActiveForm(new \Kyanag\Form\Supports\ComponentCollectionProvider(), $bs3Theme);
 
     $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
     $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\StaticLabel("title", "标题"));
@@ -51,19 +51,24 @@ function formBuilder(){
 
     $form->addComponent($fieldset);
 
-    $form->addElement(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
+    $form->addRenderable(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
 
 
     $form->setValue([
         'id' => 1,
-        'title' => "号外号外",
+        'title' => "号外号外!燃烧军团入侵啦！",
         'category_id' => 1,
         'tags' => [1, 2, 4],
         'content' => "联盟日报",
         'status' => 0,
+        'hasOne' => [
+                'title' => "附加数据"
+        ],
     ]);
     $form->setError([
-            //'title' => "textTitleErrpr",
+            'hasOne' => [
+                    'title' => "111"
+            ],
     ]);
     return $form;
 }
@@ -80,7 +85,7 @@ $formBuilder = formBuilder();
 <body>
 <div class="row">
     <div class="col-md-6">
-        <?=$formBuilder->toRenderable()->render()?>
+        <?=$formBuilder->render()?>
     </div>
 </div>
 </body>
