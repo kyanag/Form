@@ -36,7 +36,7 @@ class Fieldset extends Component implements ComponentCollectionInterface, Elemen
         $this->label = $label ?: $name;
     }
 
-    public function getElement()
+    public function getElementCollection()
     {
         if(!$this->element){
             $tagName = "fieldset";
@@ -62,7 +62,7 @@ class Fieldset extends Component implements ComponentCollectionInterface, Elemen
     {
         $tpl = <<<TPL
 <div class="form-group">
-    <div class="col-sm-11 col-sm-offset-1">{$this->getElement()->render()}</div>
+    <div class="col-sm-11 col-sm-offset-1">{$this->getElementCollection()->render()}</div>
 </div>
 TPL;
         return $tpl;

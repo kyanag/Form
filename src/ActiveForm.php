@@ -5,13 +5,11 @@ namespace Kyanag\Form;
 
 
 use Kyanag\Form\Interfaces\ElementInterface;
-use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\ComponentCollectionInterface;
-use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Interfaces\FormInterface;
 use Kyanag\Form\Traits\ComponentCollectionAdapterTrait;
-use Kyanag\Form\Traits\ElementAdapterTrait;
 
-class ActiveForm implements ComponentCollectionInterface, ElementInterface
+class ActiveForm implements ComponentCollectionInterface, FormInterface
 {
     use ComponentCollectionAdapterTrait;
 
@@ -26,9 +24,9 @@ class ActiveForm implements ComponentCollectionInterface, ElementInterface
     /**
      * Form constructor.
      * @param ComponentCollectionInterface $componentProvider data提供器
-     * @param ElementInterface $element  htmlRender提供
+     * @param FormInterface $element  htmlRender提供
      */
-    public function __construct(ComponentCollectionInterface $componentProvider, ElementInterface $element)
+    public function __construct(ComponentCollectionInterface $componentProvider, FormInterface $element)
     {
         $this->componentCollection = $componentProvider;
         $this->element = $element;
@@ -42,13 +40,31 @@ class ActiveForm implements ComponentCollectionInterface, ElementInterface
         return $this->componentCollection;
     }
 
-    public function getElement()
+    /**
+     * @return ElementInterface|FormInterface
+     */
+    public function getElementCollection()
     {
         return $this->element;
     }
 
+    public function setMethod($method, $override = false)
+    {
+        $this->getElementCollection()->setMethod($method, $override);
+    }
+
+    public function setAction($action)
+    {
+        $this->getElementCollection()->setAction($action);
+    }
+
+    public function setEnctype($enctype)
+    {
+        $this->getElementCollection()->setEnctype($enctype);
+    }
+
     public function render()
     {
-        return $this->getElement()->render();
+        return $this->getElementCollection()->render();
     }
 }

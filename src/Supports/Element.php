@@ -6,13 +6,11 @@ namespace Kyanag\Form\Supports;
 
 use Kyanag\Form\Interfaces\ElementInterface;
 use Kyanag\Form\Interfaces\Renderable;
-use Kyanag\Form\Traits\ElementAttributesTrait;
 use Kyanag\Form\Traits\ElementTrait;
 
 class Element implements ElementInterface
 {
 
-    use ElementAttributesTrait;
     use ElementTrait;
 
     const E_CLOSE_SINGLE = 0;   //单闭和标签

@@ -4,10 +4,10 @@
 namespace Kyanag\Form\Interfaces;
 
 
-use Kyanag\Form\Traits\ElementAttributesTrait;
 use Kyanag\Form\Traits\ElementTrait;
+use Kyanag\Form\Interfaces\FormInterface;
 
-abstract class AbstractForm implements ElementInterface
+abstract class AbstractForm implements FormInterface
 {
 
     const METHOD_GET = "GET";
@@ -18,7 +18,6 @@ abstract class AbstractForm implements ElementInterface
     const ENCTYPE_FORMDATA = "multipart/form-data";
     const ENCTYPE_PLAIN = "text/plain";
 
-    use ElementAttributesTrait;
     use ElementTrait;
 
     protected $overrideMethod;

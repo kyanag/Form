@@ -13,10 +13,10 @@ trait ElementAdapterTrait
     /**
      * @return ElementInterface
      */
-    abstract public function getElement();
+    abstract public function getElementCollection();
 
-    public function addRenderable(Renderable $renderable)
+    public function addElement(Renderable $renderable)
     {
-        $this->getElement()->addRenderable($renderable);
+        $this->getElementCollection()->addElement($renderable);
     }
 }

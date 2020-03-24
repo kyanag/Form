@@ -22,7 +22,9 @@ trait ComponentCollectionAdapterTrait
 
     public function addComponent(ComponentInterface $component){
         $this->getComponentCollection()->addComponent($component);
-        $this->getElement()->addRenderable($component->toRenderable());
+        $this->getElementCollection()->addElement($component->toRenderable());
+
+        return $component;
     }
 
     public function setValue($value){

@@ -8,9 +8,7 @@
             "email": "gongzuo_yk@foxmail.com"
         }
     ],
-    "require": {
-        "doctrine/annotations": "^1.8"
-    },
+    "require": {},
     "require-dev":{
         "phpunit/phpunit": "^6.5"
     },
@@ -19,15 +17,12 @@
             "Kyanag\\Form\\": "src/"
         },
         "files": [
-            "./src/functions.php"
+            "./functions.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
             "Kyanag\\Form\\Tests\\": "tests/"
-        },
-        "files": [
-            "./tests/functions.php"
-        ]
+        }
     }
 }

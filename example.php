@@ -51,7 +51,7 @@ function formBuilder(){
 
     $form->addComponent($fieldset);
 
-    $form->addRenderable(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
+    $form->addElement(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
 
 
     $form->setValue([
