@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface FormInterface extends ElementInterface
+interface FormInterface
 {
 
     /**

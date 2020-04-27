@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface ComponentInterface extends VariableInterface
+interface ComponentInterface
 {
 
     /**
@@ -32,4 +32,15 @@ interface ComponentInterface extends VariableInterface
      * @return string
      */
     public function getName();
+
+    /**
+     * @param mixed $value
+     */
+    public function setValue($value);
+
+
+    /**
+     * @param mixed $error
+     */
+    public function setError($error);
 }
