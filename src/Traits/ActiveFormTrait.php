@@ -5,7 +5,7 @@ namespace Kyanag\Form\Traits;
 
 
 use Kyanag\Form\Interfaces\ComponentInterface;
-use Kyanag\Form\Interfaces\FormInterface;
+use Kyanag\Form\Interfaces\ElementInterface;
 use Kyanag\Form\Interfaces\Renderable;
 
 trait ActiveFormTrait
@@ -15,31 +15,29 @@ trait ActiveFormTrait
 
     /**
      * 表单主题
-     * @var FormInterface
+     * @var ElementInterface
      */
-    protected $form;
+    protected $element;
 
     public function addComponent(ComponentInterface $component)
     {
-        $this->addElement($component->toRenderable());
+        $this->getElement()->addElement($component->toRenderable());
         $this->components[] = $component;
     }
 
+    /**
+     * @return array<ComponentInterface>
+     */
     public function getComponents()
     {
         return $this->components;
     }
 
-    public function addElement(Renderable $renderable)
-    {
-        $this->getElement()->addElement($renderable);
-    }
-
     /**
-     * @return FormInterface
+     * @return ElementInterface
      */
     public function getElement()
     {
-        return $this->form;
+        return $this->element;
     }
 }

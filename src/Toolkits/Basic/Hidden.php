@@ -6,7 +6,7 @@ namespace Kyanag\Form\Toolkits\Basic;
 
 use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\Renderable;
-use Kyanag\Form\Supports\Component;
+use Kyanag\Form\Contracts\Component;
 use Kyanag\Form\Supports\Element;
 
 class Hidden extends Component implements ComponentInterface,Renderable

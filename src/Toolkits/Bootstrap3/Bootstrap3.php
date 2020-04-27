@@ -3,7 +3,7 @@
 
 namespace Kyanag\Form\Toolkits\Bootstrap3;
 
-use Kyanag\Form\Interfaces\AbstractForm;
+use Kyanag\Form\Contracts\AbstractForm;
 
 class Bootstrap3 extends AbstractForm
 {

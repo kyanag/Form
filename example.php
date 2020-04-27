@@ -19,10 +19,10 @@ function formBuilder(){
     $bs3Theme->setEnctype("");
     $bs3Theme->setMethod("POST");
 
-    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset(new \Kyanag\Form\Supports\ComponentCollectionProvider(), "hasOne", "单关联");
+    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset("hasOne", "单关联");
     $fieldset->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "子标题"));
 
-    $form =  new Kyanag\Form\ActiveForm(new \Kyanag\Form\Supports\ComponentCollectionProvider(), $bs3Theme);
+    $form =  new Kyanag\Form\ActiveForm($bs3Theme);
 
     $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
     $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\StaticLabel("title", "标题"));

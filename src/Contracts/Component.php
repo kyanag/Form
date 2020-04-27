@@ -1,8 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Supports;
-
+namespace Kyanag\Form\Contracts;
 
 use Kyanag\Form\Interfaces\ComponentInterface;
 

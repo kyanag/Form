@@ -3,7 +3,7 @@
 
 namespace Kyanag\Form\Toolkits\Basic;
 
-use Kyanag\Form\Interfaces\AbstractForm;
+use Kyanag\Form\Contracts\AbstractForm;
 
 class Form extends AbstractForm
 {

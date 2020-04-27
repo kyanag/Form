@@ -8,7 +8,7 @@ use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
 use function Kyanag\Form\renderOptions;
-use Kyanag\Form\Supports\Component;
+use Kyanag\Form\Contracts\Component;
 
 class Select extends Component implements ComponentInterface, Renderable
 {

@@ -7,7 +7,7 @@ namespace Kyanag\Form\Toolkits\Bootstrap3;
 use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use function Kyanag\Form\randomString;
-use Kyanag\Form\Supports\Component;
+use Kyanag\Form\Contracts\Component;
 
 class Text extends Component implements ComponentInterface, Renderable
 {

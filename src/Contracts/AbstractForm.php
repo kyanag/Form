@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Kyanag\Form\Interfaces;
+namespace Kyanag\Form\Contracts;
 
 
 use Kyanag\Form\Traits\ElementTrait;
-use Kyanag\Form\Interfaces\FormInterface;
+use Kyanag\Form\Interfaces\ElementInterface;
 
-abstract class AbstractForm implements FormInterface
+abstract class AbstractForm implements ElementInterface
 {
 
     const METHOD_GET = "GET";
