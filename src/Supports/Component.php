@@ -5,43 +5,114 @@ namespace Kyanag\Form\Supports;
 
 
 use Kyanag\Form\Interfaces\ComponentInterface;
-use Kyanag\Form\Traits\VariableTrait;
 
 abstract class Component implements ComponentInterface
 {
-    use VariableTrait;
-
-
-    protected $label;
-
-    protected $name;
-
-    protected $help;
-
 
     /**
-     * @param string $help
+     * @var string
      */
-    public function setHelp($help){
-        $this->help = $help;
+    protected $label;
+
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $help;
+
+    /**
+     * @var string
+     */
+    protected $value;
+
+    /**
+     * @var string
+     */
+    protected $error;
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**
-     * @param $label
+     * @param string $label
      */
-    public function setLabel($label){
+    public function setLabel($label)
+    {
         $this->label = $label;
     }
 
     /**
      * @return string
      */
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
+
+    /**
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
+
+    /**
+     * @param string $help
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+    }
+
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * @param string $error
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
+    }
+
+
 }

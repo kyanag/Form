@@ -4,22 +4,16 @@
 namespace Kyanag\Form;
 
 
-use Kyanag\Form\Interfaces\ElementInterface;
 use Kyanag\Form\Interfaces\ComponentCollectionInterface;
+use Kyanag\Form\Interfaces\ComponentInterface;
 use Kyanag\Form\Interfaces\FormInterface;
-use Kyanag\Form\Traits\ComponentCollectionAdapterTrait;
+use Kyanag\Form\Interfaces\Renderable;
+use Kyanag\Form\Traits\ActiveFormTrait;
 
 class ActiveForm implements ComponentCollectionInterface, FormInterface
 {
-    use ComponentCollectionAdapterTrait;
 
-    /**
-     * @var ElementInterface
-     */
-    protected $element;
-
-    /** @var ComponentCollectionInterface  */
-    protected $componentCollection;
+    use ActiveFormTrait;
 
     /**
      * Form constructor.
@@ -29,42 +23,29 @@ class ActiveForm implements ComponentCollectionInterface, FormInterface
     public function __construct(ComponentCollectionInterface $componentProvider, FormInterface $element)
     {
         $this->componentCollection = $componentProvider;
-        $this->element = $element;
+        $this->form = $element;
     }
 
-    /**
-     * @return ComponentCollectionInterface
-     */
-    public function getComponentCollection()
-    {
-        return $this->componentCollection;
-    }
 
-    /**
-     * @return ElementInterface|FormInterface
-     */
-    public function getElementCollection()
-    {
-        return $this->element;
-    }
 
     public function setMethod($method, $override = false)
     {
-        $this->getElementCollection()->setMethod($method, $override);
+        $this->getElement()->setMethod($method, $override);
     }
 
     public function setAction($action)
     {
-        $this->getElementCollection()->setAction($action);
+        $this->getElement()->setAction($action);
     }
 
     public function setEnctype($enctype)
     {
-        $this->getElementCollection()->setEnctype($enctype);
+        $this->getElement()->setEnctype($enctype);
     }
+
 
     public function render()
     {
-        return $this->getElementCollection()->render();
+        return $this->getElement()->render();
     }
 }

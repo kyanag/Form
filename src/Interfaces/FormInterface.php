@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface FormInterface
+interface FormInterface extends Renderable
 {
 
     /**
@@ -17,4 +17,5 @@ interface FormInterface
 
     public function setEnctype($enctype);
 
+    public function addElement(Renderable $renderable);
 }

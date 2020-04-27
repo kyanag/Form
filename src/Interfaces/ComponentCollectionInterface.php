@@ -4,19 +4,8 @@
 namespace Kyanag\Form\Interfaces;
 
 
-interface ComponentCollectionInterface extends VariableInterface
+interface ComponentCollectionInterface
 {
-
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value);
-
-
-    /**
-     * @param mixed $error
-     */
-    public function setError($error);
 
     /**
      * @param ComponentInterface $component
@@ -24,4 +13,8 @@ interface ComponentCollectionInterface extends VariableInterface
      */
     public function addComponent(ComponentInterface $component);
 
+    /**
+     * @return array
+     */
+    public function getComponents();
 }

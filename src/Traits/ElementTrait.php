@@ -10,7 +10,6 @@ use Kyanag\Form\Interfaces\Renderable;
 /**
  * Trait ElementTrait
  * @package Kyanag\Form\Traits
- * @mixin ElementInterface
  */
 trait ElementTrait
 {

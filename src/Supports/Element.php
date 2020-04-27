@@ -4,11 +4,10 @@
 namespace Kyanag\Form\Supports;
 
 
-use Kyanag\Form\Interfaces\ElementInterface;
 use Kyanag\Form\Interfaces\Renderable;
 use Kyanag\Form\Traits\ElementTrait;
 
-class Element implements ElementInterface
+class Element implements Renderable
 {
 
     use ElementTrait;
