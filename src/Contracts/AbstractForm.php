@@ -28,8 +28,8 @@ abstract class AbstractForm implements ElementInterface
      */
     public function setMethod($method, $override = false){
         if($override){
-            $method = "POST";
             $this->overrideMethod = strtoupper($method);
+            $method = "POST";
         }
         $this->setAttribute("method", strtoupper($method));
     }

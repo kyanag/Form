@@ -15,7 +15,7 @@ class Button implements Renderable
         $tpl = <<<EOF
 <div class="form-group">
     <div class="col-md-10 col-md-offset-2">
-        <button type="button" class="btn btn-primary">提交</button>
+        <button type="submit" class="btn btn-primary">提交</button>
             
         <button type="reset" class="btn btn-warning">重置</button>
     </div>

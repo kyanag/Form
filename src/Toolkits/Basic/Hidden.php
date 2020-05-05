@@ -28,6 +28,7 @@ class Hidden extends Component implements ComponentInterface,Renderable
     protected function getElements(){
         $attributes = [
             'type' => "hidden",
+            'name' => $this->name,
             'value' => $this->value,
         ];
         return new Element("input", $attributes, 0);

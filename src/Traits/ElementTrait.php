@@ -34,6 +34,10 @@ trait ElementTrait
         $this->attributes[$name] = $attribute;
     }
 
+    public function getAttribute($name){
+        return $this->attributes[$name];
+    }
+
     public function removeAttribute($name){
         unset($this->attributes[$name]);
     }
