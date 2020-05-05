@@ -40,28 +40,6 @@ class ActiveForm implements ComponentCollectionInterface, ElementInterface
         $this->getElement()->setEnctype($enctype);
     }
 
-    public function setValue($attributes)
-    {
-        /** @var ComponentInterface $component */
-        foreach ($this->getComponents() as $component){
-            $name = $component->getName();
-            if(isset($attributes[$name])){
-                $component->setValue($attributes[$name]);
-            }
-        }
-    }
-
-    public function setError($errors)
-    {
-        /** @var ComponentInterface $component */
-        foreach ($this->getComponents() as $component){
-            $name = $component->getName();
-            if(isset($errors[$name])){
-                $component->setValue($errors[$name]);
-            }
-        }
-    }
-
     public function render()
     {
         return $this->getElement()->render();
