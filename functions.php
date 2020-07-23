@@ -2,26 +2,30 @@
 namespace Kyanag\Form;
 
 
+
+function array_first($items, $callable){
+    foreach ($items as $index => $item){
+        if(call_user_func_array($callable, [$item, $index])){
+            return $item;
+        }
+    }
+    return null;
+}
+
+function array_map($items, $callable){
+    foreach ($items as $index => $item){
+        $items[$index] = call_user_func_array($callable, [$item, $index]);
+    }
+    return $items;
+}
+
+
 function toUnderScore($str)
 {
     $dstr = preg_replace_callback('/([A-Z]+)/', function($matchs) {
         return '_'.strtolower($matchs[0]);
     },$str);
     return trim(preg_replace('/_{2,}/','_',$dstr),'_');
-}
-
-function renderOptions($options, $selectedValue = null){
-    $_ = [];
-    foreach ($options as $value => $text){
-        if(is_array($text)){
-            $optgroup_options = renderOptions($text);
-            $_[] = "<optgroup label=\"{$value}\">{$optgroup_options}</optgroup>";
-        }else{
-            $selectedValue = $value == $selectedValue ? "selected" : "";
-            $_[] = "<option value=\"{$value}\" {$selectedValue}>{$text}</option>";
-        }
-    }
-    return implode("\n", $_);
 }
 
 function randomString($prefix = null){

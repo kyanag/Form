@@ -30,17 +30,6 @@ abstract class TestCase extends PHPUnitTestCase
     {
         require_once "functions.php";
 
-        $container = new Container();
-
-        $basepath = dirname($GLOBALS['__PHPUNIT_CONFIGURATION_FILE']);
-        $files = glob("{$basepath}/src/Fields/*");
-
-        foreach ($files as $file){
-            $name = str_replace(".php", "", basename($file));
-            $className = "Kyanag\\FormBuilder\\Fields\\{$name}";
-
-            $container->add(toUnderScore($name), $className);
-        }
-        $this->container = $container;
+        //pass
     }
 }

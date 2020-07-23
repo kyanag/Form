@@ -9,83 +9,52 @@ $loader = require "./vendor/autoload.php";
 
 define("APP_PATH", __DIR__);
 
-/**
- * @return \Kyanag\Form\ActiveForm
- */
-function formBuilder(){
+$tablerFactory = new \Kyanag\Form\Tabler\TablerFactory();
+$components = [
+        $tablerFactory->text("title", "标题"),
 
-    $bs3Theme = new \Kyanag\Form\Toolkits\Bootstrap3\Bootstrap3();
-    $bs3Theme->setAction("");
-    $bs3Theme->setEnctype("");
-    $bs3Theme->setMethod("POST");
+    $tablerFactory->select("category_id", "分类", [
+        1 => "单机",
+        2 => "网游"
+    ]),
+    $tablerFactory->checkbox("tags", "标签", [
+        1 => ['value' => 1, "text" => "端游"],
+        2 => ['value' => 2, "text" => "mmorpg"],
+        3 => ['value' => 3, "text" => "手游"]
+    ]),
+    $tablerFactory->textarea("content", "富文本"),
+    $tablerFactory->radio("status", "状态", [
+        1 => ['value' => 1, "text" => "可见"],
+        0 => ['value' => 0, "text" => "不可见"]
+    ])
+];
 
-    $fieldset = new \Kyanag\Form\Toolkits\Bootstrap3\Fieldset("hasOne", "单关联");
-    $fieldset->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Text("title", "子标题"));
+$str = implode("\n", array_map(function($component){
+    return $component->built()->render();
+}, $components));
 
-    $form =  new Kyanag\Form\ActiveForm($bs3Theme);
-
-    $form->addComponent(new \Kyanag\Form\Toolkits\Basic\Hidden("id"));
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\StaticLabel("title", "标题"));
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Select("category_id", "分类", [
-            1 => "单机",
-            2 => "网游",
-            '类型' => [
-                3 => 'FPS',
-                4 => "RPG"
-            ],
-    ]));
-
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Checkbox("tags", "标签", [
-            1 => "端游",
-        2 => "mmorpg",
-        3 => "手游",
-        4 => "3D"
-    ]));
-
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Textarea("content", "富文本"));
-
-    $form->addComponent(new \Kyanag\Form\Toolkits\Bootstrap3\Radio("status", "状态", [
-            1 => "可见",
-        0 => "不可见"
-    ]));
-
-    $form->addComponent($fieldset);
-
-    $form->addElement(new \Kyanag\Form\Toolkits\Bootstrap3\Button());
-
-
-    $form->setValue([
-        'id' => 1,
-        'title' => "号外号外!燃烧军团入侵啦！",
-        'category_id' => 1,
-        'tags' => [1, 2, 4],
-        'content' => "联盟日报",
-        'status' => 0,
-        'hasOne' => [
-                'title' => "附加数据"
-        ],
-    ]);
-    $form->setError([
-            'hasOne' => [
-                    'title' => "111"
-            ],
-    ]);
-    return $form;
-}
-
-
-$formBuilder = formBuilder();
 ?>
 <html lang="zh">
 <head>
     <title></title>
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://preview.tabler.io/assets/css/dashboard.css" rel="stylesheet">
+    <meta charset="UTF-8">
     <style></style>
 </head>
 <body>
 <div class="row">
     <div class="col-md-6">
-        <?=$formBuilder->render()?>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Input mask</h3>
+            </div>
+            <div class="card-body">
+                <?=$str?>
+                <div class="form-footer">
+                    <button class="btn btn-primary btn-block">Save</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
