@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 use Kyanag\Form\Supports\HtmlRenderer;
 
@@ -21,5 +20,4 @@ class Fieldset extends Component
 </fieldset>
 TPL;
     }
-
 }

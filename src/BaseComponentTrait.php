@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form;
 
-
 trait BaseComponentTrait
 {
     /**
@@ -61,32 +60,39 @@ trait BaseComponentTrait
 
     /**
      * 扩展属性
+     *
      * @var array
      */
     public $properties = [];
 
 
-    protected function showLabel(){
+    protected function showLabel()
+    {
         return $this->label;
     }
 
-    protected function showName(){
+    protected function showName()
+    {
         return $this->name;
     }
 
-    protected function showValue(){
+    protected function showValue()
+    {
         return call_user_func($this->valueFilter, $this->value);
     }
 
-    protected function showDisabled(){
+    protected function showDisabled()
+    {
         return $this->attribute->disable ? "disabled" : null;
     }
 
-    protected function showReadonly(){
+    protected function showReadonly()
+    {
         return $this->attribute->readonly ? "readonly" : null;
     }
 
-    protected function showId(){
+    protected function showId()
+    {
         return $this->id;
     }
 }

@@ -3,11 +3,11 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 
 /**
  * 滑动输入框
+ *
  * @package Kyanag\Form\Tabler\Forms
  */
 class Range extends Component
@@ -35,5 +35,4 @@ class Range extends Component
 </div>
 TPL;
     }
-
 }

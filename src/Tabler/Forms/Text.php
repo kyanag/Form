@@ -3,11 +3,11 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 
 /**
  * 普通文本输入框
+ *
  * @package Kyanag\Form\Tabler\Forms
  */
 class Text extends Component
@@ -24,5 +24,4 @@ class Text extends Component
 </div>
 TPL;
     }
-
 }

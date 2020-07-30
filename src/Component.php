@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form;
 
-
 abstract class Component implements Renderable
 {
 
@@ -11,11 +10,12 @@ abstract class Component implements Renderable
 
     /**
      * Component constructor.
-     * @param string $name  组件值名称
-     * @param string $label 组件标题
-     * @param Attributes $attribute    通用属性
-     * @param array $properties                 扩展属性
-     * @param Component|null $parentComponent   父组件
+     *
+     * @param string         $name            组件值名称
+     * @param string         $label           组件标题
+     * @param Attributes     $attribute       通用属性
+     * @param array          $properties      扩展属性
+     * @param Component|null $parentComponent 父组件
      */
     public function __construct($name, $label, Attributes $attribute, $properties = [], Component $parentComponent = null)
     {
@@ -26,47 +26,73 @@ abstract class Component implements Renderable
         $this->parentComponent = $parentComponent;
     }
 
-    public function getValue(){
+    public function getValue()
+    {
         return $this->value;
     }
 
-    public function setValue($value){
+    public function setValue($value)
+    {
         $this->value = $value;
+        /**
+*
+         *
+ * @var Component $child
+*/
+        foreach ($this->children as $child) {
+            $childName = $child->getName();
+            if (is_null($childName)) {
+                $child->setValue($value);
+            } else {
+                $child->setValue($value[$childName]);
+            }
+        }
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
 
-    public function getAttributes(){
+    public function getAttributes()
+    {
         return $this->attribute;
     }
 
-    public function getAttribute($name){
+    public function getAttribute($name)
+    {
         return $this->attribute->{$name};
     }
 
-    public function setAttribute($name, $value){
+    public function setAttribute($name, $value)
+    {
         $this->attribute->{$name} = $value;
     }
 
-    public function getChild($id){
-        return array_first($this->children, function($item, $index) use($id){
-            return $item->id == $id;
-        });
+    public function getChild($id)
+    {
+        return array_first(
+            $this->children,
+            function ($item, $index) use ($id) {
+                return $item->id == $id;
+            }
+        );
     }
 
-    public function addChild(Component $item){
+    public function addChild(Component $item)
+    {
         $this->children[] = $item;
     }
 
 
-    protected function showLabel(){
+    protected function showLabel()
+    {
         return $this->label;
     }
 
-    protected function showName(){
+    protected function showName()
+    {
         return $this->name;
     }
 

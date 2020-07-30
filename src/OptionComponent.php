@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form;
 
-
 abstract class OptionComponent extends Component
 {
     /**
@@ -12,11 +11,9 @@ abstract class OptionComponent extends Component
     public $options = [];
 
 
-    public function isSelected($option, $index){
+    public function isSelected($option, $index)
+    {
         $value = (array)($this->value);
         return in_array($index, $value);
     }
-
-
-
 }

@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 
 class File extends Component
@@ -21,5 +20,4 @@ class File extends Component
 </div>
 TPL;
     }
-
 }

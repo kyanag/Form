@@ -6,6 +6,7 @@ namespace Kyanag\Form;
 /**
  * 组件常用属性
  * Class Attributes
+ *
  * @package Kyanag\Form
  */
 class Attributes

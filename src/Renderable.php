@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form;
 
-
 interface Renderable
 {
 
@@ -11,5 +10,4 @@ interface Renderable
      * @return string
      */
     public function render();
-
 }

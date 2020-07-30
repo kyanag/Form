@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 
 class Password extends Component
@@ -18,5 +17,4 @@ class Password extends Component
 </div>
 TPL;
     }
-
 }

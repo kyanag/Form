@@ -4,8 +4,10 @@
 namespace Kyanag\Form\Supports;
 
 use Kyanag\Form\Component;
+
 /**
  * Class ComponentBuilder
+ *
  * @package Kyanag\Form
  *
  * @method void setDisabled(bool $disable = false)
@@ -23,41 +25,47 @@ class ComponentBuilder
 
 
 
-    public function setHelp($help = null){
+    public function setHelp($help = null)
+    {
         $this->component->help = $help;
     }
 
-    public function setError($error){
+    public function setError($error)
+    {
         $this->component->error = $error;
     }
 
 
-    public function built(){
+    public function built()
+    {
         return $this->component;
     }
 
-    public function setProperty($name, $value){
-        if(property_exists($this->component, $name)){
+    public function setProperty($name, $value)
+    {
+        if (property_exists($this->component, $name)) {
             $this->component->{$name} = $value;
-        }else if(property_exists($this->component->getAttributes(), $name)){
+        } elseif (property_exists($this->component->getAttributes(), $name)) {
             $this->component->getAttributes()->{$name} = $value;
-        }else{
+        } else {
             $this->component->properties[$name] = $value;
         }
         return $this;
     }
 
-    public function getProperty($name){
-        if(property_exists($this->component, $name)){
+    public function getProperty($name)
+    {
+        if (property_exists($this->component, $name)) {
             return $this->component->{$name};
-        }else if(property_exists($this->component->getAttributes(), $name)){
+        } elseif (property_exists($this->component->getAttributes(), $name)) {
             return $this->component->getAttributes()->{$name};
-        }else{
+        } else {
             return $this->component->properties[$name];
         }
     }
 
-    public function setChildren($children){
+    public function setChildren($children)
+    {
         $this->component->children = $children;
         return $this;
     }
@@ -69,7 +77,7 @@ class ComponentBuilder
 
     public function __call($name, $arguments)
     {
-        if(strtolower(substr($name, 0, 3)) == "set"){
+        if (strtolower(substr($name, 0, 3)) == "set") {
             $name = lcfirst(substr($name, 3));
             return $this->setProperty($name, $arguments[0]);
         }

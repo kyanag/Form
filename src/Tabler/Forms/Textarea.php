@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-
 use Kyanag\Form\Component;
 
 class Textarea extends Component
@@ -19,5 +18,4 @@ class Textarea extends Component
 </div>
 TPL;
     }
-
 }
