@@ -13,7 +13,9 @@ abstract class OptionComponent extends Component
 
     public function isSelected($option, $index)
     {
-        $value = (array)($this->value);
-        return in_array($index, $value);
+//        var_dump($this->name, $option, $index, $this->value);
+//        echo "\n";
+        $value = (array)(data_get($this->value, $this->name));
+        return in_array($option['value'], $value);
     }
 }

@@ -1,12 +1,23 @@
 <?php
 namespace Kyanag\Form;
 
+
+/**
+ * @param $array
+ * @param $key
+ * @return bool
+ */
 function array_has($array, $key)
 {
     return isset($array[$key]) or array_key_exists($key, $array);
 }
 
-
+/**
+ * 获取第一个符合条件的项
+ * @param $items
+ * @param $callable
+ * @return mixed|null
+ */
 function array_first($items, $callable)
 {
     foreach ($items as $index => $item) {
@@ -17,7 +28,11 @@ function array_first($items, $callable)
     return null;
 }
 
-
+/**
+ * 数组降维
+ * @param $array
+ * @return array
+ */
 function array_collapse($array)
 {
     $results = [];
@@ -31,6 +46,12 @@ function array_collapse($array)
     return $results;
 }
 
+/**
+ * 带下标的array_map
+ * @param $items
+ * @param $callable
+ * @return mixed
+ */
 function array_map($items, $callable)
 {
     foreach ($items as $index => $item) {
@@ -39,6 +60,13 @@ function array_map($items, $callable)
     return $items;
 }
 
+/**
+ * 数组点式取值
+ * @param $target
+ * @param $key
+ * @param null $default
+ * @return array|mixed|null
+ */
 function data_get($target, $key, $default = null)
 {
     if (is_null($key)) {
@@ -52,7 +80,7 @@ function data_get($target, $key, $default = null)
                 return $default;
             }
 
-            $result = Arr::pluck($target, $key);
+            $result = array_column($target, $key);
 
             return in_array('*', $key) ? array_collapse($result) : $result;
         }
@@ -70,19 +98,23 @@ function data_get($target, $key, $default = null)
     return $target;
 }
 
-
-function toUnderScore($str)
-{
-    $dstr = preg_replace_callback(
-        '/([A-Z]+)/',
-        function ($matchs) {
-            return '_'.strtolower($matchs[0]);
-        },
-        $str
-    );
-    return trim(preg_replace('/_{2,}/', '_', $dstr), '_');
+/**
+ * 驼峰转中线蛇形
+ * @param $words
+ * @return string
+ */
+function camelToSnake($words){
+    $words = preg_replace_callback("/([A-Z]{1})/",function ($matches) {
+        return '-' . strtolower($matches[0]);
+    }, $words);
+    return ltrim($words, "-");
 }
 
+/**
+ * 随机字符串
+ * @param string|null $prefix
+ * @return string
+ */
 function randomString($prefix = null)
 {
     return uniqid($prefix);

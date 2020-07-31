@@ -23,9 +23,6 @@ use Psr\Container\ContainerInterface;
 abstract class TestCase extends PHPUnitTestCase
 {
 
-    /** @var Container */
-    protected $container;
-
     protected function setUp()
     {
         require_once "functions.php";

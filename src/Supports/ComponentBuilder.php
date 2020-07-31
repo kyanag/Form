@@ -24,7 +24,6 @@ class ComponentBuilder
     }
 
 
-
     public function setHelp($help = null)
     {
         $this->component->help = $help;
@@ -43,6 +42,9 @@ class ComponentBuilder
 
     public function setProperty($name, $value)
     {
+        if($name == "children"){
+
+        }
         if (property_exists($this->component, $name)) {
             $this->component->{$name} = $value;
         } elseif (property_exists($this->component->getAttributes(), $name)) {

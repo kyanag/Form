@@ -11,7 +11,7 @@ class Checkbox extends OptionComponent
 
     public function render()
     {
-
+        $this->attribute->multiple = true;
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
@@ -37,10 +37,10 @@ TPL;
                     }
 
                     $attributes = [
-                    'name' => $this->showName(),
-                    'value' => $option['value'],
-                    'checked' => $this->isSelected($option, $value),
-                    'disabled' => boolval(@$option['disabled'])
+                        'name' => $this->showName(),
+                        'value' => $option['value'],
+                        'checked' => $this->isSelected($option, $value),
+                        'disabled' => boolval(@$option['disabled'])
                     ];
                     $attributeString = HtmlRenderer::renderAttributes($attributes);
 

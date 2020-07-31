@@ -34,18 +34,9 @@ abstract class Component implements Renderable
     public function setValue($value)
     {
         $this->value = $value;
-        /**
-*
-         *
- * @var Component $child
-*/
+        /** @var Component $child */
         foreach ($this->children as $child) {
-            $childName = $child->getName();
-            if (is_null($childName)) {
-                $child->setValue($value);
-            } else {
-                $child->setValue($value[$childName]);
-            }
+            $child->setValue($value);
         }
     }
 
@@ -83,17 +74,6 @@ abstract class Component implements Renderable
     public function addChild(Component $item)
     {
         $this->children[] = $item;
-    }
-
-
-    protected function showLabel()
-    {
-        return $this->label;
-    }
-
-    protected function showName()
-    {
-        return $this->name;
     }
 
     abstract public function render();

@@ -46,7 +46,7 @@ trait BaseComponentTrait
     /**
      * @var callable
      */
-    public $valueFilter = "htmlspecialchars";
+    public $valueFormat = "htmlspecialchars";
 
     /**
      * @var Attributes
@@ -68,17 +68,28 @@ trait BaseComponentTrait
 
     protected function showLabel()
     {
-        return $this->label;
+        return $this->label ?: $this->name;
     }
 
     protected function showName()
     {
-        return $this->name;
+        if(strpos($this->name, ".") !== false){
+            $_ = explode(".", $this->name);
+            $name = array_shift($_);
+            foreach ($_ as $str){
+                $name .= "[{$str}]";
+            }
+        }
+        $name = $this->name;
+        if($this->attribute->multiple){
+            $name .= "[]";
+        }
+        return $name;
     }
 
     protected function showValue()
     {
-        return call_user_func($this->valueFilter, $this->value);
+        return call_user_func($this->valueFormat, data_get($this->value, $this->name));
     }
 
     protected function showDisabled()
