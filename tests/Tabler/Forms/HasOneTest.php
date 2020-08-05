@@ -7,13 +7,13 @@ namespace Kyanag\Form\Tests\Tabler\Forms;
 use Kyanag\Form\Component;
 use Kyanag\Form\Supports\HtmlRenderer;
 use Kyanag\Form\Tabler\Forms\HasOne;
-use Kyanag\Form\Tabler\TablerFactory;
+use Kyanag\Form\Tabler\ElementFactory;
 use Kyanag\Form\Tests\Factory;
 use Kyanag\Form\Tests\TestCase;
 
 class HasOneTest extends TestCase
 {
-    /** @var TablerFactory */
+    /** @var ElementFactory */
     public $tablerFactory;
 
     protected function setUp()

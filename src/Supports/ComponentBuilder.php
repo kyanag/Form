@@ -43,7 +43,7 @@ class ComponentBuilder
     public function setProperty($name, $value)
     {
         if($name == "children"){
-
+            $this->component->children = $value;
         }
         if (property_exists($this->component, $name)) {
             $this->component->{$name} = $value;

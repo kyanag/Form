@@ -44,6 +44,12 @@ trait BaseComponentTrait
     public $error;
 
     /**
+     * html@data
+     * @var array
+     */
+    public $dataset = [];
+
+    /**
      * @var callable
      */
     public $valueFormat = "htmlspecialchars";
@@ -68,11 +74,12 @@ trait BaseComponentTrait
 
     protected function showLabel()
     {
-        return $this->label ?: $this->name;
+        return $this->label === null ? $this->name : $this->label;
     }
 
     protected function showName()
     {
+        $name = $this->name;
         if(strpos($this->name, ".") !== false){
             $_ = explode(".", $this->name);
             $name = array_shift($_);
@@ -80,7 +87,6 @@ trait BaseComponentTrait
                 $name .= "[{$str}]";
             }
         }
-        $name = $this->name;
         if($this->attribute->multiple){
             $name .= "[]";
         }

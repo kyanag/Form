@@ -17,12 +17,11 @@ abstract class Component implements Renderable
      * @param array          $properties      扩展属性
      * @param Component|null $parentComponent 父组件
      */
-    public function __construct($name, $label, Attributes $attribute, $properties = [], Component $parentComponent = null)
+    public function __construct($name, $label, Attributes $attribute, Component $parentComponent = null)
     {
         $this->name = $name;
-        $this->label = is_null($label) ? $name : $label;
+        $this->label = $label;
         $this->attribute = $attribute;
-        $this->properties = $properties;
         $this->parentComponent = $parentComponent;
     }
 

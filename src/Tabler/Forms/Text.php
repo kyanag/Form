@@ -18,7 +18,7 @@ class Text extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
-  <input type="text" class="form-control" name="{$this->showName()}" 
+  <input type="text" class="form-control" name="{$this->showName()}" id="{$this->showId()}"
     placeholder="{$this->attribute->placeholder}" value="{$this->showValue()}" {$this->showDisabled()} {$this->showReadonly()}
   >
 </div>

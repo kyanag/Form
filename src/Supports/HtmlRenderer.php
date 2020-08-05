@@ -23,7 +23,7 @@ class HtmlRenderer
     {
         if ($name == "data") {
             $value = (array)$value;
-            return static::renderDatas($value);
+            return static::renderDataset($value);
         } else {
             if (is_bool($value)) {
                 return $value ? "{$name}={$name}" : "";
@@ -35,7 +35,7 @@ class HtmlRenderer
         }
     }
 
-    protected static function renderDatas($datas)
+    public static function renderDataset($datas)
     {
         $datas = array_filter($datas);
         return implode(
@@ -53,7 +53,7 @@ class HtmlRenderer
     }
 
     /**
-     * @param array<Renderable> $components
+     * @param array<Renderable|string> $components
      */
     public static function renderComponents($components)
     {
@@ -62,9 +62,20 @@ class HtmlRenderer
             \Kyanag\Form\array_map(
                 $components,
                 function ($component, $index) {
-                    return $component->render();
+                    return static::renderComponent($component);
                 }
             )
         );
+    }
+
+    public static function renderComponent($component){
+        if(method_exists($component, "render")){
+            return $component->render();
+        }
+        if(is_object($component) && method_exists($component, "__toString")  or is_string($component)){
+            return (string)$component;
+        }
+        //warning 可以抛出异常
+        return (string)$component;
     }
 }

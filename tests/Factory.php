@@ -5,13 +5,13 @@ namespace Kyanag\Form\Tests;
 
 
 use Kyanag\Form\Tabler\Forms\File;
-use Kyanag\Form\Tabler\TablerFactory;
+use Kyanag\Form\Tabler\ElementFactory;
 
 class Factory
 {
 
     public static function makeTableFactory(){
-        $factory = new TablerFactory();
+        $factory = new ElementFactory();
 
         $files = glob(src_path("Tabler/Forms/*.php"));
         foreach($files as $file){

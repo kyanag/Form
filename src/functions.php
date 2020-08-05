@@ -61,7 +61,7 @@ function array_map($items, $callable)
 }
 
 /**
- * 数组点式取值
+ * 数组点式取值, copy from laravel
  * @param $target
  * @param $key
  * @param null $default

@@ -29,7 +29,7 @@ class Range extends Component
       <input type="range" class="form-control custom-range" step="{$this->extras['step']}" min="{$this->extras['min']}" max="{$this->extras['max']}" name="{$this->showName()}" value="{$this->showValue()}">
     </div>
     <div class="col-auto">
-      <input type="number" class="form-control w-8" value="45" name="{$this->showName()}" value="{$this->showValue()}">
+      <input type="number" class="form-control w-8 custom-range-input" name="{$this->showName()}" value="{$this->showValue()}">
     </div>
   </div>
 </div>

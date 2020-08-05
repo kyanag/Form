@@ -5,13 +5,13 @@ namespace Kyanag\Form\Tests\Tabler;
 
 
 use Kyanag\Form\Tabler\Forms\File;
-use Kyanag\Form\Tabler\TablerFactory;
+use Kyanag\Form\Tabler\ElementFactory;
 use Kyanag\Form\Tests\Factory;
 use Kyanag\Form\Tests\TestCase;
 
 class TableFactoryTest extends TestCase
 {
-    /** @var TablerFactory */
+    /** @var ElementFactory */
     public $tablerFactory;
 
     protected function setUp()

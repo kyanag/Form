@@ -34,22 +34,41 @@ class Form extends Component
      */
     public $methodOverride = true;
 
+
+    public $properties = [
+        'title' => "编辑"
+    ];
+
     public function render()
     {
         $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}">
-{$childrenHtml}
+<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}" class="card" id="{$this->showId()}">
+    {$this->renderHeader()}
+    <div class="card-body">
+        {$childrenHtml}
+    </div>
+    {$this->renderFooter()};
 </form>
 TPL;
     }
 
 
-    protected function renderFormHeader(){
+    protected function renderHeader(){
+        return <<<EOF
+<div class="card-header">
+    <h3 class="card-title">{$this->properties['title']}</h3>
+</div>
+EOF;
 
     }
 
-    protected function renderFooterBtn(){
+    protected function renderFooter(){
+        return <<<EOF
+<div class="card-footer text-right">
+    <button type="submit" class="btn btn-primary">确认</button>
+</div>
+EOF;
 
     }
 

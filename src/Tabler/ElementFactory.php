@@ -4,20 +4,20 @@
 namespace Kyanag\Form\Tabler;
 
 use Kyanag\Form\Attributes;
+use Kyanag\Form\Renderable;
 use Kyanag\Form\Supports\ComponentBuilder;
-use Kyanag\Form\Tabler\Forms\Text;
-use Kyanag\Form\Tabler\Forms\StaticText;
-use Kyanag\Form\Tabler\Forms\Textarea;
-use Kyanag\Form\Tabler\Forms\Select;
-use Kyanag\Form\Tabler\Forms\Checkbox;
-use Kyanag\Form\Tabler\Forms\Radio;
 
-class TablerFactory
+class ElementFactory
 {
 
     protected $components = [];
 
-
+    /**
+     * @param $type
+     * @param array $props
+     * @param array $children
+     * @return Renderable|null
+     */
     public function createElement($type, $props = [], $children = [])
     {
         if (isset($this->components[$type])) {
