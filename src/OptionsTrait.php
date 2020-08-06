@@ -3,8 +3,15 @@
 
 namespace Kyanag\Form;
 
-abstract class OptionComponent extends Component
+
+/**
+ * Trait OptionsTrait
+ * @package Kyanag\Form
+ * @mixin Component
+ */
+trait OptionsTrait
 {
+
     /**
      * @var array [ {value} => {label}]
      */
@@ -13,9 +20,8 @@ abstract class OptionComponent extends Component
 
     public function isSelected($option, $index)
     {
-//        var_dump($this->name, $option, $index, $this->value);
-//        echo "\n";
-        $value = (array)(data_get($this->value, $this->name));
+        $value = (array)($this->value);
         return in_array($option['value'], $value);
     }
+
 }

@@ -47,9 +47,7 @@ class ComponentBuilder
         }
         if (property_exists($this->component, $name)) {
             $this->component->{$name} = $value;
-        } elseif (property_exists($this->component->getAttributes(), $name)) {
-            $this->component->getAttributes()->{$name} = $value;
-        } else {
+        }else {
             $this->component->properties[$name] = $value;
         }
         return $this;
@@ -59,9 +57,7 @@ class ComponentBuilder
     {
         if (property_exists($this->component, $name)) {
             return $this->component->{$name};
-        } elseif (property_exists($this->component->getAttributes(), $name)) {
-            return $this->component->getAttributes()->{$name};
-        } else {
+        }else {
             return $this->component->properties[$name];
         }
     }

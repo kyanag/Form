@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Tabler;
 
-use Kyanag\Form\Attributes;
 use Kyanag\Form\Renderable;
 use Kyanag\Form\Supports\ComponentBuilder;
 
@@ -24,11 +23,10 @@ class ElementFactory
             $class = $this->components[$type];
             $name = @$props['name'];
             $label = @$props['label'];
-            $attribute = @$props['attribute'] ?: new Attributes();
 
             unset($props['name'], $props['label'], $props['attribute']);
 
-            $componentBuilder = new ComponentBuilder(new $class($name, $label, $attribute));
+            $componentBuilder = new ComponentBuilder(new $class($name, $label));
             foreach ($props as $name => $propValue) {
                 $componentBuilder->setProperty($name, $propValue);
             }

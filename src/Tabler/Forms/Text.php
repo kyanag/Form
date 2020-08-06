@@ -19,8 +19,10 @@ class Text extends Component
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <input type="text" class="form-control" name="{$this->showName()}" id="{$this->showId()}"
-    placeholder="{$this->attribute->placeholder}" value="{$this->showValue()}" {$this->showDisabled()} {$this->showReadonly()}
+    placeholder="{$this->placeholder}" value="{$this->showValue()}" {$this->showDisabled()} {$this->showReadonly()}
   >
+  <div class="invalid-feedback">{$this->error}</div>
+  <small id="passwordHelpBlock" class="form-text text-muted">{$this->help}</small>
 </div>
 TPL;
     }

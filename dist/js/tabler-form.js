@@ -13,35 +13,37 @@
         return input;
     };
 
-
     var defaultOptions = {
         onsuccess:null,
         onerror:null,
         url:null,
-        dataPicker:{
+        datetimePicker:{
+            uiLibrary: 'bootstrap4',
+            locale: 'zh-cn',
             format: "yyyy-mm-dd HH:MM"
         },
         uploader:{
             url:null,
+            resize: false,
+            chunked: true,
+            chunkSize: 1024 * 1024 * 1,
+            threads: 1,
         },
     };
 
     $.tablerFormSetup = function(options){
-        defaultOptions = $.extend(defaultOptions, options);
+        defaultOptions = $.extend(true, defaultOptions, options);
     };
 
     $.fn.tablerForm = function (options) {
         options = $.extend(defaultOptions, options);
 
+        //日期时间选择
         $(this).find(".custom-datetime").each(function () {
             var format = $(this).data("format") || options.dataPicker.format;
 
-            console.log(format);
-            $(this).datetimepicker({
-                uiLibrary: 'bootstrap4',
-                locale: 'zh-cn',
-                format: format
-            });
+            let pickerOptions = $.extend({}, options.datetimePicker, {format});
+            $(this).datetimepicker(pickerOptions);
         });
 
         $(this).find(".custom-range").each(function(){
@@ -65,20 +67,26 @@ console.log(that);
             });
         });
 
+        //ajax文件上传
         $(this).find(".ajax-file-input").each(function(){
-            var uploader = WebUploader.create({
-                // 文件接收服务端。
-                server: options.uploader.url,
-                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-                resize: false,
-                chunked: true,
-                chunkSize: 1024 * 1024 * 1,
-                threads: 1,
-            });
-            console.log(uploader);
             var btn = $(this).parent().find(".ajax-file-btn");
-            $(btn).click(function(){
-                uploader.reset();
+            $(btn).click(() => {
+                console.log($(this).data());
+                var upOptions = $.extend(options.uploader ,$(this).data());
+
+                var uploader = WebUploader.create(upOptions);
+                uploader.on("uploadSuccess", (file, response) => {
+                    $(this).val(response.url);
+
+                    $(this).popover({
+                        content:"上传成功!",
+                        delay: {
+                            "show": 500,
+                            "hide": 100
+                        },
+                        placement: "top",
+                    });
+                });
 
                 var file = createFile();
                 $(file).change(function(){
@@ -90,6 +98,11 @@ console.log(that);
                 });
                 $(file).click();
             });
+        });
+
+        //select2选择
+        $(this).find(".select2").each(function(){
+            $(this).select2();
         });
     };
 })(jQuery);

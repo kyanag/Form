@@ -3,12 +3,15 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
+use Kyanag\Form\Component;
 use Kyanag\Form\OptionComponent;
+use Kyanag\Form\OptionsTrait;
 use Kyanag\Form\Supports\HtmlRenderer;
 
-class Select extends OptionComponent
+class Select extends Component
 {
 
+    use OptionsTrait;
 
     public function render()
     {

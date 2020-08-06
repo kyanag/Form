@@ -26,22 +26,56 @@ trait BaseComponentTrait
      */
     public $label;
 
-
-    /**
-     * @var string
-     */
-    public $component;
-
     /**
      * @var mixed
      */
     public $value;
 
-
+    /**
+     * @var string
+     */
     public $help;
 
-
+    /**
+     * @var string
+     */
     public $error;
+
+    /**
+     * @var array|string
+     */
+    public $class = null;
+
+    /**
+     * @var string
+     */
+    public $style = null;
+
+    /**
+     * @var string
+     */
+    public $placeholder = null;
+
+    /**
+     * 默认值
+     * @var mixed
+     */
+    public $default = null;
+
+    /**
+     * @var bool
+     */
+    public $multiple = false;
+
+    /**
+     * @var bool
+     */
+    public $disable = false;
+
+    /**
+     * @var bool
+     */
+    public $readonly = false;
 
     /**
      * html@data
@@ -53,11 +87,6 @@ trait BaseComponentTrait
      * @var callable
      */
     public $valueFormat = "htmlspecialchars";
-
-    /**
-     * @var Attributes
-     */
-    protected $attribute;
 
     /**
      * @var array<static>
@@ -87,7 +116,7 @@ trait BaseComponentTrait
                 $name .= "[{$str}]";
             }
         }
-        if($this->attribute->multiple){
+        if($this->multiple){
             $name .= "[]";
         }
         return $name;
@@ -95,17 +124,17 @@ trait BaseComponentTrait
 
     protected function showValue()
     {
-        return call_user_func($this->valueFormat, data_get($this->value, $this->name));
+        return call_user_func($this->valueFormat, $this->value);
     }
 
     protected function showDisabled()
     {
-        return $this->attribute->disable ? "disabled" : null;
+        return $this->disable === true ? "disabled" : null;
     }
 
     protected function showReadonly()
     {
-        return $this->attribute->readonly ? "readonly" : null;
+        return $this->readonly === false ? "readonly" : null;
     }
 
     protected function showId()

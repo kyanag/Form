@@ -7,4 +7,15 @@ $uploader = new Uploader([
     "tempDir" => realpath("../temp"),
 ]);
 
-$uploader->upload();
+$newfile = $uploader->upload();
+
+$documentRoot = str_replace("\\", "/", realpath("../"));
+
+$newfile = str_replace("\\", "/", $newfile);
+
+$url = str_replace($documentRoot, "", $newfile);
+
+echo json_encode([
+    'url' => $url,
+]);
+exit();

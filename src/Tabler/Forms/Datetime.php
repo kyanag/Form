@@ -19,7 +19,7 @@ class Datetime extends Component
   <input type="text" 
     class="form-control custom-datetime" name="{$this->showName()}" 
     id="{$this->showId()}"
-    placeholder="{$this->attribute->placeholder}" 
+    placeholder="{$this->placeholder}" 
     value="{$this->showValue()}" 
 {$this->showDisabled()} {$this->showReadonly()}
     {$dataset}

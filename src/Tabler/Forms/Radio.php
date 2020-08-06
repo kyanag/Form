@@ -3,11 +3,14 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-use Kyanag\Form\OptionComponent;
+use Kyanag\Form\Component;
+use Kyanag\Form\OptionsTrait;
 use Kyanag\Form\Supports\HtmlRenderer;
 
-class Radio extends OptionComponent
+class Radio extends Component
 {
+
+    use OptionsTrait;
 
     public function render()
     {

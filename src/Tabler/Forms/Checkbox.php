@@ -3,15 +3,18 @@
 
 namespace Kyanag\Form\Tabler\Forms;
 
-use Kyanag\Form\OptionComponent;
+use Kyanag\Form\Component;
+use Kyanag\Form\OptionsTrait;
 use Kyanag\Form\Supports\HtmlRenderer;
 
-class Checkbox extends OptionComponent
+class Checkbox extends Component
 {
+
+    use OptionsTrait;
 
     public function render()
     {
-        $this->attribute->multiple = true;
+        $this->multiple = true;
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>

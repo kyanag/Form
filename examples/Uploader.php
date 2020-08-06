@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /**
  * 服务于 webuploader
  * Class Uploader

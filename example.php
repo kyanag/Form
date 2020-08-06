@@ -1,4 +1,7 @@
 <?php
+use Kyanag\Form\Tabler\Forms\HasOne;
+use Kyanag\Form\Tabler\ElementFactory;
+
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -29,6 +32,7 @@ $form = $tablerFactory->createElement("form", [
     $tablerFactory->createElement("text", [
         'name' => "title",
         'label' => "标题",
+        "error" => "error!"
     ]),
     $tablerFactory->createElement("select", [
         "name" => "category_id",
@@ -53,6 +57,9 @@ $form = $tablerFactory->createElement("form", [
     $tablerFactory->createElement("ajax-file", [
         "name" => "ajax-image",
         'label' => "上传",
+        'dataset' => [
+            ''
+        ],
     ]),
     $tablerFactory->createElement("range", [
         "name" => "hot_rank",
@@ -84,6 +91,12 @@ $form = $tablerFactory->createElement("form", [
                         'format' => "yyyy-mm-dd"
                 ],
             ]),
+            $tablerFactory->createElement("select2", [
+                'dataset' => [
+                    'format' => "yyyy-mm-dd"
+                ],
+                'multiple' => true
+            ]),
         ]
     )
 ]);
@@ -91,8 +104,9 @@ $form = $tablerFactory->createElement("form", [
 $form->setValue([
     'title' => "联盟日报【号外】",
     'category_id' => 2,
-    'tags' => [2],
-    'status' => 1,
+    'tags' => [2, 1],
+    'status' => 0,
+    'hot_rank' => 91,
     'article' => [
         'content' => "嘿，快醒醒，燃烧军团入侵了！",
         'created_at' => date("Y-m-d H:i:s")
@@ -101,12 +115,14 @@ $form->setValue([
 
 $str = $form->render();
 
-use Kyanag\Form\Tabler\Forms\HasOne;use Kyanag\Form\Tabler\ElementFactory;?>
+?>
 <html lang="zh">
 <head>
     <title></title>
     <link href="https://preview.tabler.io/assets/css/dashboard.css" rel="stylesheet">
     <link href="https://cdn.bootcdn.net/ajax/libs/gijgo/1.9.13/combined/css/gijgo.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+    <link href="/dist/css/select2-for-bootstrap4.css" rel="stylesheet">
     <meta charset="UTF-8">
     <style></style>
 </head>
@@ -117,12 +133,17 @@ use Kyanag\Form\Tabler\Forms\HasOne;use Kyanag\Form\Tabler\ElementFactory;?>
     </div>
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/i18n/zh-CN.js"></script>
 <script src="https://cdn.bootcss.com/gijgo/1.9.13/combined/js/gijgo.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/gijgo/1.9.13/combined/js/messages/messages.zh-cn.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/webuploader/0.1.1/webuploader.js"></script>
 <script src="./dist/js/tabler-form.js"></script>
 <script>
     $(function () {
+        $.fn.select2.defaults.set( "theme", "bootstrap4" );
+
         $.tablerFormSetup({
             uploader:{
                 url:"./examples/server.php"
@@ -130,7 +151,7 @@ use Kyanag\Form\Tabler\Forms\HasOne;use Kyanag\Form\Tabler\ElementFactory;?>
         });
 
         $("#my-form").tablerForm();
-    })
+    });
 </script>
 </body>
 </html>

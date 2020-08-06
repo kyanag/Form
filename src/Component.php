@@ -13,15 +13,12 @@ abstract class Component implements Renderable
      *
      * @param string         $name            组件值名称
      * @param string         $label           组件标题
-     * @param Attributes     $attribute       通用属性
-     * @param array          $properties      扩展属性
      * @param Component|null $parentComponent 父组件
      */
-    public function __construct($name, $label, Attributes $attribute, Component $parentComponent = null)
+    public function __construct($name, $label, Component $parentComponent = null)
     {
         $this->name = $name;
         $this->label = $label;
-        $this->attribute = $attribute;
         $this->parentComponent = $parentComponent;
     }
 
@@ -35,7 +32,11 @@ abstract class Component implements Renderable
         $this->value = $value;
         /** @var Component $child */
         foreach ($this->children as $child) {
-            $child->setValue($value);
+            $lastKeyPos = strrpos($child->getName(), ".");
+            $lastKeyPos = ($lastKeyPos === false) ? -1 : $lastKeyPos;
+            $indexKey = substr($child->getName(), $lastKeyPos + 1);
+
+            $child->setValue(data_get($value, $indexKey));
         }
     }
 
@@ -44,23 +45,7 @@ abstract class Component implements Renderable
         return $this->name;
     }
 
-
-    public function getAttributes()
-    {
-        return $this->attribute;
-    }
-
-    public function getAttribute($name)
-    {
-        return $this->attribute->{$name};
-    }
-
-    public function setAttribute($name, $value)
-    {
-        $this->attribute->{$name} = $value;
-    }
-
-    public function getChild($id)
+    public function getChildren($id)
     {
         return array_first(
             $this->children,
