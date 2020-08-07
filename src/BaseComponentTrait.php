@@ -103,7 +103,7 @@ trait BaseComponentTrait
 
     protected function showLabel()
     {
-        return $this->label === null ? $this->name : $this->label;
+        return ($this->label === null ? $this->name : $this->label);
     }
 
     protected function showName()
@@ -124,7 +124,7 @@ trait BaseComponentTrait
 
     protected function showValue()
     {
-        return call_user_func($this->valueFormat, $this->value);
+        return call_user_func($this->valueFormat, $this->value !== null ? $this->value : $this->default);
     }
 
     protected function showDisabled()
@@ -134,7 +134,7 @@ trait BaseComponentTrait
 
     protected function showReadonly()
     {
-        return $this->readonly === false ? "readonly" : null;
+        return $this->readonly === true ? "readonly" : null;
     }
 
     protected function showId()

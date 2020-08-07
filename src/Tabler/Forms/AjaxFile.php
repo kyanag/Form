@@ -12,13 +12,12 @@ class AjaxFile extends Component
 
     public function render()
     {
-        $dataset = HtmlRenderer::renderDataset($this->dataset);
         return <<<TPL
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <div class="input-group">
-      <input type="text" class="form-control ajax-file-input" name="{$this->showName()}" {$dataset}>
-      <span class="input-group-append" id="basic-addon2">
+      <input type="text" class="form-control ajax-file-input" name="{$this->showName()}" value="{$this->showValue()}" {$this->renderAttributes()}>
+      <span class="input-group-append">
             <button type="button" class="btn btn-primary ajax-file-btn">选择文件</button>
       </span>
   </div>

@@ -7,14 +7,18 @@ use Kyanag\Form\Component;
 
 class Textarea extends Component
 {
+    /**
+     * 文本高度
+     * @var int
+     */
+    public $row = 3;
 
     public function render()
     {
-        $row = @$this->properties['row'] ?: 3;
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-  <textarea id="{$this->showId()}" class="form-control" name="{$this->showName()}" rows="{$row}" placeholder="{$this->placeholder}" {$this->showDisabled()} {$this->showReadonly()}>{$this->showValue()}</textarea>
+  <textarea class="form-control" name="{$this->showName()}" rows="{$this->row}" {$this->renderAttributes()}>{$this->showValue()}</textarea>
 </div>
 TPL;
     }

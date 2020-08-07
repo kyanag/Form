@@ -3,3 +3,6 @@
 /composer.lock
 /test.log
 /temp
+/node_modules
+/build
+package-lock.json

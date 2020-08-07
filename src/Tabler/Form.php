@@ -48,7 +48,7 @@ class Form extends Component
     <div class="card-body">
         {$childrenHtml}
     </div>
-    {$this->renderFooter()};
+    {$this->renderFooter()}
 </form>
 TPL;
     }
@@ -69,7 +69,6 @@ EOF;
     <button type="submit" class="btn btn-primary">确认</button>
 </div>
 EOF;
-
     }
 
     protected function renderMethodField(){

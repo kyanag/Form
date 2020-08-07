@@ -34,16 +34,16 @@ TPL;
                 function ($option, $value) {
                     if (!is_array($option)) {
                         $option = [
-                        'text' => $option,
-                        'value' => $value,
+                            'text' => $option,
+                            'value' => $value,
                         ];
                     }
 
                     $attributes = [
-                    'name' => $this->showName(),
-                    'value' => $option['value'],
-                    'checked' => $this->isSelected($option, $value),
-                    'disabled' => boolval(@$option['disabled'])
+                        'name' => $this->showName(),
+                        'value' => $option['value'],
+                        'checked' => $this->isSelected($option, $value),
+                        'disabled' => boolval(@$option['disabled'])
                     ];
                     $attributeString = HtmlRenderer::renderAttributes($attributes);
 

@@ -4,7 +4,6 @@
 namespace Kyanag\Form\Tabler\Forms;
 
 use Kyanag\Form\Component;
-use Kyanag\Form\OptionComponent;
 use Kyanag\Form\OptionsTrait;
 use Kyanag\Form\Supports\HtmlRenderer;
 
@@ -18,7 +17,7 @@ class Select extends Component
         return <<<TPL
 <div class="form-group">
     <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-    <select class="form-control custom-select" name="{$this->showName()}" {$this->showReadonly()} {$this->showDisabled()}>
+    <select class="form-control custom-select" name="{$this->showName()}" {$this->renderAttributes()}>
       {$this->renderOptions()}
     </select>
 </div>
@@ -35,18 +34,18 @@ TPL;
                 function ($option, $value) {
                     if (!is_array($option)) {
                         $option = [
-                        'text' => $option,
-                        'value' => $value,
+                            'text' => $option,
+                            'value' => $value,
                         ];
                     }
 
                     $attributes = [
-                    'value' => $option['value'],
-                    'selected' => $this->isSelected($option, $value),
-                    'disabled' => boolval(@$option['disabled']),
-                    'data' => [
-                    'data' => @$option['data']
-                    ],
+                        'value' => $option['value'],
+                        'selected' => $this->isSelected($option, $value),
+                        'disabled' => boolval(@$option['disabled']),
+                        'data' => [
+                            'data' => @$option['data']
+                        ],
                     ];
                     $attributeString = HtmlRenderer::renderAttributes($attributes);
                     return "<option {$attributeString}>{$option['text']}</option>";

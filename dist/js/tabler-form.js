@@ -1,3 +1,17 @@
+const jQuery = require("jquery");
+const WebUploader = require("webuploader");
+const flatpickr = require("flatpickr");
+const {China} = require("flatpickr/dist/l10n/zh")
+
+require("bootstrap");
+require("selectize");
+require("moment");
+
+require('bootstrap/dist/css/bootstrap.min.css')
+require("../css/selectize-for-bootstrap4.css");
+
+window.$ = window.jQuery = jQuery;
+
 (function($){
     var createFile = function(delay){
         delay = 1000;
@@ -18,9 +32,8 @@
         onerror:null,
         url:null,
         datetimePicker:{
-            uiLibrary: 'bootstrap4',
-            locale: 'zh-cn',
-            format: "yyyy-mm-dd HH:MM"
+            locale: China,
+            format: "date",
         },
         uploader:{
             url:null,
@@ -41,16 +54,23 @@
         //日期时间选择
         $(this).find(".custom-datetime").each(function () {
             var format = $(this).data("format") || options.dataPicker.format;
+            if(format === "date"){
+                format = "yyyy-MM-DD";
+            }else if(format === "time"){
+                format = "HH:MM";
+            }else{
+                format = "yyyy-MM-DD";
+            }
 
             let pickerOptions = $.extend({}, options.datetimePicker, {format});
-            $(this).datetimepicker(pickerOptions);
+            flatpickr(this, pickerOptions);
         });
 
         $(this).find(".custom-range").each(function(){
             var min = parseFloat($(this).attr("min") || 0);
             var max = parseFloat($(this).attr("max") || 100);
             var that = $(this).parent().parent().find(".custom-range-input");
-console.log(that);
+
             $(this).change(() => {
                 $(that).val($(this).val());
             });
@@ -100,9 +120,13 @@ console.log(that);
             });
         });
 
-        //select2选择
-        $(this).find(".select2").each(function(){
-            $(this).select2();
+        //selectize选择
+        $(this).find(".selectize").each(function(){
+            $(this).selectize({
+                load: function(query, callback) {
+                    console.log(query);
+                }
+            });
         });
     };
 })(jQuery);

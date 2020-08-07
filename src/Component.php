@@ -3,6 +3,8 @@
 
 namespace Kyanag\Form;
 
+use Kyanag\Form\Supports\HtmlRenderer;
+
 abstract class Component implements Renderable
 {
 
@@ -58,6 +60,24 @@ abstract class Component implements Renderable
     public function addChild(Component $item)
     {
         $this->children[] = $item;
+    }
+
+
+    public function renderAttributes(){
+        $attributes = [
+            'id' => $this->showId(),
+            'style' => $this->style,
+            'placeholder' => $this->placeholder,
+            'multiple' => $this->multiple,
+            'disable' => $this->disable,
+            'readonly' => $this->readonly,
+            'data' => $this->dataset
+        ];
+
+        $attributes = array_filter($attributes, function($value){
+            return $value !== null;
+        });
+        return HtmlRenderer::renderAttributes($attributes);
     }
 
     abstract public function render();

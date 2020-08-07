@@ -1,6 +1,5 @@
 <?php
 use Kyanag\Form\Tabler\Forms\HasOne;
-use Kyanag\Form\Tabler\ElementFactory;
 
 /**
  * Created by PhpStorm.
@@ -32,15 +31,40 @@ $form = $tablerFactory->createElement("form", [
     $tablerFactory->createElement("text", [
         'name' => "title",
         'label' => "标题",
-        "error" => "error!"
+        "error" => "error!",
+        'style' => "width:200px"
     ]),
     $tablerFactory->createElement("select", [
         "name" => "category_id",
         'label' => "分类",
         "options" => [
             1 => "单机",
-            2 => "网游"
-        ]]),
+            2 => "网游",
+        ]
+    ]),
+    $tablerFactory->createElement("selectize", [
+        "name" => "brand_id",
+        'label' => "厂商",
+        "options" => [
+            1 => "网易",
+            2 => "腾讯",
+            3 => "搜狐"
+        ]
+    ]),
+
+    $tablerFactory->createElement("selectize", [
+        "name" => "send_to",
+        'label' => "抄送",
+        "options" => [
+            1 => ['value' => 1, "text" => "马雨"],
+            2 => ['value' => 2, "text" => "牛化腾"],
+            3 => ['value' => 3, "text" => "李彦紫"],
+            4 => ['value' => 4, "text" => "张背阳"],
+        ],
+        'placeholder' => "选择抄送人",
+        'multiple' => true,
+    ]),
+
     $tablerFactory->createElement("checkbox", [
         "name" => "tags",
         'label' => "标签",
@@ -55,7 +79,7 @@ $form = $tablerFactory->createElement("form", [
         'label' => "背景图",
     ]),
     $tablerFactory->createElement("ajax-file", [
-        "name" => "ajax-image",
+        "name" => "ajax-file",
         'label' => "上传",
         'dataset' => [
             ''
@@ -88,14 +112,8 @@ $form = $tablerFactory->createElement("form", [
                 'name' => "article.created_at",
                 'label' => "创建时间",
                 'dataset' => [
-                        'format' => "yyyy-mm-dd"
+                     'format' => "datetime"
                 ],
-            ]),
-            $tablerFactory->createElement("select2", [
-                'dataset' => [
-                    'format' => "yyyy-mm-dd"
-                ],
-                'multiple' => true
             ]),
         ]
     )
@@ -104,27 +122,30 @@ $form = $tablerFactory->createElement("form", [
 $form->setValue([
     'title' => "联盟日报【号外】",
     'category_id' => 2,
+    'brand_id' => [2,],
     'tags' => [2, 1],
-    'status' => 0,
+    'send_to' => [1, 3, ],
+    'ajax-file' => "http://www.baidu.com/葫芦娃.mp4",
+    'status' => 1,
     'hot_rank' => 91,
     'article' => [
         'content' => "嘿，快醒醒，燃烧军团入侵了！",
         'created_at' => date("Y-m-d H:i:s")
     ],
 ]);
-
 $str = $form->render();
 
 ?>
 <html lang="zh">
 <head>
     <title></title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.1/css/bootstrap.css" rel="stylesheet">
+<!--    <link href="./dist/css/selectize-for-bootstrap4.css" rel="stylesheet">-->
     <link href="https://preview.tabler.io/assets/css/dashboard.css" rel="stylesheet">
-    <link href="https://cdn.bootcdn.net/ajax/libs/gijgo/1.9.13/combined/css/gijgo.css" rel="stylesheet">
-    <link href="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
-    <link href="/dist/css/select2-for-bootstrap4.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" />
     <meta charset="UTF-8">
-    <style></style>
+    <link href="./build/main.css" rel="stylesheet">
 </head>
 <body>
 <div class="row">
@@ -132,18 +153,10 @@ $str = $form->render();
         <?=$str?>
     </div>
 </div>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/select2/4.1.0-beta.1/js/i18n/zh-CN.js"></script>
-<script src="https://cdn.bootcss.com/gijgo/1.9.13/combined/js/gijgo.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/gijgo/1.9.13/combined/js/messages/messages.zh-cn.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/webuploader/0.1.1/webuploader.js"></script>
-<script src="./dist/js/tabler-form.js"></script>
+
+<script src="./build/bundle.js"></script>
 <script>
     $(function () {
-        $.fn.select2.defaults.set( "theme", "bootstrap4" );
-
         $.tablerFormSetup({
             uploader:{
                 url:"./examples/server.php"
