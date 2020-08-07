@@ -1,7 +1,7 @@
 const jQuery = require("jquery");
 const WebUploader = require("webuploader");
 const flatpickr = require("flatpickr");
-const {China} = require("flatpickr/dist/l10n/zh")
+const {Mandarin:zh} = require("flatpickr/dist/l10n/zh.js")
 
 require("bootstrap");
 require("selectize");
@@ -9,6 +9,7 @@ require("moment");
 
 require('bootstrap/dist/css/bootstrap.min.css')
 require("../css/selectize-for-bootstrap4.css");
+require("flatpickr/dist/flatpickr.min.css");
 
 window.$ = window.jQuery = jQuery;
 
@@ -32,8 +33,7 @@ window.$ = window.jQuery = jQuery;
         onerror:null,
         url:null,
         datetimePicker:{
-            locale: China,
-            format: "date",
+            locale: zh,
         },
         uploader:{
             url:null,
