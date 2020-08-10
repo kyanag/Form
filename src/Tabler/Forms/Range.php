@@ -28,7 +28,7 @@ class Range extends Component
   <label class="form-label">{$this->showLabel()}</label>
   <div class="row align-items-center">
     <div class="col">
-      <input type="range" class="form-control custom-range" 
+      <input type="range" class="form-control custom-range {$this->renderClass()}" 
           step="{$this->step}" 
           min="{$this->min}" 
           max="{$this->max}" 

@@ -9,6 +9,7 @@ use Kyanag\Form\Supports\HtmlRenderer;
 
 class Form extends Component
 {
+
     const HTTP_METHOD_GET = "get";
     const HTTP_METHOD_POST = "post";
     const HTTP_METHOD_PUT = "put";
@@ -43,31 +44,18 @@ class Form extends Component
     {
         $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}" class="card" id="{$this->showId()}">
-    {$this->renderHeader()}
-    <div class="card-body">
-        {$childrenHtml}
-    </div>
+<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}" class="{$this->renderClass()}" id="{$this->showId()}">
+    {$this->renderMethodField()}
+    {$childrenHtml}
     {$this->renderFooter()}
 </form>
 TPL;
     }
 
-
-    protected function renderHeader(){
-        return <<<EOF
-<div class="card-header">
-    <h3 class="card-title">{$this->properties['title']}</h3>
-</div>
-EOF;
-
-    }
-
     protected function renderFooter(){
         return <<<EOF
-<div class="card-footer text-right">
-    <button type="submit" class="btn btn-primary">确认</button>
-</div>
+<button type="submit" class="btn btn-primary">确认</button>
+<button type="reset" class="btn btn-warning">重置</button>
 EOF;
     }
 
@@ -83,6 +71,14 @@ EOF;
             return "post";
         }else{
             return $this->method;
+        }
+    }
+
+
+
+    protected function applySize(){
+        foreach ($this->children as $child){
+            $child->size = $this->size;
         }
     }
 }

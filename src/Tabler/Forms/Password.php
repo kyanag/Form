@@ -13,7 +13,7 @@ class Password extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-  <input type="password" class="form-control" name="{$this->showName()}" {$this->renderAttributes()}>
+  <input type="password" class="form-control {$this->renderClass()}" name="{$this->showName()}" {$this->renderAttributes()}>
 </div>
 TPL;
     }

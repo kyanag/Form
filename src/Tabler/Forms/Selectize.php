@@ -13,7 +13,7 @@ class Selectize extends Select
         return <<<EOF
 <div class="form-group">
 <label class="form-label">{$this->showLabel()}</label>
-<select name="beast" class="form-control custom-select selectize" {$this->renderAttributes()}>
+<select name="beast" class="form-control selectize {$this->renderClass()}" {$this->renderAttributes()}>
   {$this->renderOptions()}
 </select>
 </div>

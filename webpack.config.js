@@ -56,6 +56,6 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin(),
         // 使用 uglifyjs-webpack-plugin 来压缩 JS 代码
-        new UglifyPlugin()
+        //new UglifyPlugin()
     ]
 }

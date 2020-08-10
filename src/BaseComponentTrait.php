@@ -44,7 +44,7 @@ trait BaseComponentTrait
     /**
      * @var array|string
      */
-    public $class = null;
+    public $class = [];
 
     /**
      * @var string
@@ -93,6 +93,8 @@ trait BaseComponentTrait
      */
     public $children = [];
 
+
+    public $size;
     /**
      * 扩展属性
      *
@@ -135,6 +137,10 @@ trait BaseComponentTrait
     protected function showReadonly()
     {
         return $this->readonly === true ? "readonly" : null;
+    }
+
+    protected function showClass(){
+        return $this->class;
     }
 
     protected function showId()

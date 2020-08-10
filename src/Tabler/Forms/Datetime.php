@@ -16,7 +16,7 @@ class Datetime extends Component
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <input type="text" 
-    class="form-control custom-datetime"
+    class="form-control custom-datetime {$this->renderClass()}"
     name="{$this->showName()}" 
     value="{$this->showValue()}" 
     {$this->renderAttributes()}

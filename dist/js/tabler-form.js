@@ -7,9 +7,10 @@ require("bootstrap");
 require("selectize");
 require("moment");
 
-require('bootstrap/dist/css/bootstrap.min.css')
-require("../css/selectize-for-bootstrap4.css");
+require('bootstrap/dist/css/bootstrap.min.css');
 require("flatpickr/dist/flatpickr.min.css");
+
+require("../css/selectize-for-bootstrap4.css");
 
 window.$ = window.jQuery = jQuery;
 

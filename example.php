@@ -22,11 +22,11 @@ foreach($files as $file){
     $tablerFactory->registerComponent($snake_str, $class);
 }
 
-$tablerFactory->registerComponent("form", \Kyanag\Form\Tabler\Form::class);
+$tablerFactory->registerComponent("card-form", \Kyanag\Form\Tabler\Form::class);
 
 
-$form = $tablerFactory->createElement("form", [
-        'id' => "my-form"
+$form = $tablerFactory->createElement("card-form", [
+        'id' => "my-form",
 ], [
     $tablerFactory->createElement("text", [
         'name' => "title",

@@ -13,6 +13,8 @@ use Kyanag\Form\Component;
 class Text extends Component
 {
 
+
+
     public function render()
     {
         return <<<TPL
@@ -20,7 +22,7 @@ class Text extends Component
   <label class="form-label">{$this->showLabel()}</label>
   <input 
     type="text" 
-    class="form-control" 
+    class="form-control {$this->renderClass()}" 
     name="{$this->showName()}" 
     value="{$this->showValue()}"
     {$this->renderAttributes()}

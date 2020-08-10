@@ -63,7 +63,7 @@ abstract class Component implements Renderable
     }
 
 
-    public function renderAttributes(){
+    protected function renderAttributes(){
         $attributes = [
             'id' => $this->showId(),
             'style' => $this->style,
@@ -78,6 +78,11 @@ abstract class Component implements Renderable
             return $value !== null;
         });
         return HtmlRenderer::renderAttributes($attributes);
+    }
+
+
+    protected function renderClass(){
+        return implode(" ", (array)$this->class);
     }
 
     abstract public function render();
