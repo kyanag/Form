@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 
 /**
  * 原生文本组件
  *
- * @package Kyanag\Form\Tabler\Forms
+ * @package Kyanag\Form\Components\Forms
  */
 class StaticText extends Component
 {
@@ -18,7 +18,7 @@ class StaticText extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
-  <div class="form-control-plaintext {$this->renderClass()}" data-name="{$this->showName()}" {$this->renderAttributes()}>{$this->showValue()}</div>
+  <div class="form-control-plaintext {$this->renderClass()} {$this->withNamespace("static")}" data-name="{$this->showName()}" {$this->renderAttributes()}>{$this->showValue()}</div>
 </div>
 TPL;
     }

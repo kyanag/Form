@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 
 use Kyanag\Form\Component;
@@ -17,6 +17,7 @@ class Hidden extends Component
   name="{$this->showName()}" 
   value="{$this->showValue()}"
   {$this->renderAttributes()}
+  class="{$this->renderClass()} {$this->withNamespace("hidden")}"
 >
 TPL;
     }

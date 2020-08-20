@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 
 use Kyanag\Form\Component;
@@ -16,7 +16,7 @@ class Datetime extends Component
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <input type="text" 
-    class="form-control custom-datetime {$this->renderClass()}"
+    class="form-control custom-datetime {$this->renderClass()} {$this->withNamespace("datetime")}"
     name="{$this->showName()}" 
     value="{$this->showValue()}" 
     {$this->renderAttributes()}

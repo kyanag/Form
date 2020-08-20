@@ -11,17 +11,22 @@ abstract class Component implements Renderable
     use BaseComponentTrait;
 
     /**
+     * 元素id/class的前缀
+     * @var string
+     */
+    public $namespace = "oneform-";
+
+    /**
      * Component constructor.
      *
      * @param string         $name            组件值名称
      * @param string         $label           组件标题
      * @param Component|null $parentComponent 父组件
      */
-    public function __construct($name, $label, Component $parentComponent = null)
+    public function __construct($name, $label)
     {
         $this->name = $name;
         $this->label = $label;
-        $this->parentComponent = $parentComponent;
     }
 
     public function getValue()
@@ -59,6 +64,7 @@ abstract class Component implements Renderable
 
     public function addChild(Component $item)
     {
+        $item->parentComponent = $this;
         $this->children[] = $item;
     }
 
@@ -86,4 +92,13 @@ abstract class Component implements Renderable
     }
 
     abstract public function render();
+
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    protected function withNamespace($name){
+        return "{$this->namespace}{$name}";
+    }
 }

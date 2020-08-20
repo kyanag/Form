@@ -3,9 +3,7 @@
 
 namespace Kyanag\Form\Tests;
 
-
-use Kyanag\Form\Tabler\Forms\File;
-use Kyanag\Form\Tabler\ElementFactory;
+use Kyanag\Form\Components\ElementFactory;
 
 class Factory
 {
@@ -13,12 +11,12 @@ class Factory
     public static function makeTableFactory(){
         $factory = new ElementFactory();
 
-        $files = glob(src_path("Tabler/Forms/*.php"));
+        $files = glob(src_path("Components/Forms/*.php"));
         foreach($files as $file){
             $classBaseName = basename($file, ".php");
 
-            $snake_str = cmal_to_snake($classBaseName);
-            $class = "Kyanag\\Form\\Tabler\\Forms\\{$classBaseName}";
+            $snake_str = \Kyanag\Form\camelToSnake($classBaseName);
+            $class = "Kyanag\\Form\\Components\\Forms\\{$classBaseName}";
 
             $factory->registerComponent($snake_str, $class);
         }

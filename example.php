@@ -11,18 +11,18 @@ $loader = require "./vendor/autoload.php";
 
 define("APP_PATH", __DIR__);
 
-$tablerFactory = new \Kyanag\Form\Tabler\ElementFactory();
+$tablerFactory = new \Kyanag\Form\Components\ElementFactory();
 
-$files = glob(__DIR__ . "/src/Tabler/Forms/*.php");
+$files = glob(__DIR__ . "/src/Components/Forms/*.php");
 foreach($files as $file){
     $classBaseName = basename($file, ".php");
     $snake_str = \Kyanag\Form\camelToSnake($classBaseName);
-    $class = "Kyanag\\Form\\Tabler\\Forms\\{$classBaseName}";
+    $class = "Kyanag\\Form\\Components\\Forms\\{$classBaseName}";
 
     $tablerFactory->registerComponent($snake_str, $class);
 }
 
-$tablerFactory->registerComponent("card-form", \Kyanag\Form\Tabler\Form::class);
+$tablerFactory->registerComponent("card-form", \Kyanag\Form\Components\Form::class);
 
 
 $form = $tablerFactory->createElement("card-form", [
@@ -103,9 +103,11 @@ $form = $tablerFactory->createElement("card-form", [
             'label' => "",
         ],
         [
-            $tablerFactory->createElement("textarea", [
+            $tablerFactory->createElement("ck-editor", [
                 'name' => "article.content",
                 'label' => "文章主体",
+                'row' => 10,
+                'style' => "min-height:500px"
             ]),
             $tablerFactory->createElement("datetime", [
                 "id" => "datetime",
@@ -136,31 +138,32 @@ $form->setValue([
 $str = $form->render();
 
 ?>
+<!DOCTYPE html>
 <html lang="zh">
 <head>
     <title></title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.1/css/bootstrap.css" rel="stylesheet">
-<!--    <link href="./dist/css/selectize-for-bootstrap4.css" rel="stylesheet">-->
-    <link href="https://preview.tabler.io/assets/css/dashboard.css" rel="stylesheet">
+    <link href="./dist/css/selectize-for-bootstrap4.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" />
     <meta charset="UTF-8">
     <link href="./build/main.css" rel="stylesheet">
 </head>
 <body>
-<div class="row">
-    <div class="col-md-6">
-        <?=$str?>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <?=$str?>
+        </div>
     </div>
 </div>
-
 <script src="./build/bundle.js"></script>
 <script>
     $(function () {
         $.tablerFormSetup({
             uploader:{
                 url:"./examples/server.php"
-            }
+            },
         });
 
         $("#my-form").tablerForm();

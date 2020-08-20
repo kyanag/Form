@@ -372,3 +372,8 @@
     height: 1.5rem;
     margin: -3px .75rem -3px -5px;
 }
+
+
+.ck-content {
+    min-height: 400px;
+}

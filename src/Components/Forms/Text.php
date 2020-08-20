@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 
 /**
  * 普通文本输入框
  *
- * @package Kyanag\Form\Tabler\Forms
+ * @package Kyanag\Form\Components\Forms
  */
 class Text extends Component
 {
@@ -22,7 +22,7 @@ class Text extends Component
   <label class="form-label">{$this->showLabel()}</label>
   <input 
     type="text" 
-    class="form-control {$this->renderClass()}" 
+    class="form-control {$this->renderClass()} {$this->withNamespace("text")}" 
     name="{$this->showName()}" 
     value="{$this->showValue()}"
     {$this->renderAttributes()}

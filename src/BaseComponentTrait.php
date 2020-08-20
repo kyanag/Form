@@ -110,9 +110,9 @@ trait BaseComponentTrait
 
     protected function showName()
     {
-        $name = $this->name;
-        if(strpos($this->name, ".") !== false){
-            $_ = explode(".", $this->name);
+        $name = trim($this->name, ".");
+        if(strpos($name, ".") !== false){
+            $_ = explode(".", $name);
             $name = array_shift($_);
             foreach ($_ as $str){
                 $name .= "[{$str}]";

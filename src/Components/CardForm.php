@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler;
+namespace Kyanag\Form\Components;
 
 
 use Kyanag\Form\Component;

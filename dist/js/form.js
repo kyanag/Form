@@ -1,12 +1,13 @@
 const jQuery = require("jquery");
-const WebUploader = require("webuploader");
+const webUploader = require("webuploader");
 const flatpickr = require("flatpickr");
-const {Mandarin:zh} = require("flatpickr/dist/l10n/zh.js")
+const {Mandarin:zh} = require("flatpickr/dist/l10n/zh.js");
+const ckEditor = require("@ckeditor/ckeditor5-build-classic");
 
 require("bootstrap");
 require("selectize");
-require("moment");
 
+require("@ckeditor/ckeditor5-build-classic/build/translations/zh-cn");
 require('bootstrap/dist/css/bootstrap.min.css');
 require("flatpickr/dist/flatpickr.min.css");
 
@@ -30,6 +31,7 @@ window.$ = window.jQuery = jQuery;
     };
 
     var defaultOptions = {
+        namespace:"oneform-",
         onsuccess:null,
         onerror:null,
         url:null,
@@ -43,6 +45,9 @@ window.$ = window.jQuery = jQuery;
             chunkSize: 1024 * 1024 * 1,
             threads: 1,
         },
+        ckeditor:{
+            language: 'zh-cn'
+        }
     };
 
     $.tablerFormSetup = function(options){
@@ -51,9 +56,10 @@ window.$ = window.jQuery = jQuery;
 
     $.fn.tablerForm = function (options) {
         options = $.extend(defaultOptions, options);
+        var namespace = options.namespace;
 
         //日期时间选择
-        $(this).find(".custom-datetime").each(function () {
+        $(this).find(`.${namespace}datetime`).each(function () {
             var format = $(this).data("format") || options.dataPicker.format;
             if(format === "date"){
                 format = "yyyy-MM-DD";
@@ -67,7 +73,7 @@ window.$ = window.jQuery = jQuery;
             flatpickr(this, pickerOptions);
         });
 
-        $(this).find(".custom-range").each(function(){
+        $(this).find(`.${namespace}range`).each(function(){
             var min = parseFloat($(this).attr("min") || 0);
             var max = parseFloat($(this).attr("max") || 100);
             var that = $(this).parent().parent().find(".custom-range-input");
@@ -89,13 +95,13 @@ window.$ = window.jQuery = jQuery;
         });
 
         //ajax文件上传
-        $(this).find(".ajax-file-input").each(function(){
+        $(this).find(`.${namespace}ajaxfile`).each(function(){
             var btn = $(this).parent().find(".ajax-file-btn");
             $(btn).click(() => {
                 console.log($(this).data());
                 var upOptions = $.extend(options.uploader ,$(this).data());
 
-                var uploader = WebUploader.create(upOptions);
+                var uploader = webUploader.create(upOptions);
                 uploader.on("uploadSuccess", (file, response) => {
                     $(this).val(response.url);
 
@@ -122,12 +128,25 @@ window.$ = window.jQuery = jQuery;
         });
 
         //selectize选择
-        $(this).find(".selectize").each(function(){
+        $(this).find(`.${namespace}selectize`).each(function(){
             $(this).selectize({
                 load: function(query, callback) {
                     console.log(query);
                 }
             });
+        });
+
+        //selectize选择
+        $(this).find(`.${namespace}ckeditor`).each(function(){
+            var editorOptions = $.extend(options.ckeditor, $(this).data());
+
+            ckEditor.create( this, editorOptions)
+                .then( editor => {
+                    console.log( editor );
+                } )
+                .catch( error => {
+                    console.error( error );
+                } );
         });
     };
 })(jQuery);

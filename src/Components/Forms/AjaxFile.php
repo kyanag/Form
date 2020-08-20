@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 
 use Kyanag\Form\Component;
@@ -16,7 +16,7 @@ class AjaxFile extends Component
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <div class="input-group">
-      <input type="text" class="form-control ajax-file-input {$this->renderClass()}" name="{$this->showName()}" value="{$this->showValue()}" {$this->renderAttributes()}>
+      <input type="text" class="form-control {$this->renderClass()} {$this->withNamespace("ajaxfile")}" name="{$this->showName()}" value="{$this->showValue()}" {$this->renderAttributes()}>
       <span class="input-group-append">
             <button type="button" class="btn btn-primary ajax-file-btn">选择文件</button>
       </span>

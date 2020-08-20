@@ -1,13 +1,18 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 
 use Kyanag\Form\Component;
 use function Kyanag\Form\data_get;
 use function Kyanag\Form\randomString;
 
+/**
+ * TODO
+ * Class HasMany
+ * @package Kyanag\Form\Components\Forms
+ */
 class HasMany extends Component
 {
 

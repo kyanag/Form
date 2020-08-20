@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 use Kyanag\Form\OptionsTrait;
@@ -49,7 +49,7 @@ TPL;
 
                     return <<<TPL
 <label class="custom-control custom-radio custom-control-inline">
-  <input type="radio" class="custom-control-input {$this->renderClass()}" {$attributeString}>
+  <input type="radio" class="custom-control-input {$this->renderClass()} {$this->withNamespace("radio")}" {$attributeString}>
   <span class="custom-control-label">{$option['text']}</span>
 </label>
 TPL;

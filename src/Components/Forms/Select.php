@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 use Kyanag\Form\OptionsTrait;
@@ -17,7 +17,7 @@ class Select extends Component
         return <<<TPL
 <div class="form-group">
     <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-    <select class="form-control {$this->renderClass()}" name="{$this->showName()}" {$this->renderAttributes()}>
+    <select class="form-control custom-select {$this->renderClass()} {$this->withNamespace("select")}" name="{$this->showName()}" {$this->renderAttributes()}>
       {$this->renderOptions()}
     </select>
 </div>

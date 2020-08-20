@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 
 /**
  * 滑动输入框
  *
- * @package Kyanag\Form\Tabler\Forms
+ * @package Kyanag\Form\Components\Forms
  */
 class Range extends Component
 {
@@ -28,7 +28,7 @@ class Range extends Component
   <label class="form-label">{$this->showLabel()}</label>
   <div class="row align-items-center">
     <div class="col">
-      <input type="range" class="form-control custom-range {$this->renderClass()}" 
+      <input type="range" class="custom-range {$this->renderClass()} {$this->withNamespace("range")}" 
           step="{$this->step}" 
           min="{$this->min}" 
           max="{$this->max}" 

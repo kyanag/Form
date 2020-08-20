@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 use Kyanag\Form\Supports\HtmlRenderer;
@@ -13,7 +13,7 @@ class HasOne extends Component
     {
         $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<fieldset>
+<fieldset class="{$this->renderClass()} {$this->withNamespace("hasone")}">
     <legend class="border-bottom">{$this->showLabel()}</legend>
     {$childrenHtml}
 </fieldset>

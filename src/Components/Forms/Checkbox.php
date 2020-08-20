@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 use Kyanag\Form\OptionsTrait;
@@ -49,7 +49,7 @@ TPL;
 
                     return <<<TPL
 <label class="custom-control custom-checkbox custom-control-inline">
-  <input type="checkbox" class="custom-control-input {$this->renderClass()}" {$attributeString}>
+  <input type="checkbox" class="custom-control-input {$this->renderClass()} {$this->withNamespace("checkbox")}" {$attributeString}>
   <span class="custom-control-label">{$option['text']}</span>
 </label>
 TPL;

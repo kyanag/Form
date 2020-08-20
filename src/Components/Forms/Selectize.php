@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 
 
@@ -13,7 +13,7 @@ class Selectize extends Select
         return <<<EOF
 <div class="form-group">
 <label class="form-label">{$this->showLabel()}</label>
-<select name="beast" class="form-control selectize {$this->renderClass()}" {$this->renderAttributes()}>
+<select name="beast" class="form-control {$this->renderClass()} {$this->withNamespace("selectize")}" {$this->renderAttributes()}>
   {$this->renderOptions()}
 </select>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler;
+namespace Kyanag\Form\Components;
 
 
 use Kyanag\Form\Component;
@@ -31,14 +31,10 @@ class Form extends Component
     public $enctype;
 
     /**
+     * HTTP method 伪造
      * @var bool
      */
     public $methodOverride = true;
-
-
-    public $properties = [
-        'title' => "编辑"
-    ];
 
     public function render()
     {
@@ -73,8 +69,6 @@ EOF;
             return $this->method;
         }
     }
-
-
 
     protected function applySize(){
         foreach ($this->children as $child){

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kyanag\Form\Tabler\Forms;
+namespace Kyanag\Form\Components\Forms;
 
 use Kyanag\Form\Component;
 
@@ -18,7 +18,7 @@ class Textarea extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-  <textarea class="form-control {$this->renderClass()}" name="{$this->showName()}" rows="{$this->row}" {$this->renderAttributes()}>{$this->showValue()}</textarea>
+  <textarea class="form-control {$this->renderClass()} {$this->withNamespace("textarea")}" name="{$this->showName()}" rows="{$this->row}" {$this->renderAttributes()}>{$this->showValue()}</textarea>
 </div>
 TPL;
     }
