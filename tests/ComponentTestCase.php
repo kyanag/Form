@@ -39,14 +39,17 @@ abstract class ComponentTestCase extends TestCase
 
 
     public function testGetName(){
+        $this->component->valueDomain = "x";
         $names = [
-            "abc",
-            'abc.index',
+            "abc" => "x.abc",
+            'abc.index' => "x.abc.index",
         ];
-        foreach ($names as $name){
+        foreach ($names as $name => $withDomainName){
             $this->component->name = $name;
 
             $this->assertTrue($this->component->getName() === $name);
+
+            $this->assertTrue($this->component->getName(true) === $withDomainName);
         }
     }
 
@@ -86,6 +89,21 @@ abstract class ComponentTestCase extends TestCase
 
         $this->component->multiple = true;
         $this->assertTrue(Helper::call($this->component, "showName") === "{$value}[]");
+        $this->component->multiple = false;
+
+        //valueDomain
+        $this->component->valueDomain = "x";
+        $names = [
+            "a" => "x[a]",
+            "a.b" => "x[a][b]",
+            "a.b." => "x[a][b]",
+            "a.b.c" => "x[a][b][c]"
+        ];
+        foreach ($names as $key => $value){
+            $this->component->name = $key;
+
+            $this->assertTrue(Helper::call($this->component, "showName") === $value);
+        }
     }
 
     public function testShowValue(){

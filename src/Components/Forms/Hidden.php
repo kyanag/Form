@@ -17,7 +17,7 @@ class Hidden extends Component
   name="{$this->showName()}" 
   value="{$this->showValue()}"
   {$this->renderAttributes()}
-  class="{$this->renderClass()} {$this->withNamespace("hidden")}"
+  class="{$this->renderClass()} {$this->withSelectorPrefix("hidden")}"
 >
 TPL;
     }

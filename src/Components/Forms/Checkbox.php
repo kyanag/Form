@@ -49,7 +49,7 @@ TPL;
 
                     return <<<TPL
 <label class="custom-control custom-checkbox custom-control-inline">
-  <input type="checkbox" class="custom-control-input {$this->renderClass()} {$this->withNamespace("checkbox")}" {$attributeString}>
+  <input type="checkbox" class="custom-control-input {$this->renderClass()} {$this->withSelectorPrefix("checkbox")}" {$attributeString}>
   <span class="custom-control-label">{$option['text']}</span>
 </label>
 TPL;

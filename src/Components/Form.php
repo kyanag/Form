@@ -69,10 +69,4 @@ EOF;
             return $this->method;
         }
     }
-
-    protected function applySize(){
-        foreach ($this->children as $child){
-            $child->size = $this->size;
-        }
-    }
 }

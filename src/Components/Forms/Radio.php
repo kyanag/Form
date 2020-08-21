@@ -49,7 +49,7 @@ TPL;
 
                     return <<<TPL
 <label class="custom-control custom-radio custom-control-inline">
-  <input type="radio" class="custom-control-input {$this->renderClass()} {$this->withNamespace("radio")}" {$attributeString}>
+  <input type="radio" class="custom-control-input {$this->renderClass()} {$this->withSelectorPrefix("radio")}" {$attributeString}>
   <span class="custom-control-label">{$option['text']}</span>
 </label>
 TPL;

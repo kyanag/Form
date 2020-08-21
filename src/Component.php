@@ -7,21 +7,118 @@ use Kyanag\Form\Supports\HtmlRenderer;
 
 abstract class Component implements Renderable
 {
-
-    use BaseComponentTrait;
-
     /**
-     * 元素id/class的前缀
      * @var string
      */
-    public $namespace = "oneform-";
+    public $id;
+
+    /**
+     * @var string
+     */
+    public $name;
+
+
+    /**
+     * @var string
+     */
+    public $label;
+
+    /**
+     * @var mixed
+     */
+    public $value;
+
+    /**
+     * @var string
+     */
+    public $help;
+
+    /**
+     * @var string
+     */
+    public $error;
+
+    /**
+     * @var array|string
+     */
+    public $class = [];
+
+    /**
+     * @var string
+     */
+    public $style = null;
+
+    /**
+     * @var string
+     */
+    public $placeholder = null;
+
+    /**
+     * 默认值
+     * @var mixed
+     */
+    public $default = null;
+
+    /**
+     * @var bool
+     */
+    public $multiple = false;
+
+    /**
+     * @var bool
+     */
+    public $disable = false;
+
+    /**
+     * @var bool
+     */
+    public $readonly = false;
+
+    /**
+     * html@data
+     * @var array
+     */
+    public $dataset = [];
+
+    /**
+     * @var array<static>
+     */
+    public $children = [];
+
+    /**
+     * 扩展属性
+     *
+     * @var array
+     */
+    public $properties = [];
+
+    /**
+     * @var callable
+     */
+    public $valueFormat = "htmlspecialchars";
+
+    /**
+     * 选择器前缀
+     * @var string
+     */
+    public $selectorPrefix = "oneform-";
+
+    /**
+     * 值域
+     * @var null|string
+     */
+    public $valueDomain = null;
+
+    /**
+     * @var Component
+     */
+    protected $parentComponent;
 
     /**
      * Component constructor.
      *
-     * @param string         $name            组件值名称
-     * @param string         $label           组件标题
-     * @param Component|null $parentComponent 父组件
+     * @param string $name 组件值名称
+     * @param string $label 组件标题
      */
     public function __construct($name, $label)
     {
@@ -47,9 +144,31 @@ abstract class Component implements Renderable
         }
     }
 
-    public function getName()
+    /**
+     * @param bool $withDomain 是否携带valueDomain
+     * @return string
+     */
+    public function getName($withDomain = false)
     {
+        if($withDomain === true && $this->valueDomain){
+            return "{$this->valueDomain}.{$this->name}";
+        }
         return $this->name;
+    }
+    public function showName()
+    {
+        $name = trim($this->getName(true), ".");
+        if(strpos($name, ".") !== false){
+            $_ = explode(".", $name);
+            $name = array_shift($_);
+            foreach ($_ as $str){
+                $name .= "[{$str}]";
+            }
+        }
+        if($this->multiple){
+            $name .= "[]";
+        }
+        return $name;
     }
 
     public function getChildren($id)
@@ -62,9 +181,12 @@ abstract class Component implements Renderable
         );
     }
 
-    public function addChild(Component $item)
+    public function addChild(Component $item, $strict = true)
     {
-        $item->parentComponent = $this;
+        if($strict === true){
+            $item->valueDomain = $this->getName();
+            $item->parentComponent = $this;
+        }
         $this->children[] = $item;
     }
 
@@ -91,14 +213,44 @@ abstract class Component implements Renderable
         return implode(" ", (array)$this->class);
     }
 
-    abstract public function render();
-
 
     /**
      * @param string $name
      * @return string
      */
-    protected function withNamespace($name){
-        return "{$this->namespace}{$name}";
+    protected function withSelectorPrefix($name){
+        return "{$this->selectorPrefix}{$name}";
     }
+
+
+    protected function showLabel()
+    {
+        return ($this->label === null ? $this->name : $this->label);
+    }
+
+    protected function showValue()
+    {
+        return call_user_func($this->valueFormat, $this->value !== null ? $this->value : $this->default);
+    }
+
+    protected function showDisabled()
+    {
+        return $this->disable === true ? "disabled" : null;
+    }
+
+    protected function showReadonly()
+    {
+        return $this->readonly === true ? "readonly" : null;
+    }
+
+    protected function showClass(){
+        return $this->class;
+    }
+
+    protected function showId()
+    {
+        return $this->id;
+    }
+
+    abstract public function render();
 }

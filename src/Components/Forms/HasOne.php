@@ -13,7 +13,7 @@ class HasOne extends Component
     {
         $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<fieldset class="{$this->renderClass()} {$this->withNamespace("hasone")}">
+<fieldset class="{$this->renderClass()} {$this->withSelectorPrefix("hasone")}">
     <legend class="border-bottom">{$this->showLabel()}</legend>
     {$childrenHtml}
 </fieldset>

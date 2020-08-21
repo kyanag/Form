@@ -31,7 +31,7 @@ window.$ = window.jQuery = jQuery;
     };
 
     var defaultOptions = {
-        namespace:"oneform-",
+        selectorPrefix:"oneform-",
         onsuccess:null,
         onerror:null,
         url:null,
@@ -56,10 +56,10 @@ window.$ = window.jQuery = jQuery;
 
     $.fn.tablerForm = function (options) {
         options = $.extend(defaultOptions, options);
-        var namespace = options.namespace;
+        var selectorPrefix = options.selectorPrefix;
 
         //日期时间选择
-        $(this).find(`.${namespace}datetime`).each(function () {
+        $(this).find(`.${selectorPrefix}datetime`).each(function () {
             var format = $(this).data("format") || options.dataPicker.format;
             if(format === "date"){
                 format = "yyyy-MM-DD";
@@ -73,7 +73,7 @@ window.$ = window.jQuery = jQuery;
             flatpickr(this, pickerOptions);
         });
 
-        $(this).find(`.${namespace}range`).each(function(){
+        $(this).find(`.${selectorPrefix}range`).each(function(){
             var min = parseFloat($(this).attr("min") || 0);
             var max = parseFloat($(this).attr("max") || 100);
             var that = $(this).parent().parent().find(".custom-range-input");
@@ -95,7 +95,7 @@ window.$ = window.jQuery = jQuery;
         });
 
         //ajax文件上传
-        $(this).find(`.${namespace}ajaxfile`).each(function(){
+        $(this).find(`.${selectorPrefix}ajaxfile`).each(function(){
             var btn = $(this).parent().find(".ajax-file-btn");
             $(btn).click(() => {
                 console.log($(this).data());
@@ -128,7 +128,7 @@ window.$ = window.jQuery = jQuery;
         });
 
         //selectize选择
-        $(this).find(`.${namespace}selectize`).each(function(){
+        $(this).find(`.${selectorPrefix}selectize`).each(function(){
             $(this).selectize({
                 load: function(query, callback) {
                     console.log(query);
@@ -137,7 +137,7 @@ window.$ = window.jQuery = jQuery;
         });
 
         //selectize选择
-        $(this).find(`.${namespace}ckeditor`).each(function(){
+        $(this).find(`.${selectorPrefix}ckeditor`).each(function(){
             var editorOptions = $.extend(options.ckeditor, $(this).data());
 
             ckEditor.create( this, editorOptions)

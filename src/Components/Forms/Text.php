@@ -22,7 +22,7 @@ class Text extends Component
   <label class="form-label">{$this->showLabel()}</label>
   <input 
     type="text" 
-    class="form-control {$this->renderClass()} {$this->withNamespace("text")}" 
+    class="form-control {$this->renderClass()} {$this->withSelectorPrefix("text")}" 
     name="{$this->showName()}" 
     value="{$this->showValue()}"
     {$this->renderAttributes()}

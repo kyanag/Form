@@ -14,7 +14,7 @@ class File extends Component
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
   <div class="custom-file">
-    <input type="file" class="custom-file-input {$this->renderClass()} {$this->withNamespace("file")}" name="{$this->showName()}" {$this->renderAttributes()}>
+    <input type="file" class="custom-file-input {$this->renderClass()} {$this->withSelectorPrefix("file")}" name="{$this->showName()}" {$this->renderAttributes()}>
     <label class="custom-file-label">选择文件</label>
   </div>
 </div>

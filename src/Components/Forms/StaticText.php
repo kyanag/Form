@@ -18,7 +18,7 @@ class StaticText extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label">{$this->showLabel()}</label>
-  <div class="form-control-plaintext {$this->renderClass()} {$this->withNamespace("static")}" data-name="{$this->showName()}" {$this->renderAttributes()}>{$this->showValue()}</div>
+  <div class="form-control-plaintext {$this->renderClass()} {$this->withSelectorPrefix("static")}" data-name="{$this->showName()}" {$this->renderAttributes()}>{$this->showValue()}</div>
 </div>
 TPL;
     }

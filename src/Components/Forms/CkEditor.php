@@ -16,7 +16,7 @@ class CkEditor extends Component
         return <<<TPL
 <div class="form-group">
   <label class="form-label" for="{$this->showId()}">{$this->showLabel()}</label>
-  <textarea class="form-control {$this->renderClass()} {$this->withNamespace("ckeditor")}" name="{$this->showName()}" rows="{$this->row}" {$this->renderAttributes()}>{$this->showValue()}</textarea>
+  <textarea class="form-control {$this->renderClass()} {$this->withSelectorPrefix("ckeditor")}" name="{$this->showName()}" rows="{$this->row}" {$this->renderAttributes()}>{$this->showValue()}</textarea>
 </div>
 TPL;
     }

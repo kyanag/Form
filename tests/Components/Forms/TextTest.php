@@ -26,7 +26,6 @@ class TextTest extends ComponentTestCase
         ]);
 
         $html = $text->render();
-        //pass
 
         $this->assertTrue(true);
     }
