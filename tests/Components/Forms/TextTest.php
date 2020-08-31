@@ -15,7 +15,7 @@ class TextTest extends ComponentTestCase
     {
         parent::setUp();
 
-        $this->component = new Text("testName", "testLabel");
+        $this->component = new Text();
     }
 
     public function testRender(){

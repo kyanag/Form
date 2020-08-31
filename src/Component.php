@@ -114,17 +114,6 @@ abstract class Component implements Renderable
      */
     protected $parentComponent;
 
-    /**
-     * Component constructor.
-     *
-     * @param string $name 组件值名称
-     * @param string $label 组件标题
-     */
-    public function __construct($name, $label)
-    {
-        $this->name = $name;
-        $this->label = $label;
-    }
 
     public function getValue()
     {
@@ -155,6 +144,8 @@ abstract class Component implements Renderable
         }
         return $this->name;
     }
+
+
     public function showName()
     {
         $name = trim($this->getName(true), ".");

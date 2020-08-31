@@ -21,12 +21,7 @@ class ElementFactory
     {
         if (isset($this->components[$type])) {
             $class = $this->components[$type];
-            $name = @$props['name'];
-            $label = @$props['label'];
-
-            unset($props['name'], $props['label'], $props['attribute']);
-
-            $componentBuilder = new ComponentBuilder(new $class($name, $label));
+            $componentBuilder = new ComponentBuilder(new $class);
             foreach ($props as $name => $propValue) {
                 $componentBuilder->setProperty($name, $propValue);
             }

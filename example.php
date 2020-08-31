@@ -23,6 +23,7 @@ foreach($files as $file){
 }
 
 $tablerFactory->registerComponent("card-form", \Kyanag\Form\Components\Form::class);
+$tablerFactory->registerComponent("tabs", \Kyanag\Form\Components\Tabs::class);
 
 
 $form = $tablerFactory->createElement("card-form", [
@@ -135,7 +136,12 @@ $form->setValue([
         'created_at' => date("Y-m-d H:i:s")
     ],
 ]);
-$str = $form->render();
+//$str = $form->render();
+
+$tabs = new \Kyanag\Form\Components\Tabs();
+
+$tabs->newTab("主表单", $form);
+$tabs->newTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText(), true);
 
 ?>
 <!DOCTYPE html>
@@ -153,20 +159,21 @@ $str = $form->render();
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-md-6">
-            <?=$str?>
+            <?=$tabs->render()?>
         </div>
     </div>
 </div>
-<script src="./build/bundle.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.js"></script>
 <script>
     $(function () {
-        $.tablerFormSetup({
-            uploader:{
-                url:"./examples/server.php"
-            },
-        });
-
-        $("#my-form").tablerForm();
+        // $.tablerFormSetup({
+        //     uploader:{
+        //         url:"./examples/server.php"
+        //     },
+        // });
+        //
+        // $("#my-form").tablerForm();
     });
 </script>
 </body>

@@ -3,7 +3,9 @@
 
 namespace Kyanag\Form\Tests;
 
+use Kyanag\Form\Components\Decorators\ColumnDecorator;
 use Kyanag\Form\Components\ElementFactory;
+use Kyanag\Form\Components\FormSection;
 
 class Factory
 {
@@ -20,6 +22,10 @@ class Factory
 
             $factory->registerComponent($snake_str, $class);
         }
+
+        $factory->registerComponent("form-section", FormSection::class);
+
+        $factory->registerComponent("decorator-column", ColumnDecorator::class);
         return $factory;
     }
 
