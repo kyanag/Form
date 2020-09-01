@@ -1,5 +1,7 @@
 <?php
-use Kyanag\Form\Tabler\Forms\HasOne;
+if(strtolower($_SERVER['REQUEST_METHOD']) != "get"){
+    var_dump($_REQUEST);exit();
+}
 
 /**
  * Created by PhpStorm.
@@ -28,76 +30,77 @@ $tablerFactory->registerComponent("tabs", \Kyanag\Form\Components\Tabs::class);
 
 $form = $tablerFactory->createElement("card-form", [
         'id' => "my-form",
+    'method' => "post",
 ], [
-    $tablerFactory->createElement("text", [
-        'name' => "title",
-        'label' => "标题",
-        "error" => "error!",
-        'style' => "width:200px"
-    ]),
-    $tablerFactory->createElement("select", [
-        "name" => "category_id",
-        'label' => "分类",
-        "options" => [
-            1 => "单机",
-            2 => "网游",
-        ]
-    ]),
-    $tablerFactory->createElement("selectize", [
-        "name" => "brand_id",
-        'label' => "厂商",
-        "options" => [
-            1 => "网易",
-            2 => "腾讯",
-            3 => "搜狐"
-        ]
-    ]),
-
-    $tablerFactory->createElement("selectize", [
-        "name" => "send_to",
-        'label' => "抄送",
-        "options" => [
-            1 => ['value' => 1, "text" => "马雨"],
-            2 => ['value' => 2, "text" => "牛化腾"],
-            3 => ['value' => 3, "text" => "李彦紫"],
-            4 => ['value' => 4, "text" => "张背阳"],
-        ],
-        'placeholder' => "选择抄送人",
-        'multiple' => true,
-    ]),
-
-    $tablerFactory->createElement("checkbox", [
-        "name" => "tags",
-        'label' => "标签",
-        "options" => [
-            1 => ['value' => 1, "text" => "端游"],
-            2 => ['value' => 2, "text" => "mmorpg"],
-            3 => ['value' => 3, "text" => "手游"]
-        ]
-    ]),
-    $tablerFactory->createElement("file", [
-        "name" => "image",
-        'label' => "背景图",
-    ]),
-    $tablerFactory->createElement("ajax-file", [
-        "name" => "ajax-file",
-        'label' => "上传",
-        'dataset' => [
-            ''
-        ],
-    ]),
-    $tablerFactory->createElement("range", [
-        "name" => "hot_rank",
-        'label' => "热度",
-    ]),
-    $tablerFactory->createElement("radio", [
-        "name" => "status",
-        'label' => "状态",
-        'options' => [
-            "正常","隐藏"
-        ],
-    ]),
-    /** @var HasOne $hasOne */
+//    $tablerFactory->createElement("text", [
+//        'name' => "title",
+//        'label' => "标题",
+//        "error" => "error!",
+//        'style' => "width:200px"
+//    ]),
+//    $tablerFactory->createElement("select", [
+//        "name" => "category_id",
+//        'label' => "分类",
+//        "options" => [
+//            1 => "单机",
+//            2 => "网游",
+//        ]
+//    ]),
+//    $tablerFactory->createElement("selectize", [
+//        "name" => "brand_id",
+//        'label' => "厂商",
+//        "options" => [
+//            1 => "网易",
+//            2 => "腾讯",
+//            3 => "搜狐"
+//        ]
+//    ]),
+//
+//    $tablerFactory->createElement("selectize", [
+//        "name" => "send_to",
+//        'label' => "抄送",
+//        "options" => [
+//            1 => ['value' => 1, "text" => "马雨"],
+//            2 => ['value' => 2, "text" => "牛化腾"],
+//            3 => ['value' => 3, "text" => "李彦紫"],
+//            4 => ['value' => 4, "text" => "张背阳"],
+//        ],
+//        'placeholder' => "选择抄送人",
+//        'multiple' => true,
+//    ]),
+//
+//    $tablerFactory->createElement("checkbox", [
+//        "name" => "tags",
+//        'label' => "标签",
+//        "options" => [
+//            1 => ['value' => 1, "text" => "端游"],
+//            2 => ['value' => 2, "text" => "mmorpg"],
+//            3 => ['value' => 3, "text" => "手游"]
+//        ]
+//    ]),
+//    $tablerFactory->createElement("file", [
+//        "name" => "image",
+//        'label' => "背景图",
+//    ]),
+//    $tablerFactory->createElement("ajax-file", [
+//        "name" => "ajax-file",
+//        'label' => "上传",
+//        'dataset' => [
+//            ''
+//        ],
+//    ]),
+//    $tablerFactory->createElement("range", [
+//        "name" => "hot_rank",
+//        'label' => "热度",
+//    ]),
+//    $tablerFactory->createElement("radio", [
+//        "name" => "status",
+//        'label' => "状态",
+//        'options' => [
+//            "正常","隐藏"
+//        ],
+//    ]),
+//    /** @var HasOne $hasOne */
     $tablerFactory->createElement("has-one",
         [
             'name' => "article",
@@ -105,18 +108,35 @@ $form = $tablerFactory->createElement("card-form", [
         ],
         [
             $tablerFactory->createElement("ck-editor", [
-                'name' => "article.content",
+                'name' => "content",
                 'label' => "文章主体",
                 'row' => 10,
                 'style' => "min-height:500px"
             ]),
             $tablerFactory->createElement("datetime", [
                 "id" => "datetime",
-                'name' => "article.created_at",
+                'name' => "created_at",
                 'label' => "创建时间",
                 'dataset' => [
                      'format' => "datetime"
                 ],
+            ]),
+        ]
+    ),
+    $tablerFactory->createElement("has-many",
+        [
+            'name' => "comments",
+            'label' => "评论",
+        ],
+        [
+            $tablerFactory->createElement("text", [
+                'name' => "author",
+                'label' => "评论者",
+            ]),
+            $tablerFactory->createElement("textarea", [
+                'name' => "content",
+                'label' => "评论内容",
+                'row' => 2,
             ]),
         ]
     )
@@ -133,15 +153,21 @@ $form->setValue([
     'hot_rank' => 91,
     'article' => [
         'content' => "嘿，快醒醒，燃烧军团入侵了！",
-        'created_at' => date("Y-m-d H:i:s")
+        'created_at' => date("Y-m-d")
+    ],
+    'comments' => [
+        [
+            "author" => "特没谱",
+            "content" => "没有人比我更懂PHP",
+        ],
     ],
 ]);
 //$str = $form->render();
 
 $tabs = new \Kyanag\Form\Components\Tabs();
 
-$tabs->newTab("主表单", $form);
-$tabs->newTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText(), true);
+$tabs->addTab("主表单", $form, true);
+$tabs->addTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText());
 
 ?>
 <!DOCTYPE html>
@@ -165,15 +191,17 @@ $tabs->newTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText(), tr
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/art-template/4.10.0/lib/template-web.js"></script>
+<script src="./build/bundle.js"></script>
 <script>
     $(function () {
-        // $.tablerFormSetup({
-        //     uploader:{
-        //         url:"./examples/server.php"
-        //     },
-        // });
-        //
-        // $("#my-form").tablerForm();
+        $.formerSetup({
+            uploader:{
+                url:"./examples/server.php"
+            },
+        });
+
+        $("#my-form").former();
     });
 </script>
 </body>

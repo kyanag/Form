@@ -139,7 +139,7 @@ abstract class Component implements Renderable
      */
     public function getName($withDomain = false)
     {
-        if($withDomain === true && $this->valueDomain){
+        if($withDomain === true && $this->valueDomain !== "" && is_string($this->valueDomain)){
             return "{$this->valueDomain}.{$this->name}";
         }
         return $this->name;
@@ -244,4 +244,8 @@ abstract class Component implements Renderable
     }
 
     abstract public function render();
+
+    public function renderJs(){
+        return "";
+    }
 }

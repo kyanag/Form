@@ -32,7 +32,6 @@ class Tabs extends Component
   {$this->renderTabPanels($tabIndexPrefix)}
 </div>
 EOF;
-
     }
 
     protected function renderTabItems($tabIndexPrefix){
@@ -48,19 +47,26 @@ EOF;
     }
 
     protected function renderTabPanels($tabIndexPrefix){
-        return implode("", \Kyanag\Form\array_map($this->children, function($children, $index) use($tabIndexPrefix){
+        return implode("", \Kyanag\Form\array_map($this->children, function($child, $index) use($tabIndexPrefix){
             $activeClass = $index === $this->activeIndex ? "active" : "";
 
+             if(is_string($child)){
+                 $childrenOuterHtml = $child;
+             }else if($child instanceof Renderable){
+                 $childrenOuterHtml = $child->render();
+             }else{
+                 $childrenOuterHtml = (string)$child;
+             }
             return <<<EOF
-<div class="tab-pane fade {$activeClass}" id="{$tabIndexPrefix}-{$index}" role="tabpanel">
-  {$children->render()}
+<div class="tab-pane {$activeClass}" id="{$tabIndexPrefix}-{$index}" role="tabpanel">
+  {$childrenOuterHtml}
 </div>
 EOF;
         }));
     }
 
 
-    public function newTab($title, Renderable $item, $active = false){
+    public function addTab($title, $item, $active = false){
         $this->titles[] = $title;
         $this->children[] = $item;
 

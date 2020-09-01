@@ -53,6 +53,15 @@ class ComponentBuilder
         return $this;
     }
 
+    public function setName($name, $strict = false){
+        $this->component->name = $name;
+        if($strict){
+            foreach ($this->component->children as $child){
+                $child->valueDomain = $this->component->getName();
+            }
+        }
+    }
+
     public function getProperty($name)
     {
         if (property_exists($this->component, $name)) {
@@ -64,7 +73,9 @@ class ComponentBuilder
 
     public function setChildren($children)
     {
-        $this->component->children = $children;
+        foreach ($children as $child){
+            $this->component->addChild($child, true);
+        }
         return $this;
     }
 
