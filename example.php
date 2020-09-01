@@ -191,7 +191,6 @@ $tabs->addTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText());
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/art-template/4.10.0/lib/template-web.js"></script>
 <script src="./build/bundle.js"></script>
 <script>
     $(function () {
