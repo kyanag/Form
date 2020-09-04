@@ -47,8 +47,6 @@ class ComponentBuilder
         }
         if (property_exists($this->component, $name)) {
             $this->component->{$name} = $value;
-        }else {
-            $this->component->properties[$name] = $value;
         }
         return $this;
     }
@@ -66,9 +64,8 @@ class ComponentBuilder
     {
         if (property_exists($this->component, $name)) {
             return $this->component->{$name};
-        }else {
-            return $this->component->properties[$name];
         }
+        return $name;
     }
 
     public function setChildren($children)

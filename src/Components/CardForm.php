@@ -10,10 +10,7 @@ use Kyanag\Form\Supports\HtmlRenderer;
 class CardForm extends Form
 {
 
-
-    public $properties = [
-        'title' => "编辑"
-    ];
+    public $title = "编辑";
 
     public function render()
     {
@@ -33,7 +30,7 @@ TPL;
     protected function renderHeader(){
         return <<<EOF
 <div class="card-header">
-    <h3 class="card-title">{$this->properties['title']}</h3>
+    <h3 class="card-title">{$this->title}</h3>
 </div>
 EOF;
 

@@ -28,7 +28,7 @@ class Text extends Component
     {$this->renderAttributes()}
   >
   <div class="invalid-feedback">{$this->error}</div>
-  <small id="passwordHelpBlock" class="form-text text-muted">{$this->help}</small>
+  <small class="form-text text-muted">{$this->help}</small>
 </div>
 TPL;
     }

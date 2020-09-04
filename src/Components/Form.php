@@ -56,14 +56,14 @@ EOF;
     }
 
     protected function renderMethodField(){
-        if(!in_array(strtolower($this->method), ["get", "post"]) && @$this->properties['methodOverride'] === true){
+        if(!in_array(strtolower($this->method), ["get", "post"]) && $this->methodOverride === true){
             return "<input type='hidden' name='_method' value='{$this->method}'";
         }
         return "";
     }
 
     protected function showMethod(){
-        if(!in_array(strtolower($this->method), ["get", "post"]) && @$this->properties['methodOverride'] === true){
+        if(!in_array(strtolower($this->method), ["get", "post"]) && $this->methodOverride === true){
             return "post";
         }else{
             return $this->method;

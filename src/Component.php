@@ -86,13 +86,6 @@ abstract class Component implements Renderable
     public $children = [];
 
     /**
-     * 扩展属性
-     *
-     * @var array
-     */
-    public $properties = [];
-
-    /**
      * @var callable
      */
     public $valueFormat = "htmlspecialchars";
