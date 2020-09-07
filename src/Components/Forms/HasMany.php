@@ -26,7 +26,7 @@ class HasMany extends Component
 
         return <<<TPL
 <fieldset class="{$this->renderClass()} {$this->withSelectorPrefix("hasmany")}" id="{$this->showId()}" data-tpl-target="#has-many-{$this->showId()}">
-    <legend>{$this->showLabel()}</legend>
+    <legend class="border-bottom">{$this->showLabel()}</legend>
     <div class="ml-4 {$this->withSelectorPrefix("hasmany-formzone")}">
         {$this->renderChildren()}
     </div>
@@ -84,7 +84,9 @@ EOF;
 
         $children = $this->children;
         foreach ($children as $child){
-            $child = clone $child;
+            if(is_object($child)){
+                $child = clone $child;
+            }
             $formSection->addChild($child, true);
         }
         return $formSection;

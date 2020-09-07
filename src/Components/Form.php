@@ -10,6 +10,8 @@ use Kyanag\Form\Supports\HtmlRenderer;
 class Form extends Component
 {
 
+    use FormableTrait;
+
     const HTTP_METHOD_GET = "get";
     const HTTP_METHOD_POST = "post";
     const HTTP_METHOD_PUT = "put";
@@ -38,35 +40,12 @@ class Form extends Component
 
     public function render()
     {
-        $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}" class="{$this->renderClass()}" id="{$this->showId()}">
+{$this->renderFormHeader()}
     {$this->renderMethodField()}
-    {$childrenHtml}
-    {$this->renderFooter()}
-</form>
+    {$this->renderChildren()}
+    {$this->renderActionButtons()}
+{$this->renderFormFooter()}
 TPL;
-    }
-
-    protected function renderFooter(){
-        return <<<EOF
-<button type="submit" class="btn btn-primary">确认</button>
-<button type="reset" class="btn btn-warning">重置</button>
-EOF;
-    }
-
-    protected function renderMethodField(){
-        if(!in_array(strtolower($this->method), ["get", "post"]) && $this->methodOverride === true){
-            return "<input type='hidden' name='_method' value='{$this->method}'";
-        }
-        return "";
-    }
-
-    protected function showMethod(){
-        if(!in_array(strtolower($this->method), ["get", "post"]) && $this->methodOverride === true){
-            return "post";
-        }else{
-            return $this->method;
-        }
     }
 }

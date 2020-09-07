@@ -3,7 +3,7 @@
 
 namespace Kyanag\Form\Tests;
 
-use Kyanag\Form\Components\Decorators\ColumnDecorator;
+use Kyanag\Form\Components\Decorators\Div;
 use Kyanag\Form\Components\ElementFactory;
 use Kyanag\Form\Components\FormSection;
 
@@ -25,7 +25,7 @@ class Factory
 
         $factory->registerComponent("form-section", FormSection::class);
 
-        $factory->registerComponent("decorator-column", ColumnDecorator::class);
+        $factory->registerComponent("decorator-column", Div::class);
         return $factory;
     }
 

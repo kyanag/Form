@@ -7,13 +7,17 @@ namespace Kyanag\Form\Components;
 use Kyanag\Form\Component;
 use function Kyanag\Form\randomString;
 use Kyanag\Form\Renderable;
+use Kyanag\Form\Supports\HtmlRenderer;
 
 class Tabs extends Component
 {
 
-    public $titles = [];
+    use FormableTrait;
 
-    public $activeIndex = 0;
+
+    protected $titles = [];
+
+    protected $activeIndex = 0;
 
     public $tabIndexPrefix = null;
 
@@ -25,12 +29,15 @@ class Tabs extends Component
         }
 
         return <<<EOF
+{$this->renderFormHeader()}
 <div class="nav nav-tabs" role="tablist">
   {$this->renderTabItems($tabIndexPrefix)}
 </div>
 <div class="tab-content">
   {$this->renderTabPanels($tabIndexPrefix)}
 </div>
+{$this->renderActionButtons()}
+{$this->renderFormFooter()}
 EOF;
     }
 
@@ -50,15 +57,9 @@ EOF;
         return implode("", \Kyanag\Form\array_map($this->children, function($child, $index) use($tabIndexPrefix){
             $activeClass = $index === $this->activeIndex ? "active" : "";
 
-             if(is_string($child)){
-                 $childrenOuterHtml = $child;
-             }else if($child instanceof Renderable){
-                 $childrenOuterHtml = $child->render();
-             }else{
-                 $childrenOuterHtml = (string)$child;
-             }
+            $childrenOuterHtml = HtmlRenderer::renderComponent($child);
             return <<<EOF
-<div class="tab-pane {$activeClass}" id="{$tabIndexPrefix}-{$index}" role="tabpanel">
+<div class="tab-pane border border-top-0 border-bottom-0 p-3 {$activeClass}" id="{$tabIndexPrefix}-{$index}" role="tabpanel">
   {$childrenOuterHtml}
 </div>
 EOF;
@@ -75,7 +76,7 @@ EOF;
         }
     }
 
-    public function addChild(Component $item, $strict = true)
+    public function addChild($item, $strict = true)
     {
         throw new \BadMethodCallException("Tab 请使用 addTab 方法");
     }

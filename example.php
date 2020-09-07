@@ -1,4 +1,6 @@
 <?php
+
+
 if(strtolower($_SERVER['REQUEST_METHOD']) != "get"){
     var_dump($_REQUEST);exit();
 }
@@ -24,92 +26,89 @@ foreach($files as $file){
     $tablerFactory->registerComponent($snake_str, $class);
 }
 
-$tablerFactory->registerComponent("card-form", \Kyanag\Form\Components\Form::class);
+$tablerFactory->registerComponent("form-section", \Kyanag\Form\Components\FormSection::class);
 $tablerFactory->registerComponent("tabs", \Kyanag\Form\Components\Tabs::class);
 
 
-$form = $tablerFactory->createElement("card-form", [
-        'id' => "my-form",
-    'method' => "post",
-], [
-//    $tablerFactory->createElement("text", [
-//        'name' => "title",
-//        'label' => "标题",
-//        "error" => "error!",
-//        'style' => "width:200px"
-//    ]),
-//    $tablerFactory->createElement("select", [
-//        "name" => "category_id",
-//        'label' => "分类",
-//        "options" => [
-//            1 => "单机",
-//            2 => "网游",
-//        ]
-//    ]),
-//    $tablerFactory->createElement("selectize", [
-//        "name" => "brand_id",
-//        'label' => "厂商",
-//        "options" => [
-//            1 => "网易",
-//            2 => "腾讯",
-//            3 => "搜狐"
-//        ]
-//    ]),
-//
-//    $tablerFactory->createElement("selectize", [
-//        "name" => "send_to",
-//        'label' => "抄送",
-//        "options" => [
-//            1 => ['value' => 1, "text" => "马雨"],
-//            2 => ['value' => 2, "text" => "牛化腾"],
-//            3 => ['value' => 3, "text" => "李彦紫"],
-//            4 => ['value' => 4, "text" => "张背阳"],
-//        ],
-//        'placeholder' => "选择抄送人",
-//        'multiple' => true,
-//    ]),
-//
-//    $tablerFactory->createElement("checkbox", [
-//        "name" => "tags",
-//        'label' => "标签",
-//        "options" => [
-//            1 => ['value' => 1, "text" => "端游"],
-//            2 => ['value' => 2, "text" => "mmorpg"],
-//            3 => ['value' => 3, "text" => "手游"]
-//        ]
-//    ]),
-//    $tablerFactory->createElement("file", [
-//        "name" => "image",
-//        'label' => "背景图",
-//    ]),
-//    $tablerFactory->createElement("ajax-file", [
-//        "name" => "ajax-file",
-//        'label' => "上传",
-//        'dataset' => [
-//            ''
-//        ],
-//    ]),
-//    $tablerFactory->createElement("range", [
-//        "name" => "hot_rank",
-//        'label' => "热度",
-//    ]),
-//    $tablerFactory->createElement("radio", [
-//        "name" => "status",
-//        'label' => "状态",
-//        'options' => [
-//            "正常","隐藏"
-//        ],
-//    ]),
-//    /** @var HasOne $hasOne */
+$form = $tablerFactory->createElement("form-section", [], [
+    $tablerFactory->createElement("text", [
+        'name' => "title",
+        'label' => "标题",
+        "error" => "error!",
+        'style' => "width:200px"
+    ]),
+    $tablerFactory->createElement("select", [
+        "name" => "category_id",
+        'label' => "分类",
+        "options" => [
+            1 => "单机",
+            2 => "网游",
+        ]
+    ]),
+    $tablerFactory->createElement("selectize", [
+        "name" => "brand_id",
+        'label' => "厂商",
+        "options" => [
+            1 => "网易",
+            2 => "腾讯",
+            3 => "搜狐"
+        ]
+    ]),
+
+    $tablerFactory->createElement("selectize", [
+        "name" => "send_to",
+        'label' => "抄送",
+        "options" => [
+            1 => ['value' => 1, "text" => "马雨"],
+            2 => ['value' => 2, "text" => "牛化腾"],
+            3 => ['value' => 3, "text" => "李彦紫"],
+            4 => ['value' => 4, "text" => "张背阳"],
+        ],
+        'placeholder' => "选择抄送人",
+        'multiple' => true,
+    ]),
+
+    $tablerFactory->createElement("checkbox", [
+        "name" => "tags",
+        'label' => "标签",
+        "options" => [
+            1 => ['value' => 1, "text" => "端游"],
+            2 => ['value' => 2, "text" => "mmorpg"],
+            3 => ['value' => 3, "text" => "手游"]
+        ]
+    ]),
+    $tablerFactory->createElement("file", [
+        "name" => "image",
+        'label' => "背景图",
+    ]),
+    $tablerFactory->createElement("ajax-file", [
+        "name" => "ajax-file",
+        'label' => "上传",
+        'dataset' => [
+            ''
+        ],
+    ]),
+    $tablerFactory->createElement("range", [
+        "name" => "hot_rank",
+        'label' => "热度",
+    ]),
+    $tablerFactory->createElement("radio", [
+        "name" => "status",
+        'label' => "状态",
+        'options' => [
+            "正常","隐藏"
+        ],
+    ]),
+    /** @var HasOne $hasOne */
     $tablerFactory->createElement("has-one",
         [
             'name' => "article",
-            'label' => "",
+            'label' => "主内容",
         ],
         [
             $tablerFactory->createElement("ck-editor", [
                 'name' => "content",
-                'label' => "文章主体",
+                'label' => "富文本",
                 'row' => 10,
                 'style' => "min-height:500px"
             ]),
@@ -164,10 +163,34 @@ $form->setValue([
 ]);
 //$str = $form->render();
 
-$tabs = new \Kyanag\Form\Components\Tabs();
+$tabs = $tablerFactory->createElement("tabs", [
+    'id' => "my-form",
+    'method' => "post",
+]);
 
 $tabs->addTab("主表单", $form, true);
-$tabs->addTab("附属数据", new \Kyanag\Form\Components\Forms\StaticText());
+$tabs->addTab("附属数据", $tablerFactory->createElement("has-one",
+    [
+        'name' => "attach.form1",
+        'label' => "",
+    ],
+    [
+        $tablerFactory->createElement("ck-editor", [
+            'name' => "content",
+            'label' => "富文本",
+            'row' => 10,
+            'style' => "min-height:500px"
+        ]),
+        $tablerFactory->createElement("datetime", [
+            "id" => "datetime",
+            'name' => "created_at",
+            'label' => "创建时间",
+            'dataset' => [
+                'format' => "datetime"
+            ],
+        ]),
+    ]
+));
 
 ?>
 <!DOCTYPE html>

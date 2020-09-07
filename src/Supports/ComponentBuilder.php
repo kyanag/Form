@@ -55,7 +55,9 @@ class ComponentBuilder
         $this->component->name = $name;
         if($strict){
             foreach ($this->component->children as $child){
-                $child->valueDomain = $this->component->getName();
+                if($child instanceof Component){
+                    $child->valueDomain = $this->component->getName();
+                }
             }
         }
     }

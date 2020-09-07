@@ -14,15 +14,14 @@ class CardForm extends Form
 
     public function render()
     {
-        $childrenHtml = HtmlRenderer::renderComponents($this->children);
         return <<<TPL
-<form action="{$this->action}" method="{$this->showMethod()}" enctype="{$this->enctype}" class="card" id="{$this->showId()}">
+{$this->renderFormHeader()}
     {$this->renderHeader()}
     <div class="card-body">
-        {$childrenHtml}
+        {$this->renderChildren()}
     </div>
-    {$this->renderFooter()}
-</form>
+    {$this->renderActionButton()}
+{$this->renderFormFooter()}
 TPL;
     }
 
@@ -36,7 +35,7 @@ EOF;
 
     }
 
-    protected function renderFooter(){
+    protected function renderActionButton(){
         return <<<EOF
 <div class="card-footer text-right">
     <button type="submit" class="btn btn-primary">确认</button>

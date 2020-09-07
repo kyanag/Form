@@ -118,11 +118,13 @@ abstract class Component implements Renderable
         $this->value = $value;
         /** @var Component $child */
         foreach ($this->children as $child) {
-            $lastKeyPos = strrpos($child->getName(), ".");
-            $lastKeyPos = ($lastKeyPos === false) ? -1 : $lastKeyPos;
-            $indexKey = substr($child->getName(), $lastKeyPos + 1);
+            if($child instanceof Component){
+                $lastKeyPos = strrpos($child->getName(), ".");
+                $lastKeyPos = ($lastKeyPos === false) ? -1 : $lastKeyPos;
+                $indexKey = substr($child->getName(), $lastKeyPos + 1);
 
-            $child->setValue(data_get($value, $indexKey));
+                $child->setValue(data_get($value, $indexKey));
+            }
         }
     }
 
@@ -155,19 +157,9 @@ abstract class Component implements Renderable
         return $name;
     }
 
-    public function getChildren($id)
+    public function addChild($item, $strict = true)
     {
-        return array_first(
-            $this->children,
-            function ($item, $index) use ($id) {
-                return $item->id == $id;
-            }
-        );
-    }
-
-    public function addChild(Component $item, $strict = true)
-    {
-        if($strict === true){
+        if($strict === true && $item instanceof Component){
             $item->valueDomain = $this->getName();
             $item->parentComponent = $this;
         }
@@ -197,6 +189,9 @@ abstract class Component implements Renderable
         return implode(" ", (array)$this->class);
     }
 
+    protected function renderChildren(){
+        return HtmlRenderer::renderComponents($this->children);
+    }
 
     /**
      * @param string $name
