@@ -119,10 +119,12 @@ abstract class Component implements Renderable
         /** @var Component $child */
         foreach ($this->children as $child) {
             if($child instanceof Component){
-                $lastKeyPos = strrpos($child->getName(), ".");
-                $lastKeyPos = ($lastKeyPos === false) ? -1 : $lastKeyPos;
-                $indexKey = substr($child->getName(), $lastKeyPos + 1);
-
+                $indexKey = null;
+                if($child->getName() !== null){
+                    $lastKeyPos = strrpos($child->getName(), ".");
+                    $lastKeyPos = ($lastKeyPos === false) ? -1 : $lastKeyPos;
+                    $indexKey = substr($child->getName(), $lastKeyPos + 1);
+                }
                 $child->setValue(data_get($value, $indexKey));
             }
         }
