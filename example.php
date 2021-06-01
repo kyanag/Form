@@ -11,186 +11,101 @@ if(strtolower($_SERVER['REQUEST_METHOD']) != "get"){
  * Date: 2019/2/18
  * Time: 14:07
  */
-$loader = require "./vendor/autoload.php";
+require "./vendor/autoload.php";
 
-define("APP_PATH", __DIR__);
+$plate = new \League\Plates\Engine("./plates-templates/bootstrap4/");
+$renderer = new \Kyanag\Form\PlatesRenderer($plate);
 
-$tablerFactory = new \Kyanag\Form\Components\ElementFactory();
+$element = new \Kyanag\Form\Core\ArrayElement([
+    'name' => "name",
+    'label' => "名称",
+]);
 
-$files = glob(__DIR__ . "/src/Components/Forms/*.php");
-foreach($files as $file){
-    $classBaseName = basename($file, ".php");
-    $snake_str = \Kyanag\Form\camelToSnake($classBaseName);
-    $class = "Kyanag\\Form\\Components\\Forms\\{$classBaseName}";
-
-    $tablerFactory->registerComponent($snake_str, $class);
-}
-
-$tablerFactory->registerComponent("form-section", \Kyanag\Form\Components\FormSection::class);
-$tablerFactory->registerComponent("tabs", \Kyanag\Form\Components\Tabs::class);
-
-
-$form = $tablerFactory->createElement("form-section", [], [
-    $tablerFactory->createElement("text", [
-        'name' => "title",
-        'label' => "标题",
-        "error" => "error!",
-        'style' => "width:200px"
-    ]),
-    $tablerFactory->createElement("select", [
-        "name" => "category_id",
-        'label' => "分类",
-        "options" => [
-            1 => "单机",
-            2 => "网游",
-        ]
-    ]),
-    $tablerFactory->createElement("selectize", [
-        "name" => "brand_id",
-        'label' => "厂商",
-        "options" => [
-            1 => "网易",
-            2 => "腾讯",
-            3 => "搜狐"
-        ]
-    ]),
-
-    $tablerFactory->createElement("selectize", [
-        "name" => "send_to",
-        'label' => "抄送",
-        "options" => [
-            1 => ['value' => 1, "text" => "马雨"],
-            2 => ['value' => 2, "text" => "牛化腾"],
-            3 => ['value' => 3, "text" => "李彦紫"],
-            4 => ['value' => 4, "text" => "张背阳"],
-        ],
-        'placeholder' => "选择抄送人",
-        'multiple' => true,
-    ]),
-
-    $tablerFactory->createElement("checkbox", [
-        "name" => "tags",
-        'label' => "标签",
-        "options" => [
-            1 => ['value' => 1, "text" => "端游"],
-            2 => ['value' => 2, "text" => "mmorpg"],
-            3 => ['value' => 3, "text" => "手游"]
-        ]
-    ]),
-    $tablerFactory->createElement("file", [
-        "name" => "image",
-        'label' => "背景图",
-    ]),
-    $tablerFactory->createElement("ajax-file", [
-        "name" => "ajax-file",
-        'label' => "上传",
-        'dataset' => [
-            ''
-        ],
-    ]),
-    $tablerFactory->createElement("range", [
-        "name" => "hot_rank",
-        'label' => "热度",
-    ]),
-    $tablerFactory->createElement("radio", [
-        "name" => "status",
-        'label' => "状态",
+$elements = [
+    [
+        'type' => "input",
+        'name' => "name",
+        'label' => "名称",
+    ],
+    [
+        'type' => "password",
+        'name' => "password",
+        'label' => "密码",
+    ],
+    [
+        'type' => "switch",
+        'name' => "remember_me",
+        'label' => "记住我",
+        'id' => "switch",
+        'help' => "session长期有效",
+        'value' => 0
+    ],
+    [
+        'type' => "textarea",
+        'name' => "desc",
+        'label' => "本次登录感想",
+        'id' => "textarea",
+        'help' => "本次登录感想",
+    ],
+    [
+        'type' => "range",
+        'name' => "range",
+        'label' => "验证是否机器人",
+        'value' => 89,
+        'id' => "range-robot",
+        'help' => "1+88=?",
+        'min' => "",
+    ],
+    [
+        'type' => "checkbox",
+        'name' => "region",
+        'label' => "地区",
+        'id' => "region",
+        'help' => "选择地区",
+        'value' => "华南",
         'options' => [
-            "正常","隐藏"
-        ],
-    ]),
-    /** @var HasOne $hasOne */
-    $tablerFactory->createElement("has-one",
-        [
-            'name' => "article",
-            'label' => "主内容",
-        ],
-        [
-            $tablerFactory->createElement("ck-editor", [
-                'name' => "content",
-                'label' => "富文本",
-                'row' => 10,
-                'style' => "min-height:500px"
-            ]),
-            $tablerFactory->createElement("datetime", [
-                "id" => "datetime",
-                'name' => "created_at",
-                'label' => "创建时间",
-                'dataset' => [
-                     'format' => "datetime"
-                ],
-            ]),
-        ]
-    ),
-    $tablerFactory->createElement("has-many",
-        [
-            'name' => "comments",
-            'label' => "评论",
-        ],
-        [
-            $tablerFactory->createElement("text", [
-                'name' => "author",
-                'label' => "评论者",
-            ]),
-            $tablerFactory->createElement("textarea", [
-                'name' => "content",
-                'label' => "评论内容",
-                'row' => 2,
-            ]),
-        ]
-    )
-]);
-
-$form->setValue([
-    'title' => "联盟日报【号外】",
-    'category_id' => 2,
-    'brand_id' => [2,],
-    'tags' => [2, 1],
-    'send_to' => [1, 3, ],
-    'ajax-file' => "http://www.baidu.com/葫芦娃.mp4",
-    'status' => 1,
-    'hot_rank' => 91,
-    'article' => [
-        'content' => "嘿，快醒醒，燃烧军团入侵了！",
-        'created_at' => date("Y-m-d")
-    ],
-    'comments' => [
-        [
-            "author" => "特没谱",
-            "content" => "没有人比我更懂PHP",
-        ],
-    ],
-]);
-//$str = $form->render();
-
-$tabs = $tablerFactory->createElement("tabs", [
-    'id' => "my-form",
-    'method' => "post",
-]);
-
-$tabs->addTab("主表单", $form, true);
-$tabs->addTab("附属数据", $tablerFactory->createElement("has-one",
-    [
-        'name' => "attach.form1",
-        'label' => "",
-    ],
-    [
-        $tablerFactory->createElement("ck-editor", [
-            'name' => "content",
-            'label' => "富文本",
-            'row' => 10,
-            'style' => "min-height:500px"
-        ]),
-        $tablerFactory->createElement("datetime", [
-            "id" => "datetime",
-            'name' => "created_at",
-            'label' => "创建时间",
-            'dataset' => [
-                'format' => "datetime"
+            [
+                'title' => "华中",
+                'value' => "华中"
             ],
-        ]),
-    ]
-));
+            [
+                'title' => "华南",
+                'value' => "华南"
+            ],
+            [
+                'title' => "华北",
+                'value' => "华北"
+            ],
+            [
+                'title' => "东北",
+                'value' => "东北"
+            ],
+            [
+                'title' => "西北",
+                'value' => "西北"
+            ]
+        ],
+    ],
+    [
+        'type' => "file",
+        'name' => "name",
+        'label' => "hash文件",
+        'help' => "选择文件",
+    ],
+];
+
+$html = implode(" ", array_map(function($element) use($renderer){
+    if(isset($element['options'])){
+        $element['options'] = array_map(function($option) use($element){
+            if($option['value'] == $element['value']){
+                $option['selected'] = true;
+            }
+            return new \Kyanag\Form\Core\ArrayOption($option);
+        }, $element['options']);
+    }
+    $_ = new \Kyanag\Form\Core\ArrayElement($element);
+    return $renderer->render($element['type'], $_);
+}, $elements));
 
 ?>
 <!DOCTYPE html>
@@ -198,32 +113,19 @@ $tabs->addTab("附属数据", $tablerFactory->createElement("has-one",
 <head>
     <title></title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.1/css/bootstrap.css" rel="stylesheet">
-    <link href="./dist/css/selectize-for-bootstrap4.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha512-aEe/ZxePawj0+G2R+AaIxgrQuKT68I28qh+wgLrcAJOz3rxCP+TwrK5SPN+E5I+1IQjNtcfvb96HDagwrKRdBw==" crossorigin="anonymous" />
-    <meta charset="UTF-8">
-    <link href="./build/main.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-md-6">
-            <?=$tabs->render()?>
-        </div>
-    </div>
+    <form>
+        <?=$html?>
+    </form>
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.js"></script>
-<script src="./build/bundle.js"></script>
 <script>
     $(function () {
-        $.formerSetup({
-            uploader:{
-                url:"./examples/server.php"
-            },
-        });
 
-        $("#my-form").former();
     });
 </script>
 </body>

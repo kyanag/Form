@@ -2,16 +2,24 @@
 namespace Kyanag\Form;
 
 
-function toHtmlName($name, $multiple = false){
-    if(strpos($name, ".") !== false){
-        $_ = explode(".", $name);
-        $name = array_shift($_);
-        foreach ($_ as $str){
-            $name .= "[{$str}]";
+function renderAttributes($attributes)
+{
+    $_ = [];
+    foreach ($attributes as $name => $value) {
+        if($value !== null){
+            $_[] = renderAttribute($name, $value);
         }
     }
-    if($multiple){
-        $name .= "[]";
+    return implode(" ", $_);
+}
+
+function renderAttribute($name, $value)
+{
+    if (is_bool($value)) {
+        return $value ? $name : "";
     }
-    return $name;
+    if (is_array($value)) {
+        $value = implode(" ", $value);
+    }
+    return "{$name}=\"{$value}\"";
 }

@@ -4,7 +4,7 @@
 namespace Kyanag\Form;
 
 
-use Kyanag\Form\Core\Element;
+use Kyanag\Form\Interfaces\Element;
 use Kyanag\Form\Interfaces\Renderer;
 use League\Plates\Engine;
 

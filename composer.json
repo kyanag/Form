@@ -8,7 +8,9 @@
             "email": "gongzuo_yk@foxmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "league/plates": "^3.*"
+    },
     "require-dev":{
         "phpunit/phpunit": "^6.5",
         "squizlabs/php_codesniffer": "*"

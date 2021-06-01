@@ -4,7 +4,7 @@
 namespace Kyanag\Form\Interfaces;
 
 
-use Kyanag\Form\Core\Element;
+use Kyanag\Form\Interfaces\Element;
 
 interface Renderer
 {

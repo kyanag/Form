@@ -1,3 +1,3 @@
 <?php
-/** @var $element \Kyanag\Form\Core\Element */
+/** @var $element \Kyanag\Form\Core\BasicElement */
 ?>
