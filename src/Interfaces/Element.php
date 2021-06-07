@@ -22,9 +22,6 @@ namespace Kyanag\Form\Interfaces;
  * @property string $class
  * @property string $style
  * @property string $data
- *
- *
- * @property array $options
  */
 interface Element
 {

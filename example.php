@@ -13,8 +13,8 @@ if(strtolower($_SERVER['REQUEST_METHOD']) != "get"){
  */
 require "./vendor/autoload.php";
 
-$plate = new \League\Plates\Engine("./plates-templates/bootstrap4/");
-$renderer = new \Kyanag\Form\PlatesRenderer($plate);
+$plate = new \League\Plates\Engine("./src/Core/templates/bootstrap4/");
+$renderer = new \Kyanag\Form\Core\Renderer($plate);
 
 $element = new \Kyanag\Form\Core\ArrayElement([
     'name' => "name",

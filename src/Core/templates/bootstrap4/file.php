@@ -19,7 +19,7 @@
                     'style' => $this->e($element->style),
                 ])?>
             >
-            <label class="custom-file-label" for="validatedCustomFile">选择文件</label>
+            <label class="custom-file-label" for="validatedCustomFile"></label>
         </div>
         <div class="invalid-feedback"><?=$this->e($element->error)?></div>
         <small class="form-text text-muted"><?=$this->e($element->help)?></small>

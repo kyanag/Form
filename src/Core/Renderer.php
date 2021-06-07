@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Kyanag\Form;
+namespace Kyanag\Form\Core;
 
 
 use Kyanag\Form\Interfaces\Element;
-use Kyanag\Form\Interfaces\Renderer;
+use Kyanag\Form\Interfaces\Renderer as IRenderer;
 use League\Plates\Engine;
 
-class PlatesRenderer implements Renderer
+class Renderer implements IRenderer
 {
 
     protected $template;

@@ -8,13 +8,7 @@
 
 namespace Kyanag\Form\Tests;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Kyanag\Form\App;
-use Kyanag\Form\Field;
-use Kyanag\Form\Interfaces\Renderable;
-use League\Container\Container;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-use Psr\Container\ContainerInterface;
 
 /**
  * Class TestCase
@@ -23,10 +17,4 @@ use Psr\Container\ContainerInterface;
 abstract class TestCase extends PHPUnitTestCase
 {
 
-    protected function setUp()
-    {
-        require_once "functions.php";
-
-        //pass
-    }
 }
