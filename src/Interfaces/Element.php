@@ -7,6 +7,8 @@ namespace Kyanag\Form\Interfaces;
  * Interface Element
  * @package Kyanag\Form\Interfaces
  *
+ * @property string $type 类型
+ *
  * @property string name   名称
  * @property string $label
  * @property string $value

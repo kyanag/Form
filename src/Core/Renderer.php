@@ -30,8 +30,9 @@ class Renderer implements IRenderer
         $this->casts[$type] = $tpl;
     }
 
-    public function render($type, Element $element)
+    public function render(Element $element)
     {
+        $type = $element->type;
         $tpl = $type;
         if (isset($this->casts[$type])) {
             $tpl = $this->casts[$type];

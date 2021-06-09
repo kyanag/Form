@@ -134,7 +134,7 @@ $html = implode(" ", array_map(function($element) use($renderer){
         }, $element['options']);
     }
     $_ = new \Kyanag\Form\Core\ArrayElement($element);
-    return $renderer->render($element['type'], $_);
+    return $renderer->render($_);
 }, $elements));
 
 ?>

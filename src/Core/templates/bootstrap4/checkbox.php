@@ -7,7 +7,12 @@ $unique = uniqid("checkbox-");
 <div class="form-group row">
     <div class="col-md-2"><?=$this->e($element->label)?></div>
     <div class="col-md-10">
-        <?php foreach ($element->options as $index => $option) {?>
+        <?php
+        /**
+         * @var  $index
+         * @var \Kyanag\Form\Interfaces\Option $option
+         */
+        foreach ($element->options as $index => $option) {?>
             <div class="form-check">
                 <input
                     class="form-check-input"
