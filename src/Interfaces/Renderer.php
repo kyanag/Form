@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Interfaces;
 
-
 interface Renderer
 {
     /**

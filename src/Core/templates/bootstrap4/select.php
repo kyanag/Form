@@ -17,7 +17,7 @@
                 'multiple' => boolval($element->multi),
             ])?>
         >
-            <?php foreach($element->options as $option){ ?>
+            <?php foreach ($element->options as $option) { ?>
             <option
                 <?=\Kyanag\Form\renderAttributes([
                     'value' => $this->e($option->title),

@@ -1,24 +1,26 @@
 <?php
 /** @var \Kyanag\Form\Interfaces\ChooseElement $element */
 /** @var \League\Plates\Template\Template $this */
+
+$unique = uniqid("checkbox-");
 ?>
 <div class="form-group row">
     <div class="col-md-2"><?=$this->e($element->label)?></div>
     <div class="col-md-10">
-        <?php foreach($element->options as $option) {?>
+        <?php foreach ($element->options as $index => $option) {?>
             <div class="form-check">
                 <input
                     class="form-check-input"
                     type="checkbox"
                     name="<?=$this->e($element->name)?>"
                     <?=\Kyanag\Form\renderAttributes([
+                        'id' => "{$unique}-{$index}",
                         'checked' => boolval($option->selected),
                         'disabled' => boolval($option->disabled),
-                        'readonly' => boolval($element->readonly),
-                        'style' => $this->e($element->style)
+                        'value' => $this->e($option->value),
                     ])?>
                 >
-                <label class="form-check-label">
+                <label class="form-check-label" for="<?="{$unique}-{$index}"?>">
                     <?=$this->e($option->title)?>
                 </label>
             </div>

@@ -2,12 +2,11 @@
 
 namespace Kyanag\Form;
 
-
 function renderAttributes($attributes)
 {
     $_ = [];
     foreach ($attributes as $name => $value) {
-        if($value !== null){
+        if ($value !== null) {
             $_[] = renderAttribute($name, $value);
         }
     }

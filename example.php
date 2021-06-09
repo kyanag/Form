@@ -87,6 +87,36 @@ $elements = [
         ],
     ],
     [
+        'type' => "radio",
+        'name' => "region",
+        'label' => "地区",
+        'id' => "region",
+        'help' => "选择地区",
+        'value' => "西北",
+        'options' => [
+            [
+                'title' => "华中",
+                'value' => "华中"
+            ],
+            [
+                'title' => "华南",
+                'value' => "华南"
+            ],
+            [
+                'title' => "华北",
+                'value' => "华北"
+            ],
+            [
+                'title' => "东北",
+                'value' => "东北"
+            ],
+            [
+                'title' => "西北",
+                'value' => "西北"
+            ]
+        ],
+    ],
+    [
         'type' => "file",
         'name' => "name",
         'label' => "hash文件",

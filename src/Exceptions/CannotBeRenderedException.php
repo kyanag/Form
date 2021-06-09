@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form;
 
-
 use Kyanag\Form\Interfaces\Element;
 use Throwable;
 
@@ -31,11 +30,13 @@ class CannotBeRenderedException extends \Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public function getType(){
+    public function getType()
+    {
         return $this->type;
     }
 
-    public function getElement(){
+    public function getElement()
+    {
         return $this->element;
     }
 }

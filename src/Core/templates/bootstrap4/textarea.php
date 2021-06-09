@@ -9,7 +9,7 @@
             name="<?=$this->e($element->name)?>"
             class="form-control <?=$this->e($element->class)?>"
             <?=\Kyanag\Form\renderAttributes([
-                'rows' => intval(@$element->rows ?: 3 ),
+                'rows' => intval(@$element->rows ?: 3),
                 'id' => $this->e($element->id),
                 'readonly' => boolval($element->readonly),
                 'disabled' => boolval($element->disabled),

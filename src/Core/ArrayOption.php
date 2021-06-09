@@ -3,7 +3,6 @@
 
 namespace Kyanag\Form\Core;
 
-
 use Kyanag\Form\Interfaces\Option;
 
 class ArrayOption implements Option
