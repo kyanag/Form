@@ -20,14 +20,14 @@
             <?php foreach ($element->options as $option) { ?>
             <option
                 <?=\Kyanag\Form\renderAttributes([
-                    'value' => $this->e($option->title),
+                    'value' => $this->e($option->value),
                     'disabled' => boolval($option->disabled),
                     'selected' => boolval($option->selected),
                 ])?>
             ><?=$option->title?></option>
             <?php } ?>
         </select>
-        <div class="invalid-feedback"><?=$this->e($element->error)?></div>
-        <small class="form-text text-muted"><?=$this->e($element->help)?></small>
+        <div class="invalid-feedback"><?=$element->error?></div>
+        <small class="form-text text-muted"><?=$element->help?></small>
     </div>
 </div>

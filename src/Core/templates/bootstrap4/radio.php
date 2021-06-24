@@ -23,7 +23,7 @@ $unique = uniqid("radio-");
             </label>
         </div>
         <?php } ?>
-        <div class="invalid-feedback"><?=$this->e($element->error)?></div>
-        <small class="form-text text-muted"><?=$this->e($element->help)?></small>
+        <div class="invalid-feedback"><?=$element->error?></div>
+        <small class="form-text text-muted"><?=$element->help?></small>
     </div>
 </div>

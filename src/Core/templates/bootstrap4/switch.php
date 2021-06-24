@@ -1,6 +1,8 @@
 <?php
 /** @var \Kyanag\Form\Interfaces\Element $element */
 /** @var \League\Plates\Template\Template $this */
+
+$id = $element->id ?: uniqid("switch-");
 ?>
 <div class="form-group row">
     <div class="col-md-2"><?=$this->e($element->label)?></div>
@@ -17,10 +19,10 @@
                     'style' => $this->e($element->style)
                 ])?>
             >
-            <label class="custom-control-label" for="<?=$this->e($element->id)?>">
-                <?=$this->e($element->help)?>
+            <label class="custom-control-label" for="<?=$this->e($id)?>">
+                <?=$element->help?>
             </label>
-            <div class="invalid-feedback"><?=$this->e($element->error)?></div>
+            <div class="invalid-feedback"><?=$element->error?></div>
         </div>
 
     </div>
